@@ -1,0 +1,28 @@
+
+---
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Handlee&family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Mimi's Crafts</title>
+	</head>
+	<body class="min-h-dvh bg-primary_craft text-zinc-900 font-body">
+		<div class="min-h-dvh px-4 py-10">
+			<main class="mx-auto w-full max-w-3xl">
+				<slot />
+			</main>
+		</div>
+	</body>
+</html>

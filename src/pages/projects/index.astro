@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const craftTypes = Array.from(new Set(projects.map((p) => p.data.craftType))).sort();
+---
+
+<Layout>
+	<section class="rounded-3xl bg-white/70 backdrop-blur-sm border border-white/60 shadow-sm p-6 sm:p-10">
+		<header class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+			<div>
+				<h1 class="font-heading text-4xl leading-tight">Projects</h1>
+				<p class="mt-2 text-sm text-zinc-700">Little how-to stories for each craft card.</p>
+			</div>
+
+			<div class="flex items-center gap-2">
+				<label for="craftType" class="text-sm text-zinc-700">Filter</label>
+				<select
+					id="craftType"
+					class="rounded-xl border border-white/80 bg-white/70 px-3 py-2 text-sm shadow-sm"
+				>
+					<option value="">All</option>
+					{craftTypes.map((type) => <option value={type}>{type}</option>)}
+				</select>
+			</div>
+		</header>
+
+		{projects.length === 0 ? (
+			<p class="mt-8 text-sm text-zinc-700">
+				No projects yet. When you add Markdown files to <code>src/content/projects</code>, they’ll show up here.
+			</p>
+		) : (
+			<ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+				{projects
+					.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+					.map((p) => (
+						<li data-craft-type={p.data.craftType}>
+							<a
+								href={`/projects/${p.slug}`}
+								class="block rounded-2xl bg-primary_craft/60 border border-white/70 p-5 shadow-sm hover:shadow transition"
+							>
+								<p class="font-heading text-2xl leading-snug">{p.data.title}</p>
+								<p class="mt-2 text-xs text-zinc-600">{p.data.craftType}</p>
+								<p class="mt-3 text-sm text-zinc-700">{p.data.description}</p>
+							</a>
+						</li>
+					))}
+			</ul>
+		)}
+	</section>
+
+	<script>
+		const select = document.querySelector('#craftType');
+		const items = Array.from(document.querySelectorAll('li[data-craft-type]'));
+
+		const applyFilter = () => {
+			const value = select instanceof HTMLSelectElement ? select.value : '';
+			for (const item of items) {
+				const craftType = item.getAttribute('data-craft-type') || '';
+				item.style.display = !value || value === craftType ? '' : 'none';
+			}
+		};
+
+		if (select) {
+			select.addEventListener('change', applyFilter);
+			applyFilter();
+		}
+	</script>
+</Layout>

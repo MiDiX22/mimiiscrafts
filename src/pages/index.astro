@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+	<section class="rounded-3xl bg-white/70 backdrop-blur-sm border border-white/60 shadow-sm p-6 sm:p-10">
+		<header class="text-center">
+			<p class="font-heading text-4xl sm:text-5xl leading-tight">Mimi's Crafts</p>
+			<p class="mt-3 text-sm sm:text-base text-zinc-700">
+				ESPERO QUE T'AGRADI
+			</p>
+		</header>
+
+		<div class="mt-8 grid gap-4">
+			<p class="text-zinc-800">
+				Welcome. Each craft has its own little story—scan the QR code on your card to see how it was made.
+			</p>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+				<a
+					href="/projects"
+					class="rounded-2xl bg-primary_craft/60 border border-white/70 p-5 shadow-sm hover:shadow transition"
+				>
+					<p class="font-heading text-2xl">Browse projects</p>
+					<p class="mt-2 text-sm text-zinc-700">All how-to stories in one place.</p>
+				</a>
+				<div class="rounded-2xl bg-primary_craft/60 border border-white/70 p-5 shadow-sm">
+					<p class="font-heading text-2xl">New here?</p>
+					<p class="mt-2 text-sm text-zinc-700">
+						If you arrived from a QR code, you’ll land directly on that craft’s page.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

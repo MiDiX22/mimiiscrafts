@@ -1,0 +1,23 @@
+@config "../../tailwind.config.cjs";
+
+@import "tailwindcss";
+
+@layer base {
+	html {
+		@apply font-body;
+	}
+
+	h1,
+	h2,
+	h3 {
+		@apply font-heading;
+	}
+
+	a {
+		@apply text-accent_craft underline-offset-4;
+	}
+
+	a:hover {
+		@apply underline;
+	}
+}
