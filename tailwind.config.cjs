@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
         primary_craft: '#DEE4DB',
-        accent_craft: '#C2AADA'
+        accent_craft: '#C2AADA',
+        menu_craft: '#d3bdff'
       },
       fontFamily: {
         heading: ['"Handlee"', 'cursive'],
