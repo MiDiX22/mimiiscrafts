@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import logo from "../images/logos/Mimi'sCrafts (2).png";
+import fondo from '../images/fondo.jpg';
+import logo from '../images/logos/logoTextBlanc.png';
 
 const pathname = Astro.url.pathname;
 
@@ -18,16 +19,16 @@ const isActive = (href: string) => {
 };
 ---
 
-<header class="site-header">
+<header class="site-header" style={`--fondo: url(${fondo.src})`}>
 	<div class="header-top">
 		<div class="header-side header-side--left">
-			<button type="button" class="icon-btn" aria-label="Search" data-search-toggle>
+			<button type="button" class="icon-btn" aria-label="Cerca" data-search-toggle>
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<circle cx="11" cy="11" r="7"></circle>
 					<path d="m20 20-3.5-3.5"></path>
 				</svg>
 			</button>
-			<button type="button" class="icon-btn menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+			<button type="button" class="icon-btn menu-toggle" aria-label="Obrir menú" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
 				<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
 					<path d="M4 7h16M4 12h16M4 17h16"></path>
 				</svg>
@@ -53,10 +54,16 @@ const isActive = (href: string) => {
 					<circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"></circle>
 				</svg>
 			</a>
+			<a href="https://www.youtube.com/" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M22.5 7.2a2.7 2.7 0 0 0-1.9-1.9C18.8 5 12 5 12 5s-6.8 0-8.6.3A2.7 2.7 0 0 0 1.5 7.2 28 28 0 0 0 1.2 12a28 28 0 0 0 .3 4.8 2.7 2.7 0 0 0 1.9 1.9c1.8.3 8.6.3 8.6.3s6.8 0 8.6-.3a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22.8 12a28 28 0 0 0-.3-4.8Z"></path>
+					<path d="m10 15 5-3-5-3v6Z" fill="currentColor" stroke="none"></path>
+				</svg>
+			</a>
 		</div>
 	</div>
 
-	<nav class="header-nav" id="site-nav" aria-label="Main">
+	<nav class="header-nav" id="site-nav" aria-label="Principal">
 		<ul class="nav-list">
 			{
 				navLinks.map((link) => (
@@ -76,8 +83,6 @@ const isActive = (href: string) => {
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		background: #fff;
-		border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 	}
 
 	.header-top {
@@ -85,9 +90,13 @@ const isActive = (href: string) => {
 		grid-template-columns: 1fr auto 1fr;
 		align-items: center;
 		gap: 0.5rem;
-		max-width: 72rem;
-		margin: 0 auto;
-		padding: 0.5rem 1.25rem;
+		max-width: none;
+		margin: 0;
+		padding: 0.65rem 1.25rem;
+		background-image: var(--fondo);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 
 	.header-side {
@@ -110,67 +119,56 @@ const isActive = (href: string) => {
 		align-items: center;
 		justify-content: center;
 		width: clamp(12.5rem, 36vw, 17.5rem);
-		/* Crop transparent padding from the square PNG without shrinking the wordmark */
-		height: clamp(3.75rem, 11vw, 5.25rem);
-		overflow: hidden;
 		text-decoration: none;
 		line-height: 0;
 	}
 
 	.logo-link:hover {
 		text-decoration: none;
-		opacity: 0.9;
+		opacity: 0.92;
 	}
 
 	.logo-img {
 		display: block;
 		width: 100%;
 		height: auto;
-		flex-shrink: 0;
 	}
 
-	.icon-btn {
+	.icon-btn,
+	.social-btn {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 2.25rem;
-		height: 2.25rem;
 		padding: 0;
 		border: 0;
 		background: transparent;
-		color: #3a3344;
+		color: #fff;
 		text-decoration: none;
 		cursor: pointer;
-		transition: color 0.2s ease, transform 0.2s ease;
+		transition: opacity 0.2s ease, transform 0.2s ease;
 	}
 
-	.icon-btn:hover {
-		color: #6b5a8a;
+	.icon-btn {
+		width: 2.25rem;
+		height: 2.25rem;
+	}
+
+	.social-btn {
+		width: 1.85rem;
+		height: 1.85rem;
+		border: 1.5px solid rgba(255, 255, 255, 0.92);
+		border-radius: 0.4rem;
+	}
+
+	.icon-btn:hover,
+	.social-btn:hover {
+		opacity: 0.85;
 		text-decoration: none;
 		transform: translateY(-1px);
 	}
 
 	.menu-toggle {
 		display: none;
-	}
-
-	.social-btn {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 1.85rem;
-		height: 1.85rem;
-		border-radius: 999px;
-		background: #d3bdff;
-		color: #fff;
-		text-decoration: none;
-		transition: transform 0.2s ease, filter 0.2s ease;
-	}
-
-	.social-btn:hover {
-		text-decoration: none;
-		filter: brightness(0.96);
-		transform: translateY(-1px);
 	}
 
 	.header-nav {
@@ -191,6 +189,7 @@ const isActive = (href: string) => {
 	.nav-link {
 		display: inline-block;
 		color: #fff;
+		font-family: 'Outfit', sans-serif;
 		font-size: 0.72rem;
 		font-weight: 500;
 		letter-spacing: 0.14em;
@@ -213,7 +212,7 @@ const isActive = (href: string) => {
 
 	@media (max-width: 768px) {
 		.header-top {
-			padding: 0.4rem 1rem;
+			padding: 0.5rem 1rem;
 		}
 
 		.menu-toggle {
@@ -263,6 +262,6 @@ const isActive = (href: string) => {
 	menuToggle?.addEventListener('click', () => {
 		const open = nav?.classList.toggle('is-open');
 		menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-		menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+		menuToggle.setAttribute('aria-label', open ? 'Tancar menú' : 'Obrir menú');
 	});
 </script>

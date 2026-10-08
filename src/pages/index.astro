@@ -1,36 +1,477 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import fondo from '../images/fondo.jpg';
+import logoLila from '../images/logos/logoTextLila.png';
+import logoBlanc from '../images/logos/logoTextBlanc.png';
+
+const navLinks = [
+	{ href: '/', label: 'Home', active: true },
+	{ href: '/projects', label: 'Projects', active: false },
+	{ href: '/#about', label: 'About', active: false },
+	{ href: '/#contact', label: 'Contact', active: false },
+];
 ---
 
-<Layout>
-	<section class="rounded-3xl bg-white/70 backdrop-blur-sm border border-white/60 shadow-sm p-6 sm:p-10">
-		<header class="text-center">
-			<p class="font-heading text-4xl sm:text-5xl leading-tight">Mimi's Crafts</p>
-			<p class="mt-3 text-sm sm:text-base text-zinc-700">
-				ESPERO QUE T'AGRADI
-			</p>
-		</header>
+<Layout fullBleed>
+	<div class="scroll-stage" data-scroll-stage>
+		<div
+			class="hero-pin"
+			data-hero-pin
+			style={`--fondo: url(${fondo.src}); --p: 0;`}
+		>
+			<div class="hero-bg" aria-hidden="true"></div>
 
-		<div class="mt-8 grid gap-4">
-			<p class="text-zinc-800">
-				Welcome. Each craft has its own little story—scan the QR code on your card to see how it was made.
-			</p>
+			<div class="header-chrome" data-header-chrome>
+				<div class="header-top">
+					<div class="header-side header-side--left">
+						<button type="button" class="icon-btn" aria-label="Cerca">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<circle cx="11" cy="11" r="7"></circle>
+								<path d="m20 20-3.5-3.5"></path>
+							</svg>
+						</button>
+						<button type="button" class="icon-btn menu-toggle" aria-label="Obrir menú" aria-expanded="false" aria-controls="home-nav" data-menu-toggle>
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+								<path d="M4 7h16M4 12h16M4 17h16"></path>
+							</svg>
+						</button>
+					</div>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-				<a
-					href="/projects"
-					class="rounded-2xl bg-primary_craft/60 border border-white/70 p-5 shadow-sm hover:shadow transition"
-				>
-					<p class="font-heading text-2xl">Browse projects</p>
-					<p class="mt-2 text-sm text-zinc-700">All how-to stories in one place.</p>
-				</a>
-				<div class="rounded-2xl bg-primary_craft/60 border border-white/70 p-5 shadow-sm">
-					<p class="font-heading text-2xl">New here?</p>
-					<p class="mt-2 text-sm text-zinc-700">
-						If you arrived from a QR code, you’ll land directly on that craft’s page.
-					</p>
+					<div class="header-side header-side--right">
+						<a href="https://www.instagram.com/" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<rect x="3" y="3" width="18" height="18" rx="5"></rect>
+								<circle cx="12" cy="12" r="4"></circle>
+								<circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"></circle>
+							</svg>
+						</a>
+						<a href="https://www.youtube.com/" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M22.5 7.2a2.7 2.7 0 0 0-1.9-1.9C18.8 5 12 5 12 5s-6.8 0-8.6.3A2.7 2.7 0 0 0 1.5 7.2 28 28 0 0 0 1.2 12a28 28 0 0 0 .3 4.8 2.7 2.7 0 0 0 1.9 1.9c1.8.3 8.6.3 8.6.3s6.8 0 8.6-.3a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22.8 12a28 28 0 0 0-.3-4.8Z"></path>
+								<path d="m10 15 5-3-5-3v6Z" fill="currentColor" stroke="none"></path>
+							</svg>
+						</a>
+					</div>
 				</div>
 			</div>
+
+			<div class="hero-logo-wrap">
+				<a href="/" class="logo-home" aria-label="Mimi's Crafts — Inici">
+					<span class="logo-stack" aria-hidden="true">
+						<Image
+							src={logoLila}
+							alt=""
+							class="hero-logo hero-logo--lila"
+							widths={[480, 720, 960]}
+							sizes="(max-width: 640px) 80vw, 34rem"
+							loading="eager"
+							fetchpriority="high"
+						/>
+						<Image
+							src={logoBlanc}
+							alt=""
+							class="hero-logo hero-logo--blanc"
+							widths={[480, 720, 960]}
+							sizes="(max-width: 640px) 80vw, 34rem"
+							loading="eager"
+							fetchpriority="high"
+						/>
+					</span>
+					<span class="sr-only">Mimi's Crafts</span>
+				</a>
+			</div>
+
+			<p class="hero-tagline">Creacions fetes amb molt d'amor, fil i algun desordre.</p>
+
+			<nav class="header-nav" id="home-nav" aria-label="Principal" data-home-nav>
+				<ul class="nav-list">
+					{
+						navLinks.map((link) => (
+							<li>
+								<a href={link.href} class:list={['nav-link', { 'is-active': link.active }]}>
+									{link.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<section class="page-body" id="about" aria-label="Contingut">
+		<div class="page-body-inner">
+			<!-- Contingut de la pàgina sota el header -->
 		</div>
 	</section>
 </Layout>
+
+<style>
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.scroll-stage {
+		position: relative;
+		height: 220vh;
+	}
+
+	.hero-pin {
+		--p: 0;
+		--header-h: 5.75rem;
+		--nav-h: 2.35rem;
+		--end-h: calc(var(--header-h) + var(--nav-h));
+		--logo-scale: calc(1 - (0.58 * var(--p)));
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		height: calc(100dvh - ((100dvh - var(--end-h)) * var(--p)));
+		min-height: var(--end-h);
+		overflow: hidden;
+		isolation: isolate;
+		background: #e6dcf5;
+	}
+
+	.hero-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		background-image: var(--fondo);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		transform: scale(calc(1.08 - 0.08 * var(--p)));
+		pointer-events: none;
+	}
+
+	.header-chrome {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 3;
+		height: var(--header-h);
+		opacity: clamp(0, (var(--p) - 0.35) / 0.35, 1);
+		pointer-events: none;
+	}
+
+	.hero-pin.is-complete .header-chrome {
+		pointer-events: auto;
+	}
+
+	.header-top {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		height: 100%;
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: 0 1.25rem;
+	}
+
+	.header-side {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		min-width: 0;
+	}
+
+	.header-side--left {
+		justify-content: flex-start;
+		grid-column: 1;
+	}
+
+	.header-side--right {
+		justify-content: flex-end;
+		grid-column: 3;
+	}
+
+	.icon-btn,
+	.social-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: #fff;
+		text-decoration: none;
+		cursor: pointer;
+		transition: opacity 0.2s ease, transform 0.2s ease;
+	}
+
+	.icon-btn {
+		width: 2.25rem;
+		height: 2.25rem;
+	}
+
+	.social-btn {
+		width: 1.85rem;
+		height: 1.85rem;
+		border: 1.5px solid rgba(255, 255, 255, 0.92);
+		border-radius: 0.4rem;
+	}
+
+	.icon-btn:hover,
+	.social-btn:hover {
+		opacity: 0.85;
+		text-decoration: none;
+		transform: translateY(-1px);
+	}
+
+	.menu-toggle {
+		display: none;
+	}
+
+	.hero-logo-wrap {
+		position: absolute;
+		z-index: 4;
+		left: 50%;
+		top: calc((50% * (1 - var(--p))) + (var(--header-h) * 0.5 * var(--p)));
+		width: min(34rem, 82vw);
+		transform: translate(-50%, -50%) scale(var(--logo-scale));
+		transform-origin: center center;
+		line-height: 0;
+		pointer-events: none;
+		will-change: transform, top;
+	}
+
+	.hero-pin.is-complete .hero-logo-wrap {
+		pointer-events: auto;
+	}
+
+	.logo-home {
+		display: block;
+		line-height: 0;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.logo-home:hover {
+		text-decoration: none;
+		opacity: 0.94;
+	}
+
+	.logo-stack {
+		position: relative;
+		display: block;
+		width: 100%;
+	}
+
+	.hero-logo {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.hero-logo--blanc {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		opacity: var(--p);
+	}
+
+	.hero-logo--lila {
+		opacity: calc(1 - var(--p));
+	}
+
+	.hero-tagline {
+		position: absolute;
+		z-index: 2;
+		left: 50%;
+		top: calc(50% + clamp(3.5rem, 10vw, 5.5rem));
+		margin: 0;
+		width: min(28rem, 88vw);
+		text-align: center;
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+		font-weight: 600;
+		line-height: 1.45;
+		color: #fff;
+		text-shadow: 0 1px 10px rgba(120, 100, 160, 0.35);
+		opacity: clamp(0, 1 - var(--p) * 1.8, 1);
+		transform: translateX(-50%) translateY(calc(var(--p) * -1.25rem));
+		pointer-events: none;
+	}
+
+	.header-nav {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 3;
+		height: var(--nav-h);
+		background: #d3bdff;
+		opacity: clamp(0, (var(--p) - 0.55) / 0.35, 1);
+		transform: translateY(calc((1 - clamp(0, (var(--p) - 0.55) / 0.35, 1)) * 100%));
+		pointer-events: none;
+	}
+
+	.hero-pin.is-complete .header-nav {
+		pointer-events: auto;
+	}
+
+	.nav-list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 0.15rem 1.75rem;
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		list-style: none;
+	}
+
+	.nav-link {
+		display: inline-block;
+		color: #fff;
+		font-family: 'Outfit', sans-serif;
+		font-size: 0.72rem;
+		font-weight: 500;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.nav-link:hover,
+	.nav-link.is-active {
+		color: #fff;
+		text-decoration: none;
+		opacity: 0.9;
+	}
+
+	.nav-link.is-active {
+		font-weight: 700;
+		opacity: 1;
+	}
+
+	.page-body {
+		position: relative;
+		z-index: 1;
+		min-height: 70vh;
+		background: #fff;
+	}
+
+	.page-body-inner {
+		min-height: 60vh;
+	}
+
+	@media (max-width: 768px) {
+		.hero-pin {
+			--header-h: 4.5rem;
+			--nav-h: auto;
+			--end-h: 4.5rem;
+		}
+
+		.menu-toggle {
+			display: inline-flex;
+		}
+
+		.header-nav {
+			display: none;
+			top: var(--header-h);
+			bottom: auto;
+			height: auto;
+			transform: none;
+		}
+
+		.header-nav.is-open {
+			display: block;
+		}
+
+		.hero-pin.is-complete .header-nav {
+			opacity: 1;
+		}
+
+		.nav-list {
+			flex-direction: column;
+			height: auto;
+			padding: 0.35rem 0;
+		}
+
+		.nav-link {
+			display: block;
+			padding: 0.75rem 1rem;
+			text-align: center;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.scroll-stage {
+			height: auto;
+		}
+
+		.hero-pin {
+			--p: 1;
+			position: relative;
+			height: var(--end-h);
+		}
+
+		.header-chrome,
+		.header-nav {
+			opacity: 1;
+			transform: none;
+			pointer-events: auto;
+		}
+
+		.hero-tagline {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	const stage = document.querySelector('[data-scroll-stage]');
+	const pin = document.querySelector('[data-hero-pin]');
+	const menuToggle = document.querySelector('[data-menu-toggle]');
+	const nav = document.querySelector('[data-home-nav]');
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	const clamp01 = (n) => Math.min(1, Math.max(0, n));
+
+	const updateProgress = () => {
+		if (!stage || !pin || reduceMotion) return;
+
+		const total = stage.offsetHeight - window.innerHeight;
+		const scrolled = clamp01(total > 0 ? -stage.getBoundingClientRect().top / total : 0);
+		pin.style.setProperty('--p', scrolled.toFixed(4));
+		pin.classList.toggle('is-complete', scrolled > 0.97);
+	};
+
+	if (!reduceMotion) {
+		let ticking = false;
+		const onScroll = () => {
+			if (ticking) return;
+			ticking = true;
+			requestAnimationFrame(() => {
+				updateProgress();
+				ticking = false;
+			});
+		};
+
+		updateProgress();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onScroll);
+	} else if (pin) {
+		pin.style.setProperty('--p', '1');
+		pin.classList.add('is-complete');
+	}
+
+	menuToggle?.addEventListener('click', () => {
+		const open = nav?.classList.toggle('is-open');
+		menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+		menuToggle.setAttribute('aria-label', open ? 'Tancar menú' : 'Obrir menú');
+	});
+</script>

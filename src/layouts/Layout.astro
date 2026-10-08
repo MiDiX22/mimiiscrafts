@@ -1,6 +1,12 @@
 ---
 import Header from '../components/Header.astro';
 import '../styles/global.css';
+
+interface Props {
+	fullBleed?: boolean;
+}
+
+const { fullBleed = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,17 +19,30 @@ import '../styles/global.css';
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Handlee&family=Inter:wght@400;500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Handlee&family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
 			rel="stylesheet"
 		/>
 		<title>Mimi's Crafts</title>
 	</head>
-	<body class="min-h-dvh bg-primary_craft text-zinc-900 font-body">
-		<Header />
-		<div class="px-4 py-10">
-			<main class="mx-auto w-full max-w-3xl">
-				<slot />
-			</main>
-		</div>
+	<body
+		class:list={[
+			'font-body text-zinc-900',
+			fullBleed ? 'm-0 overflow-x-hidden' : 'min-h-dvh bg-primary_craft',
+		]}
+	>
+		{!fullBleed && <Header />}
+		{
+			fullBleed ? (
+				<main>
+					<slot />
+				</main>
+			) : (
+				<div class="px-4 py-10">
+					<main class="mx-auto w-full max-w-3xl">
+						<slot />
+					</main>
+				</div>
+			)
+		}
 	</body>
 </html>
