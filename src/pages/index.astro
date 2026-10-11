@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import fondo from '../images/fondo.jpg';
 import logoLila from '../images/logos/logoTextLila.png';
 import logoBlanc from '../images/logos/logoTextBlanc.png';
-import mimiPhoto from '../images/mimi.jpg';
+import mimiPhoto from '../images/about/mimi.jpg';
 import stickerFils from '../images/stickers/fils.png';
 import stickerEstisores from '../images/stickers/estisores.png';
 import stickerLlana from '../images/stickers/llana.png';
@@ -14,6 +14,14 @@ import stickerMaquina from '../images/stickers/maquinaCosir.png';
 import stickerTote from '../images/stickers/tote.png';
 import stickerPinzells from '../images/stickers/pinzells.png';
 import stickerPistola from '../images/stickers/pistolaSilicona.png';
+import bookCover from '../images/about/book.jpg';
+import songCover from '../images/about/song.jpg';
+import movieCover from '../images/about/movie.jpg';
+import tenerifePhoto from '../images/about/tenerife.jpg';
+import tolousePhoto from '../images/about/tolouse.jpg';
+import tromsoPhoto from '../images/about/tromso.jpg';
+import nyPhoto from '../images/about/ny.jpg';
+import planeHeader from '../images/about/planeHeader.png';
 
 const navLinks = [
 	{ href: '/#about', label: 'Sobre mi', active: true },
@@ -31,6 +39,68 @@ const stickers = [
 	{ src: stickerTote, className: 'sticker sticker--tote', width: 130 },
 	{ src: stickerPinzells, className: 'sticker sticker--pinzells', width: 120 },
 	{ src: stickerPistola, className: 'sticker sticker--pistola', width: 140 },
+];
+
+const picks = [
+	{
+		src: bookCover,
+		kicker: 'Llibre',
+		emoji: '📚',
+		title: "La hipòtesi del amor",
+		by: 'Ali Hazelwood',
+		alt: "Coberta del llibre La hipòtesi del amor, d'Ali Hazelwood",
+	},
+	{
+		src: songCover,
+		kicker: 'Cançó',
+		emoji: '🎧',
+		title: 'Daylight',
+		by: 'Taylor Swift',
+		alt: 'Taylor Swift a la portada de Lover',
+	},
+	{
+		src: movieCover,
+		kicker: 'Peli',
+		emoji: '🎬',
+		title: 'Mamma mia',
+		by: '',
+		alt: 'Cartell de la pel·lícula Mamma Mia!',
+	},
+];
+
+const trips = [
+	{
+		src: tenerifePhoto,
+		place: 'Tenerife',
+		flag: '🇮🇨',
+		date: 'Setembre 2026',
+		alt: 'Miriam al Teide, a Tenerife',
+		position: 'center 70%',
+	},
+	{
+		src: tolousePhoto,
+		place: 'Tolouse',
+		flag: '🇫🇷',
+		date: 'Abril 2026',
+		alt: 'Miriam amb maquetes de coets a Tolouse',
+		position: '70% center',
+	},
+	{
+		src: tromsoPhoto,
+		place: 'Tromso',
+		flag: '🇳🇴',
+		date: 'Febrer 2026',
+		alt: 'Miriam sota una aurora boreal a Tromso',
+		position: 'center 38%',
+	},
+	{
+		src: nyPhoto,
+		place: 'Nova York',
+		flag: '🇺🇸',
+		date: 'Octubre 2024',
+		alt: 'Miriam fent-se una foto entre gratacels a Nova York',
+		position: '62% 42%',
+	},
 ];
 ---
 
@@ -219,6 +289,80 @@ const stickers = [
 			</div>
 		</div>
 	</section>
+
+	<section class="picks" id="recomanacions" aria-labelledby="picks-title">
+		<div class="picks-inner">
+			<h2 id="picks-title" class="picks-title">Les meves recomanacions ✨</h2>
+			<p class="picks-lead">
+				La meva indecisió crònica fa que a vegades sigui dificilíssim triar els meus preferits,
+				així que simplement he posat els que més em defineixen.
+			</p>
+			<ul class="picks-list">
+				{
+					picks.map((pick) => (
+						<li class="pick">
+							<article class="pick-seal">
+								<p class="pick-kicker">
+									{pick.kicker} <span aria-hidden="true">{pick.emoji}</span>
+								</p>
+								<Image
+									src={pick.src}
+									alt={pick.alt}
+									class="pick-cover"
+									widths={[240, 360, 480]}
+									sizes="(max-width: 900px) 42vw, 160px"
+								/>
+								<p class="pick-name">{pick.title}</p>
+								<p class="pick-by">{pick.by}</p>
+							</article>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="trips" id="viatges" aria-labelledby="trips-title">
+		<div class="trips-heading">
+			<Image
+				src={planeHeader}
+				alt=""
+				class="trips-route"
+				widths={[640, 960, 1256]}
+				sizes="(max-width: 900px) 100vw, 62rem"
+			/>
+			<div class="trips-title-slot">
+				<span class="trips-title-outline" aria-hidden="true">Els meus últims viatges</span>
+				<h2 id="trips-title" class="trips-title">Els meus últims viatges</h2>
+			</div>
+		</div>
+		<div class="trips-inner">
+			<div class="trips-track">
+				<ul class="trips-list">
+					{
+						trips.map((trip) => (
+							<li class="trip">
+								<p class="trip-place">
+									{trip.place} <span aria-hidden="true">{trip.flag}</span>
+								</p>
+								<p class="trip-date">{trip.date}</p>
+								<figure class="trip-frame">
+									<Image
+										src={trip.src}
+										alt={trip.alt}
+										class="trip-photo"
+										style={`object-position: ${trip.position}`}
+										widths={[320, 480, 720]}
+										sizes="(max-width: 720px) 80vw, 240px"
+									/>
+								</figure>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</section>
 	</div>
 </Layout>
 
@@ -240,13 +384,16 @@ const stickers = [
 		--nav-h: 2.35rem;
 		--end-h: calc(var(--header-h) + var(--nav-h));
 		--fondo: none;
+		--about-bg: linear-gradient(90deg, #b8cefd 0%, #d3cbfa 100%);
+		--picks-bg: #d3cbfa;
+		--trips-bg: linear-gradient(90deg, #b8cefd 0%, #d3cbfa 100%);
 	}
 
 	.scroll-stage {
 		position: relative;
 		/* Extra height offsets the about negative margin so scroll progress can still reach 1 */
 		height: calc(180vh + 100dvh - var(--end-h));
-		background: #f7f4ef;
+		background: var(--about-bg);
 	}
 
 	.hero-pin {
@@ -582,11 +729,11 @@ const stickers = [
 	.about {
 		position: relative;
 		z-index: 1;
-		background: #f7f4ef;
+		background: var(--about-bg);
 		color: #9e6dff;
 		/* Pull about up so it sits flush under the collapsed header when the transition ends */
 		margin-top: calc(var(--end-h) - 100dvh);
-		padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 4vw, 2.5rem) clamp(4rem, 8vw, 6rem);
+		padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 4vw, 2.5rem) 1.5cm;
 		scroll-margin-top: var(--end-h);
 		overflow: visible;
 	}
@@ -615,8 +762,7 @@ const stickers = [
 	}
 
 	.about-sticker--tote {
-		/* Same vertical band; horizontally over the text column (between 🥖 and 🎶) */
-		bottom: 6%;
+		bottom: 1.45rem;
 		left: calc(50% + clamp(5rem, 10vw, 9rem));
 		right: auto;
 		width: clamp(4rem, 9vw, 6.5rem);
@@ -695,8 +841,9 @@ const stickers = [
 		font-family: 'Handlee', cursive;
 		font-size: clamp(2.2rem, 4vw, 3rem);
 		font-weight: 400;
-		color: #9e6dff;
+		color: #fff;
 		line-height: 1.1;
+		text-shadow: 0 1px 10px rgba(110, 80, 170, 0.28);
 	}
 
 	.about-copy p {
@@ -733,6 +880,382 @@ const stickers = [
 			opacity: 1;
 			transform: translateY(0);
 		}
+	}
+
+	.picks {
+		position: relative;
+		z-index: 1;
+		background: var(--picks-bg);
+		color: #9e6dff;
+		padding: clamp(2.5rem, 5vw, 3.5rem) clamp(0.6rem, 1.6vw, 1.35rem) clamp(4.5rem, 9vw, 6.5rem);
+	}
+
+	.picks-inner {
+		--flower: polygon(
+			50% 16.5%,
+			52.36% 8%,
+			55.02% 5.44%,
+			57.82% 3.96%,
+			60.69% 3.19%,
+			63.54% 3%,
+			66.33% 3.34%,
+			68.98% 4.18%,
+			71.45% 5.47%,
+			73.66% 7.19%,
+			75.55% 9.34%,
+			77.03% 11.91%,
+			77.96% 14.94%,
+			78.03% 18.63%,
+			73.69% 26.31%,
+			81.37% 21.97%,
+			85.06% 22.04%,
+			88.09% 22.97%,
+			90.66% 24.45%,
+			92.81% 26.34%,
+			94.53% 28.55%,
+			95.82% 31.02%,
+			96.66% 33.67%,
+			97% 36.46%,
+			96.81% 39.31%,
+			96.04% 42.18%,
+			94.56% 44.98%,
+			92% 47.64%,
+			83.5% 50%,
+			92% 52.36%,
+			94.56% 55.02%,
+			96.04% 57.82%,
+			96.81% 60.69%,
+			97% 63.54%,
+			96.66% 66.33%,
+			95.82% 68.98%,
+			94.53% 71.45%,
+			92.81% 73.66%,
+			90.66% 75.55%,
+			88.09% 77.03%,
+			85.06% 77.96%,
+			81.37% 78.03%,
+			73.69% 73.69%,
+			78.03% 81.37%,
+			77.96% 85.06%,
+			77.03% 88.09%,
+			75.55% 90.66%,
+			73.66% 92.81%,
+			71.45% 94.53%,
+			68.98% 95.82%,
+			66.33% 96.66%,
+			63.54% 97%,
+			60.69% 96.81%,
+			57.82% 96.04%,
+			55.02% 94.56%,
+			52.36% 92%,
+			50% 83.5%,
+			47.64% 92%,
+			44.98% 94.56%,
+			42.18% 96.04%,
+			39.31% 96.81%,
+			36.46% 97%,
+			33.67% 96.66%,
+			31.02% 95.82%,
+			28.55% 94.53%,
+			26.34% 92.81%,
+			24.45% 90.66%,
+			22.97% 88.09%,
+			22.04% 85.06%,
+			21.97% 81.37%,
+			26.31% 73.69%,
+			18.63% 78.03%,
+			14.94% 77.96%,
+			11.91% 77.03%,
+			9.34% 75.55%,
+			7.19% 73.66%,
+			5.47% 71.45%,
+			4.18% 68.98%,
+			3.34% 66.33%,
+			3% 63.54%,
+			3.19% 60.69%,
+			3.96% 57.82%,
+			5.44% 55.02%,
+			8% 52.36%,
+			16.5% 50%,
+			8% 47.64%,
+			5.44% 44.98%,
+			3.96% 42.18%,
+			3.19% 39.31%,
+			3% 36.46%,
+			3.34% 33.67%,
+			4.18% 31.02%,
+			5.47% 28.55%,
+			7.19% 26.34%,
+			9.34% 24.45%,
+			11.91% 22.97%,
+			14.94% 22.04%,
+			18.63% 21.97%,
+			26.31% 26.31%,
+			21.97% 18.63%,
+			22.04% 14.94%,
+			22.97% 11.91%,
+			24.45% 9.34%,
+			26.34% 7.19%,
+			28.55% 5.47%,
+			31.02% 4.18%,
+			33.67% 3.34%,
+			36.46% 3%,
+			39.31% 3.19%,
+			42.18% 3.96%,
+			44.98% 5.44%,
+			47.64% 8%
+		);
+		max-width: 86rem;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.picks-title {
+		margin: 0;
+		font-family: 'Handlee', cursive;
+		font-size: clamp(2.2rem, 4vw, 3rem);
+		font-weight: 400;
+		line-height: 1.15;
+		color: #fff;
+		text-shadow: 0 1px 10px rgba(110, 80, 170, 0.28);
+	}
+
+	.picks-lead {
+		max-width: 38rem;
+		margin: 4rem auto 0;
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+		font-weight: 500;
+		line-height: 1.7;
+	}
+
+	.picks-list {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: clamp(0.35rem, 1vw, 0.9rem);
+		align-items: start;
+		justify-items: center;
+		margin: -3.15rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.pick {
+		position: relative;
+		width: min(100%, 27rem);
+		aspect-ratio: 1;
+		background: #fff;
+		clip-path: var(--flower);
+		filter: drop-shadow(0 12px 22px rgba(90, 70, 130, 0.16));
+	}
+
+	.pick:nth-child(2) {
+		margin-top: clamp(6.5rem, 16vw, 11.5rem);
+	}
+
+	.pick-seal {
+		position: absolute;
+		inset: 4.25%;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+		padding: 12% 11% 11%;
+		background: #fff;
+		clip-path: var(--flower);
+	}
+
+	.pick-kicker {
+		margin: 0;
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(1.12rem, 1.7vw, 1.28rem);
+		font-weight: 600;
+		line-height: 1.2;
+	}
+
+	.pick-cover {
+		display: block;
+		width: 7.4rem;
+		height: 9.6rem;
+		margin: 1.25rem 0 1.15rem;
+		object-fit: cover;
+		object-position: center 18%;
+	}
+
+	.pick-name {
+		margin: 0;
+		max-width: 11rem;
+		font-family: 'Handlee', cursive;
+		font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+		font-weight: 400;
+		line-height: 1.15;
+		color: #9e6dff;
+	}
+
+	.pick-by {
+		margin: 0.12rem 0 0;
+		min-height: 1.15em;
+		font-family: 'Outfit', sans-serif;
+		font-size: 0.92rem;
+		font-weight: 500;
+		line-height: 1.2;
+	}
+
+	.trips {
+		position: relative;
+		z-index: 1;
+		background: var(--trips-bg);
+		color: #9e6dff;
+		padding: 0 0 clamp(4rem, 8vw, 6rem);
+	}
+
+	.trips-inner {
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: clamp(3.25rem, 7vw, 5rem) clamp(1rem, 3vw, 2rem) 0;
+	}
+
+	.trips-heading {
+		position: relative;
+		background: #fff;
+		color: #9e6dff;
+		padding: 0.35rem clamp(0.75rem, 3vw, 1.5rem) 0.15rem;
+		text-align: center;
+	}
+
+	.trips-route {
+		display: block;
+		width: min(100%, 62rem);
+		height: auto;
+		margin: 0 auto;
+		clip-path: inset(1px 0 0 0);
+	}
+
+	.trips-title-slot {
+		position: absolute;
+		z-index: 1;
+		left: 61%;
+		top: 47%;
+		width: max-content;
+		max-width: 92%;
+		transform: translate(-50%, -50%);
+		font-family: 'Handlee', cursive;
+		font-size: clamp(2.15rem, 4.6vw, 3.35rem);
+		font-weight: 700;
+		font-synthesis: weight;
+		line-height: 1.05;
+		letter-spacing: 0.01em;
+		text-align: center;
+	}
+
+	.trips-title,
+	.trips-title-outline {
+		font: inherit;
+		letter-spacing: inherit;
+		line-height: inherit;
+		text-align: inherit;
+	}
+
+	.trips-title-outline {
+		position: absolute;
+		z-index: 0;
+		left: 0;
+		top: 0;
+		width: 100%;
+		color: #fff;
+		-webkit-text-stroke: 0.14em #fff;
+		pointer-events: none;
+	}
+
+	.trips-title {
+		position: relative;
+		z-index: 1;
+		margin: 0;
+		background: var(--trips-bg);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	.trips-track {
+		position: relative;
+	}
+
+	.trips-list {
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: clamp(0.85rem, 2vw, 1.6rem);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.trips-list::before {
+		content: '';
+		position: absolute;
+		z-index: 0;
+		left: -1.6rem;
+		right: -2.2rem;
+		top: 60.5%;
+		border-top: 3px dotted #fff;
+		pointer-events: none;
+	}
+
+	.trips-list::after {
+		content: '';
+		position: absolute;
+		z-index: 0;
+		left: -1.85rem;
+		top: 60.5%;
+		width: 0.55rem;
+		height: 0.55rem;
+		border-left: 3px solid #fff;
+		border-bottom: 3px solid #fff;
+		transform: translateY(-65%) rotate(45deg);
+		pointer-events: none;
+	}
+
+	.trip {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+	}
+
+	.trip-place {
+		margin: 0;
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(1.2rem, 1.85vw, 1.45rem);
+		font-weight: 600;
+		line-height: 1.3;
+		color: #fff;
+	}
+
+	.trip-date {
+		margin: 0.15rem 0 0.7rem;
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(0.88rem, 1.3vw, 1rem);
+		font-weight: 500;
+		line-height: 1.3;
+		color: #9e6dff;
+	}
+
+	.trip-frame {
+		margin: 0;
+		padding: 0.45rem;
+		background: #fff;
+		border-radius: 0.85rem;
+		box-shadow: 0 10px 22px rgba(90, 70, 130, 0.16);
+	}
+
+	.trip-photo {
+		display: block;
+		width: 100%;
+		aspect-ratio: 5 / 4;
+		object-fit: cover;
+		border-radius: 0.45rem;
 	}
 
 	@media (max-width: 900px) {
@@ -772,6 +1295,40 @@ const stickers = [
 			right: auto;
 			width: 3.75rem;
 			transform: translateX(-50%) rotate(8deg);
+		}
+
+		.picks-lead {
+			margin-top: 1.5rem;
+		}
+
+		.picks-list {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.pick,
+		.pick:nth-child(2) {
+			width: min(100%, 22rem);
+			margin-top: 0;
+		}
+
+		.trips-list {
+			grid-template-columns: repeat(2, minmax(0, 18rem));
+			justify-content: center;
+			gap: 1.75rem 1.25rem;
+		}
+
+		.trips-list::before,
+		.trips-list::after {
+			display: none;
+		}
+
+		.trips-title-slot {
+			left: 56%;
+			top: 48%;
+			max-width: 11.5rem;
+			font-size: clamp(1.7rem, 7.2vw, 2.15rem);
 		}
 	}
 
