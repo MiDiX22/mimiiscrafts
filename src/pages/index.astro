@@ -208,52 +208,95 @@ const trips = [
 	</div>
 
 	<section class="about" id="about" aria-labelledby="about-title">
-		<div class="about-stickers" aria-hidden="true">
-			<Image
-				src={stickerMaquina}
-				alt=""
-				class="about-sticker about-sticker--maquina"
-				widths={[140, 220]}
-				sizes="140px"
-				loading="lazy"
-			/>
-			<Image
-				src={stickerTote}
-				alt=""
-				class="about-sticker about-sticker--tote"
-				widths={[110, 180]}
-				sizes="110px"
-				loading="lazy"
-			/>
-		</div>
+		<div class="about-intro">
+			<div class="about-intro-copy">
+				<h2 id="about-title" class="about-title">Coneix-me</h2>
+				<p>Ei, hola! Què tal? 👋</p>
+				<p>Benvingut o benvinguda al meu raconet d'internet.</p>
+			</div>
 
-		<div class="about-inner">
-			<figure class="polaroid">
-				<div class="polaroid-frame">
-					<Image
-						src={mimiPhoto}
-						alt="Miriam asseguda a l'herba en un parc, somrient amb ulleres de sol"
-						class="polaroid-photo"
-						widths={[360, 540, 720]}
-						sizes="(max-width: 900px) 70vw, 320px"
-						loading="lazy"
-					/>
-				</div>
-				<figcaption class="polaroid-caption">mimi</figcaption>
+			<figure class="about-portrait">
+				<span class="about-blob about-blob--a" aria-hidden="true"></span>
+				<span class="about-blob about-blob--b" aria-hidden="true"></span>
+				<span class="about-blob about-blob--c" aria-hidden="true"></span>
+				<svg class="about-flower about-flower--portrait" viewBox="0 0 64 64" aria-hidden="true">
+					<g fill="#d3cbfa">
+						<circle cx="32" cy="12" r="11"></circle>
+						<circle cx="52" cy="32" r="11"></circle>
+						<circle cx="32" cy="52" r="11"></circle>
+						<circle cx="12" cy="32" r="11"></circle>
+					</g>
+					<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
+				</svg>
+				<svg class="about-heart about-heart--portrait" viewBox="0 0 32 32" aria-hidden="true">
+					<path fill="#9e6dff" d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"></path>
+				</svg>
 				<Image
-					src={stickerPistola}
+					src={stickerPinzells}
 					alt=""
-					class="about-sticker about-sticker--pistola"
+					class="about-doodle about-doodle--pinzells"
+					widths={[90, 160]}
+					sizes="90px"
+					loading="lazy"
+				/>
+				<Image
+					src={stickerMaquina}
+					alt=""
+					class="about-doodle about-doodle--maquina"
 					widths={[120, 200]}
 					sizes="120px"
 					loading="lazy"
 				/>
+				<Image
+					src={stickerPistola}
+					alt=""
+					class="about-doodle about-doodle--pistola"
+					widths={[110, 180]}
+					sizes="110px"
+					loading="lazy"
+				/>
+				<Image
+					src={stickerTote}
+					alt=""
+					class="about-doodle about-doodle--tote"
+					widths={[100, 160]}
+					sizes="100px"
+					loading="lazy"
+				/>
+				<div class="about-portrait-frame">
+					<Image
+						src={mimiPhoto}
+						alt="Miriam asseguda a l'herba en un parc, somrient amb ulleres de sol"
+						class="about-photo"
+						widths={[360, 540, 720]}
+						sizes="(max-width: 800px) 70vw, 320px"
+						loading="lazy"
+					/>
+				</div>
+				<figcaption class="about-caption">mimi</figcaption>
 			</figure>
+		</div>
 
-			<div class="about-copy">
-				<h2 id="about-title" class="about-title">Coneix-me</h2>
-				<p>Ei, hola! Què tal? 👋</p>
-				<p>Benvingut o benvinguda al meu raconet d'internet.</p>
+		<div class="about-story">
+			<div class="about-story-card">
+				<svg class="about-flower about-flower--tr" viewBox="0 0 64 64" aria-hidden="true">
+					<g fill="#fff">
+						<circle cx="32" cy="12" r="11"></circle>
+						<circle cx="52" cy="32" r="11"></circle>
+						<circle cx="32" cy="52" r="11"></circle>
+						<circle cx="12" cy="32" r="11"></circle>
+					</g>
+					<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
+				</svg>
+				<svg class="about-flower about-flower--bl" viewBox="0 0 64 64" aria-hidden="true">
+					<g fill="#b8cefd">
+						<circle cx="32" cy="12" r="11"></circle>
+						<circle cx="52" cy="32" r="11"></circle>
+						<circle cx="32" cy="52" r="11"></circle>
+						<circle cx="12" cy="32" r="11"></circle>
+					</g>
+					<circle cx="32" cy="32" r="7" fill="#fff"></circle>
+				</svg>
 				<p>
 					Em dic Miriam i, per guanyar-me la vida, soc desenvolupadora de software (sí, soc
 					d'aquelles persones que es passen hores picant codi i parlant amb les màquines). Però
@@ -266,16 +309,52 @@ const trips = [
 					pensar: per què no ajunto la meva part tequi amb la meva part més creativa? I pam, així ha
 					nascut aquesta web! La fusió perfecta entre la meva feina i els meus hobbies.
 				</p>
-				<p>
-					Fora de les pantalles i les teles, tinc tres grans debilitats: devorar novel·les
-					romàntiques, escoltar la banda sonora de Mamma mia en bucle, i el pa. Soc una amant
-					absoluta del pa, les coses com són! 🥖
-				</p>
-				<p>
-					A més, tinc un superpoder amagat: soc com un Shazam en persona. Posa'm un trosset diminut
-					de qualsevol cançó i et diré quina és (de veritat, posa'm a prova quan vulguis, sobretot
-					si és d'ABBA 😉). 🎶
-				</p>
+			</div>
+		</div>
+
+		<div class="about-notes">
+			<svg class="about-heart about-heart--notes" viewBox="0 0 32 32" aria-hidden="true">
+				<path fill="#fff" d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"></path>
+			</svg>
+			<svg class="about-star about-star--notes" viewBox="0 0 24 24" aria-hidden="true">
+				<path fill="#fff" d="M12 2.2 14.4 8.7h6.8l-5.5 4 2.1 6.5L12 15.2 6.2 19.2l2.1-6.5-5.5-4h6.8L12 2.2z"></path>
+			</svg>
+			<ul class="about-notes-list">
+				<li class="about-note">
+					<p>
+						Fora de les pantalles i les teles, tinc tres grans debilitats: devorar novel·les
+						romàntiques, escoltar la banda sonora de Mamma mia en bucle, i el pa. Soc una amant
+						absoluta del pa, les coses com són! 🥖
+					</p>
+				</li>
+				<li class="about-note">
+					<p>
+						A més, tinc un superpoder amagat: soc com un Shazam en persona. Posa'm un trosset diminut
+						de qualsevol cançó i et diré quina és (de veritat, posa'm a prova quan vulguis, sobretot
+						si és d'ABBA 😉). 🎶
+					</p>
+				</li>
+			</ul>
+		</div>
+
+		<div class="about-close">
+			<Image
+				src={stickerEstisores}
+				alt=""
+				class="about-close-doodle about-close-doodle--left"
+				widths={[120, 200]}
+				sizes="120px"
+				loading="lazy"
+			/>
+			<Image
+				src={stickerFils}
+				alt=""
+				class="about-close-doodle about-close-doodle--right"
+				widths={[140, 220]}
+				sizes="140px"
+				loading="lazy"
+			/>
+			<div class="about-close-copy">
 				<p>
 					Espero de tot cor que gaudeixis xafardejant per aquí i veient el que faig tantíssim com jo
 					gaudeixo creant-ho. Si tens alguna idea al cap, vols que col·laborem en alguna cosa, o
@@ -291,6 +370,34 @@ const trips = [
 	</section>
 
 	<section class="picks" id="recomanacions" aria-labelledby="picks-title">
+		<svg class="picks-flower" viewBox="0 0 64 64" aria-hidden="true">
+			<g fill="#fff">
+				<circle cx="32" cy="12" r="11"></circle>
+				<circle cx="52" cy="32" r="11"></circle>
+				<circle cx="32" cy="52" r="11"></circle>
+				<circle cx="12" cy="32" r="11"></circle>
+			</g>
+			<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
+		</svg>
+		<svg class="picks-heart" viewBox="0 0 32 32" aria-hidden="true">
+			<path fill="#fff" d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"></path>
+		</svg>
+		<Image
+			src={stickerLlana}
+			alt=""
+			class="picks-doodle picks-doodle--llana"
+			widths={[110, 180]}
+			sizes="110px"
+			loading="lazy"
+		/>
+		<Image
+			src={stickerTela}
+			alt=""
+			class="picks-doodle picks-doodle--tela"
+			widths={[110, 180]}
+			sizes="110px"
+			loading="lazy"
+		/>
 		<div class="picks-inner">
 			<h2 id="picks-title" class="picks-title">Les meves recomanacions ✨</h2>
 			<p class="picks-lead">
@@ -301,7 +408,7 @@ const trips = [
 				{
 					picks.map((pick) => (
 						<li class="pick">
-							<article class="pick-seal">
+							<article class="pick-card">
 								<p class="pick-kicker">
 									{pick.kicker} <span aria-hidden="true">{pick.emoji}</span>
 								</p>
@@ -310,7 +417,7 @@ const trips = [
 									alt={pick.alt}
 									class="pick-cover"
 									widths={[240, 360, 480]}
-									sizes="(max-width: 900px) 42vw, 160px"
+									sizes="(max-width: 900px) 46vw, 150px"
 								/>
 								<p class="pick-name">{pick.title}</p>
 								<p class="pick-by">{pick.by}</p>
@@ -323,45 +430,49 @@ const trips = [
 	</section>
 
 	<section class="trips" id="viatges" aria-labelledby="trips-title">
-		<div class="trips-heading">
+		<svg class="trips-star" viewBox="0 0 24 24" aria-hidden="true">
+			<path fill="#9e6dff" d="M12 2.2 14.4 8.7h6.8l-5.5 4 2.1 6.5L12 15.2 6.2 19.2l2.1-6.5-5.5-4h6.8L12 2.2z"></path>
+		</svg>
+		<Image
+			src={stickerMetro}
+			alt=""
+			class="trips-doodle"
+			widths={[140, 220]}
+			sizes="140px"
+			loading="lazy"
+		/>
+		<div class="trips-head">
 			<Image
 				src={planeHeader}
 				alt=""
 				class="trips-route"
-				widths={[640, 960, 1256]}
-				sizes="(max-width: 900px) 100vw, 62rem"
+				widths={[480, 720, 960]}
+				sizes="(max-width: 700px) 88vw, 28rem"
 			/>
-			<div class="trips-title-slot">
-				<span class="trips-title-outline" aria-hidden="true">Els meus últims viatges</span>
-				<h2 id="trips-title" class="trips-title">Els meus últims viatges</h2>
-			</div>
+			<h2 id="trips-title" class="trips-title">Els meus últims viatges</h2>
 		</div>
-		<div class="trips-inner">
-			<div class="trips-track">
-				<ul class="trips-list">
-					{
-						trips.map((trip) => (
-							<li class="trip">
-								<p class="trip-place">
-									{trip.place} <span aria-hidden="true">{trip.flag}</span>
-								</p>
-								<p class="trip-date">{trip.date}</p>
-								<figure class="trip-frame">
-									<Image
-										src={trip.src}
-										alt={trip.alt}
-										class="trip-photo"
-										style={`object-position: ${trip.position}`}
-										widths={[320, 480, 720]}
-										sizes="(max-width: 720px) 80vw, 240px"
-									/>
-								</figure>
-							</li>
-						))
-					}
-				</ul>
-			</div>
-		</div>
+		<ul class="trips-list">
+			{
+				trips.map((trip) => (
+					<li class="trip">
+						<figure class="trip-frame">
+							<Image
+								src={trip.src}
+								alt={trip.alt}
+								class="trip-photo"
+								style={`object-position: ${trip.position}`}
+								widths={[320, 480, 720]}
+								sizes="(max-width: 720px) 46vw, 240px"
+							/>
+						</figure>
+						<p class="trip-place">
+							{trip.place} <span aria-hidden="true">{trip.flag}</span>
+						</p>
+						<p class="trip-date">{trip.date}</p>
+					</li>
+				))
+			}
+		</ul>
 	</section>
 	</div>
 </Layout>
@@ -535,6 +646,21 @@ const trips = [
 
 	.hero-pin.is-complete .header-chrome {
 		pointer-events: auto;
+	}
+
+	/* Once the header has collapsed, keep it on screen for the rest of the page. */
+	@media (prefers-reduced-motion: no-preference) {
+		.hero-pin.is-complete {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			width: 100%;
+		}
+	}
+
+	.hero-pin:has(.header-nav.is-open) {
+		overflow: visible;
 	}
 
 	.header-top {
@@ -729,300 +855,380 @@ const trips = [
 	.about {
 		position: relative;
 		z-index: 1;
-		background: var(--about-bg);
+		background: #fff;
 		color: #9e6dff;
 		/* Pull about up so it sits flush under the collapsed header when the transition ends */
 		margin-top: calc(var(--end-h) - 100dvh);
-		padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 4vw, 2.5rem) 1.5cm;
 		scroll-margin-top: var(--end-h);
-		overflow: visible;
+		overflow: hidden;
 	}
 
-	.about-stickers {
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-		pointer-events: none;
-		overflow: visible;
-	}
-
-	.about-sticker {
-		position: absolute;
-		display: block;
-		height: auto;
-		max-width: none;
-		filter: drop-shadow(0 8px 16px rgba(90, 70, 130, 0.14));
-	}
-
-	.about-sticker--maquina {
-		top: 1.5rem;
-		right: clamp(1.5rem, 7vw, 5.5rem);
-		width: clamp(5.5rem, 12vw, 8.5rem);
-		transform: rotate(14deg);
-	}
-
-	.about-sticker--tote {
-		bottom: 1.45rem;
-		left: calc(50% + clamp(5rem, 10vw, 9rem));
-		right: auto;
-		width: clamp(4rem, 9vw, 6.5rem);
-		transform: translateX(-50%) rotate(9deg);
-	}
-
-	.about-inner {
-		position: relative;
-		z-index: 1;
+	.about-intro {
 		display: grid;
-		grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
-		gap: clamp(2rem, 5vw, 4rem);
-		align-items: start;
-		max-width: 64rem;
+		grid-template-columns: minmax(0, 1.05fr) minmax(16rem, 0.9fr);
+		gap: clamp(1.5rem, 4vw, 3.25rem);
+		align-items: center;
+		max-width: 68rem;
 		margin: 0 auto;
+		padding: clamp(2.4rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2rem);
 	}
 
-	.polaroid {
-		position: sticky;
-		top: calc(var(--end-h) + 1rem);
-		margin: 0.25rem auto 0;
-		width: min(100%, 20rem);
-		transform: rotate(-3.5deg);
-		filter: drop-shadow(0 14px 28px rgba(70, 55, 40, 0.16));
-		animation: polaroid-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-		z-index: 2;
-		overflow: visible;
-	}
-
-	.about-sticker--pistola {
-		top: 68%;
-		left: -8%;
-		width: clamp(5.75rem, 34%, 8rem);
-		transform: rotate(-24deg);
-		z-index: 4;
-	}
-
-	.polaroid-frame {
-		position: relative;
-		z-index: 1;
-		background: #fff;
-		padding: 0.7rem 0.7rem 0;
-		line-height: 0;
-	}
-
-	.polaroid-photo {
-		display: block;
-		width: 100%;
-		aspect-ratio: 4 / 5;
-		object-fit: cover;
-		object-position: center top;
-	}
-
-	.polaroid-caption {
-		position: relative;
-		z-index: 1;
-		background: #fff;
-		padding: 0.85rem 0.75rem 1.35rem;
-		text-align: center;
-		font-family: 'Handlee', cursive;
-		font-size: 1.35rem;
-		color: #9e6dff;
-		line-height: 1.2;
-	}
-
-	.about-copy {
+	.about-intro-copy,
+	.about-story-card p,
+	.about-note p,
+	.about-close-copy p {
 		font-family: 'Outfit', sans-serif;
 		font-size: clamp(0.98rem, 1.6vw, 1.08rem);
 		font-weight: 500;
 		line-height: 1.7;
-		animation: copy-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+		text-wrap: pretty;
+	}
+
+	.about-intro-copy p,
+	.about-story-card p,
+	.about-note p,
+	.about-close-copy p {
+		margin: 0;
+	}
+
+	.about-intro-copy p + p {
+		margin-top: 0.85rem;
 	}
 
 	.about-title {
-		margin: 0 0 1.1rem;
+		margin: 0 0 1rem;
 		font-family: 'Handlee', cursive;
-		font-size: clamp(2.2rem, 4vw, 3rem);
+		font-size: clamp(2.5rem, 5vw, 3.6rem);
 		font-weight: 400;
-		color: #fff;
-		line-height: 1.1;
-		text-shadow: 0 1px 10px rgba(110, 80, 170, 0.28);
+		color: #9e6dff;
+		line-height: 1.05;
 	}
 
-	.about-copy p {
-		margin: 0 0 1rem;
+	.about-portrait {
+		position: relative;
+		width: min(100%, 24rem);
+		margin: 0 auto;
+		padding: 2.6rem 2.1rem 0.2rem;
+	}
+
+	.about-blob,
+	.about-flower,
+	.about-heart,
+	.about-star,
+	.about-doodle,
+	.about-close-doodle {
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.about-blob {
+		z-index: 0;
+		border-radius: 50%;
+	}
+
+	.about-blob--a {
+		top: 0.35rem;
+		right: 0.15rem;
+		width: 7.5rem;
+		height: 7.5rem;
+		background: #d3cbfa;
+	}
+
+	.about-blob--b {
+		bottom: 3.2rem;
+		left: 0;
+		width: 6.25rem;
+		height: 6.25rem;
+		background: #b8cefd;
+	}
+
+	.about-blob--c {
+		top: 42%;
+		right: -0.2rem;
+		width: 2.4rem;
+		height: 2.4rem;
+		background: #9e6dff;
+		opacity: 0.35;
+	}
+
+	.about-flower--portrait {
+		z-index: 2;
+		top: 0.15rem;
+		left: 0.2rem;
+		width: 3.4rem;
+		height: 3.4rem;
+		transform: rotate(-12deg);
+	}
+
+	.about-heart--portrait {
+		z-index: 2;
+		right: 0.35rem;
+		bottom: 2.6rem;
+		width: 1.7rem;
+		height: 1.7rem;
+		transform: rotate(12deg);
+	}
+
+	.about-doodle {
+		z-index: 3;
+		height: auto;
+		max-width: none;
+		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.14));
+	}
+
+	.about-doodle--pinzells {
+		top: 0.2rem;
+		left: 18%;
+		width: 4.1rem;
+		transform: rotate(-18deg);
+	}
+
+	.about-doodle--maquina {
+		top: 1.1rem;
+		right: -0.15rem;
+		width: 5.4rem;
+		transform: rotate(14deg);
+	}
+
+	.about-doodle--pistola {
+		bottom: 1.6rem;
+		left: -0.35rem;
+		width: 5rem;
+		transform: rotate(-22deg);
+	}
+
+	.about-doodle--tote {
+		right: 0.35rem;
+		bottom: 0.15rem;
+		width: 4.3rem;
+		transform: rotate(8deg);
+	}
+
+	.about-portrait-frame {
+		position: relative;
+		z-index: 1;
+		overflow: hidden;
+		border-radius: 1.7rem;
+		background: #fff;
+		box-shadow: 0 16px 36px rgba(90, 70, 130, 0.16);
+	}
+
+	.about-photo {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+		object-position: center 18%;
+	}
+
+	.about-caption {
+		position: relative;
+		z-index: 1;
+		margin: 0.75rem 0 0;
+		text-align: center;
+		font-family: 'Handlee', cursive;
+		font-size: 1.45rem;
+		line-height: 1.1;
+		color: #9e6dff;
+	}
+
+	.about-story {
+		padding: 0.25rem clamp(1rem, 4vw, 2.5rem) clamp(2.75rem, 5vw, 3.75rem);
+	}
+
+	.about-story-card {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.15rem 2.4rem;
+		max-width: 68rem;
+		margin: 0 auto;
+		padding: clamp(2rem, 4vw, 2.8rem) clamp(1.6rem, 4vw, 3rem);
+		overflow: hidden;
+		border-radius: 2rem;
+		background: linear-gradient(120deg, #b8cefd 0%, #d3cbfa 100%);
+		box-shadow: 0 16px 34px rgba(90, 70, 130, 0.12);
+	}
+
+	.about-flower--tr,
+	.about-flower--bl {
+		width: 4.6rem;
+		height: 4.6rem;
+	}
+
+	.about-flower--tr {
+		top: -1rem;
+		right: -0.7rem;
+	}
+
+	.about-flower--bl {
+		bottom: -1.15rem;
+		left: -0.75rem;
+		width: 3.8rem;
+		height: 3.8rem;
+	}
+
+	.about-notes {
+		position: relative;
+		background: #d3cbfa;
+		padding: clamp(2.6rem, 5vw, 3.6rem) clamp(1.25rem, 4vw, 2.5rem);
+	}
+
+	.about-heart--notes {
+		top: 1.1rem;
+		left: clamp(0.8rem, 3vw, 2rem);
+		width: 1.8rem;
+		height: 1.8rem;
+		transform: rotate(-14deg);
+		opacity: 0.85;
+	}
+
+	.about-star--notes {
+		right: clamp(1rem, 4vw, 2.6rem);
+		bottom: 1rem;
+		width: 1.7rem;
+		height: 1.7rem;
+		opacity: 0.9;
+	}
+
+	.about-notes-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: clamp(0.9rem, 2vw, 1.35rem);
+		max-width: 68rem;
+		margin: 0 auto;
+		padding: 0;
+		list-style: none;
+	}
+
+	.about-note {
+		padding: clamp(1.35rem, 2.5vw, 1.85rem);
+		border-radius: 1.5rem;
+		background: #fff;
+		box-shadow: 0 12px 28px rgba(90, 70, 130, 0.12);
+	}
+
+	.about-close {
+		position: relative;
+		padding: clamp(2.8rem, 6vw, 4.25rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3.2rem, 6vw, 4.6rem);
+	}
+
+	.about-close-copy {
+		max-width: 38rem;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.about-close-copy p + p {
+		margin-top: 1.35rem;
 	}
 
 	.about-signoff {
-		margin-top: 1.75rem;
+		font-family: 'Outfit', sans-serif;
 	}
 
 	.about-signoff span {
 		font-family: 'Handlee', cursive;
-		font-size: 1.45rem;
+		font-size: 1.6rem;
 		color: #9e6dff;
 	}
 
-	@keyframes polaroid-in {
-		from {
-			opacity: 0;
-			transform: rotate(-3.5deg) translateY(1rem) scale(0.98);
-		}
-		to {
-			opacity: 1;
-			transform: rotate(-3.5deg) translateY(0) scale(1);
-		}
+	.about-close-doodle {
+		z-index: 1;
+		height: auto;
+		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.12));
 	}
 
-	@keyframes copy-in {
-		from {
-			opacity: 0;
-			transform: translateY(0.75rem);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+	.about-close-doodle--left {
+		top: 18%;
+		left: clamp(0.4rem, 4vw, 3.5rem);
+		width: clamp(4.2rem, 8vw, 6.5rem);
+		transform: rotate(-14deg);
+	}
+
+	.about-close-doodle--right {
+		right: clamp(0.4rem, 4vw, 3.2rem);
+		bottom: 12%;
+		width: clamp(4.6rem, 9vw, 7rem);
+		transform: rotate(10deg);
 	}
 
 	.picks {
 		position: relative;
 		z-index: 1;
-		background: var(--picks-bg);
+		overflow: hidden;
+		background: #d3cbfa;
 		color: #9e6dff;
-		padding: clamp(2.5rem, 5vw, 3.5rem) clamp(0.6rem, 1.6vw, 1.35rem) clamp(4.5rem, 9vw, 6.5rem);
+		padding: clamp(2.8rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem) clamp(4.6rem, 8vw, 6rem);
+	}
+
+	.picks-flower,
+	.picks-heart,
+	.picks-doodle,
+	.trips-star,
+	.trips-doodle {
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.picks-flower {
+		top: 1.1rem;
+		right: clamp(0.8rem, 3vw, 2.2rem);
+		width: 3.6rem;
+		height: 3.6rem;
+		transform: rotate(10deg);
+	}
+
+	.picks-heart {
+		bottom: 1.3rem;
+		left: clamp(0.8rem, 3vw, 2rem);
+		width: 1.7rem;
+		height: 1.7rem;
+		transform: rotate(-12deg);
+		opacity: 0.9;
+	}
+
+	.picks-doodle {
+		z-index: 1;
+		height: auto;
+		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.12));
+	}
+
+	.picks-doodle--llana {
+		top: 4.5rem;
+		left: clamp(0.4rem, 2.5vw, 1.8rem);
+		width: clamp(4rem, 7vw, 5.6rem);
+		transform: rotate(-12deg);
+	}
+
+	.picks-doodle--tela {
+		right: clamp(0.7rem, 2.5vw, 1.6rem);
+		bottom: 0.7rem;
+		width: 3.8rem;
+		transform: rotate(8deg);
 	}
 
 	.picks-inner {
-		--flower: polygon(
-			50% 16.5%,
-			52.36% 8%,
-			55.02% 5.44%,
-			57.82% 3.96%,
-			60.69% 3.19%,
-			63.54% 3%,
-			66.33% 3.34%,
-			68.98% 4.18%,
-			71.45% 5.47%,
-			73.66% 7.19%,
-			75.55% 9.34%,
-			77.03% 11.91%,
-			77.96% 14.94%,
-			78.03% 18.63%,
-			73.69% 26.31%,
-			81.37% 21.97%,
-			85.06% 22.04%,
-			88.09% 22.97%,
-			90.66% 24.45%,
-			92.81% 26.34%,
-			94.53% 28.55%,
-			95.82% 31.02%,
-			96.66% 33.67%,
-			97% 36.46%,
-			96.81% 39.31%,
-			96.04% 42.18%,
-			94.56% 44.98%,
-			92% 47.64%,
-			83.5% 50%,
-			92% 52.36%,
-			94.56% 55.02%,
-			96.04% 57.82%,
-			96.81% 60.69%,
-			97% 63.54%,
-			96.66% 66.33%,
-			95.82% 68.98%,
-			94.53% 71.45%,
-			92.81% 73.66%,
-			90.66% 75.55%,
-			88.09% 77.03%,
-			85.06% 77.96%,
-			81.37% 78.03%,
-			73.69% 73.69%,
-			78.03% 81.37%,
-			77.96% 85.06%,
-			77.03% 88.09%,
-			75.55% 90.66%,
-			73.66% 92.81%,
-			71.45% 94.53%,
-			68.98% 95.82%,
-			66.33% 96.66%,
-			63.54% 97%,
-			60.69% 96.81%,
-			57.82% 96.04%,
-			55.02% 94.56%,
-			52.36% 92%,
-			50% 83.5%,
-			47.64% 92%,
-			44.98% 94.56%,
-			42.18% 96.04%,
-			39.31% 96.81%,
-			36.46% 97%,
-			33.67% 96.66%,
-			31.02% 95.82%,
-			28.55% 94.53%,
-			26.34% 92.81%,
-			24.45% 90.66%,
-			22.97% 88.09%,
-			22.04% 85.06%,
-			21.97% 81.37%,
-			26.31% 73.69%,
-			18.63% 78.03%,
-			14.94% 77.96%,
-			11.91% 77.03%,
-			9.34% 75.55%,
-			7.19% 73.66%,
-			5.47% 71.45%,
-			4.18% 68.98%,
-			3.34% 66.33%,
-			3% 63.54%,
-			3.19% 60.69%,
-			3.96% 57.82%,
-			5.44% 55.02%,
-			8% 52.36%,
-			16.5% 50%,
-			8% 47.64%,
-			5.44% 44.98%,
-			3.96% 42.18%,
-			3.19% 39.31%,
-			3% 36.46%,
-			3.34% 33.67%,
-			4.18% 31.02%,
-			5.47% 28.55%,
-			7.19% 26.34%,
-			9.34% 24.45%,
-			11.91% 22.97%,
-			14.94% 22.04%,
-			18.63% 21.97%,
-			26.31% 26.31%,
-			21.97% 18.63%,
-			22.04% 14.94%,
-			22.97% 11.91%,
-			24.45% 9.34%,
-			26.34% 7.19%,
-			28.55% 5.47%,
-			31.02% 4.18%,
-			33.67% 3.34%,
-			36.46% 3%,
-			39.31% 3.19%,
-			42.18% 3.96%,
-			44.98% 5.44%,
-			47.64% 8%
-		);
-		max-width: 86rem;
+		position: relative;
+		z-index: 1;
+		max-width: 68rem;
 		margin: 0 auto;
 		text-align: center;
 	}
 
-	.picks-title {
+	.picks-title,
+	.trips-title {
 		margin: 0;
 		font-family: 'Handlee', cursive;
-		font-size: clamp(2.2rem, 4vw, 3rem);
+		font-size: clamp(2.4rem, 5vw, 3.4rem);
 		font-weight: 400;
-		line-height: 1.15;
-		color: #fff;
-		text-shadow: 0 1px 10px rgba(110, 80, 170, 0.28);
+		line-height: 1.05;
+		color: #9e6dff;
 	}
 
 	.picks-lead {
-		max-width: 38rem;
-		margin: 4rem auto 0;
+		max-width: 36rem;
+		margin: 0.9rem auto 0;
 		font-family: 'Outfit', sans-serif;
 		font-size: clamp(0.98rem, 1.6vw, 1.08rem);
 		font-weight: 500;
@@ -1032,71 +1238,56 @@ const trips = [
 	.picks-list {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: clamp(0.35rem, 1vw, 0.9rem);
-		align-items: start;
-		justify-items: center;
-		margin: -3.15rem 0 0;
+		gap: clamp(0.9rem, 2vw, 1.3rem);
+		margin: clamp(1.6rem, 3vw, 2.2rem) 0 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.pick {
-		position: relative;
-		width: min(100%, 27rem);
-		aspect-ratio: 1;
-		background: #fff;
-		clip-path: var(--flower);
-		filter: drop-shadow(0 12px 22px rgba(90, 70, 130, 0.16));
-	}
-
-	.pick:nth-child(2) {
-		margin-top: clamp(6.5rem, 16vw, 11.5rem);
-	}
-
-	.pick-seal {
-		position: absolute;
-		inset: 4.25%;
-		z-index: 1;
+	.pick-card {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+		height: 100%;
 		margin: 0;
-		padding: 12% 11% 11%;
+		padding: 1.35rem 1.1rem 1.4rem;
+		border-radius: 1.5rem;
 		background: #fff;
-		clip-path: var(--flower);
+		box-shadow: 0 12px 28px rgba(90, 70, 130, 0.12);
 	}
 
 	.pick-kicker {
 		margin: 0;
 		font-family: 'Outfit', sans-serif;
-		font-size: clamp(1.12rem, 1.7vw, 1.28rem);
+		font-size: clamp(1.02rem, 1.5vw, 1.16rem);
 		font-weight: 600;
 		line-height: 1.2;
 	}
 
 	.pick-cover {
 		display: block;
-		width: 7.4rem;
-		height: 9.6rem;
-		margin: 1.25rem 0 1.15rem;
+		width: 7.2rem;
+		height: 9.5rem;
+		margin: 0.95rem 0 0.9rem;
+		border-radius: 0.75rem;
 		object-fit: cover;
-		object-position: center 18%;
+		object-position: center;
+		box-shadow: 0 8px 18px rgba(90, 70, 130, 0.14);
 	}
 
 	.pick-name {
 		margin: 0;
-		max-width: 11rem;
+		max-width: 12rem;
 		font-family: 'Handlee', cursive;
-		font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+		font-size: clamp(1.2rem, 1.8vw, 1.4rem);
 		font-weight: 400;
 		line-height: 1.15;
 		color: #9e6dff;
 	}
 
 	.pick-by {
-		margin: 0.12rem 0 0;
-		min-height: 1.15em;
+		margin: 0.2rem 0 0;
+		min-height: 1.2em;
 		font-family: 'Outfit', sans-serif;
 		font-size: 0.92rem;
 		font-weight: 500;
@@ -1106,148 +1297,73 @@ const trips = [
 	.trips {
 		position: relative;
 		z-index: 1;
-		background: var(--trips-bg);
-		color: #9e6dff;
-		padding: 0 0 clamp(4rem, 8vw, 6rem);
-	}
-
-	.trips-inner {
-		max-width: 72rem;
-		margin: 0 auto;
-		padding: clamp(3.25rem, 7vw, 5rem) clamp(1rem, 3vw, 2rem) 0;
-	}
-
-	.trips-heading {
-		position: relative;
+		overflow: hidden;
 		background: #fff;
 		color: #9e6dff;
-		padding: 0.35rem clamp(0.75rem, 3vw, 1.5rem) 0.15rem;
+		padding: clamp(2.4rem, 5vw, 3.6rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3.2rem, 6vw, 4.8rem);
+	}
+
+	.trips-star {
+		top: 1.4rem;
+		left: clamp(1rem, 4vw, 2.8rem);
+		width: 1.55rem;
+		height: 1.55rem;
+		opacity: 0.8;
+	}
+
+	.trips-doodle {
+		z-index: 1;
+		right: clamp(0.6rem, 3vw, 2.4rem);
+		bottom: 1.4rem;
+		width: clamp(5rem, 9vw, 7rem);
+		height: auto;
+		transform: rotate(8deg);
+		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.12));
+	}
+
+	.trips-head {
+		position: relative;
+		z-index: 1;
+		max-width: 40rem;
+		margin: 0 auto 1.6rem;
 		text-align: center;
 	}
 
 	.trips-route {
 		display: block;
-		width: min(100%, 62rem);
+		width: min(100%, 28rem);
 		height: auto;
-		margin: 0 auto;
-		clip-path: inset(1px 0 0 0);
-	}
-
-	.trips-title-slot {
-		position: absolute;
-		z-index: 1;
-		left: 61%;
-		top: 47%;
-		width: max-content;
-		max-width: 92%;
-		transform: translate(-50%, -50%);
-		font-family: 'Handlee', cursive;
-		font-size: clamp(2.15rem, 4.6vw, 3.35rem);
-		font-weight: 700;
-		font-synthesis: weight;
-		line-height: 1.05;
-		letter-spacing: 0.01em;
-		text-align: center;
-	}
-
-	.trips-title,
-	.trips-title-outline {
-		font: inherit;
-		letter-spacing: inherit;
-		line-height: inherit;
-		text-align: inherit;
-	}
-
-	.trips-title-outline {
-		position: absolute;
-		z-index: 0;
-		left: 0;
-		top: 0;
-		width: 100%;
-		color: #fff;
-		-webkit-text-stroke: 0.14em #fff;
-		pointer-events: none;
-	}
-
-	.trips-title {
-		position: relative;
-		z-index: 1;
-		margin: 0;
-		background: var(--trips-bg);
-		-webkit-background-clip: text;
-		background-clip: text;
-		color: transparent;
-	}
-
-	.trips-track {
-		position: relative;
+		margin: 0 auto 0.15rem;
 	}
 
 	.trips-list {
 		position: relative;
+		z-index: 1;
 		display: grid;
 		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: clamp(0.85rem, 2vw, 1.6rem);
-		margin: 0;
-		padding: 0;
+		gap: clamp(0.85rem, 2vw, 1.25rem);
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: clamp(0.9rem, 2vw, 1.2rem);
 		list-style: none;
-	}
-
-	.trips-list::before {
-		content: '';
-		position: absolute;
-		z-index: 0;
-		left: -1.6rem;
-		right: -2.2rem;
-		top: 60.5%;
-		border-top: 3px dotted #fff;
-		pointer-events: none;
-	}
-
-	.trips-list::after {
-		content: '';
-		position: absolute;
-		z-index: 0;
-		left: -1.85rem;
-		top: 60.5%;
-		width: 0.55rem;
-		height: 0.55rem;
-		border-left: 3px solid #fff;
-		border-bottom: 3px solid #fff;
-		transform: translateY(-65%) rotate(45deg);
-		pointer-events: none;
+		border-radius: 2rem;
+		background: linear-gradient(120deg, #b8cefd 0%, #d3cbfa 100%);
 	}
 
 	.trip {
-		position: relative;
-		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 0.55rem 0.55rem 1rem;
+		border-radius: 1.5rem;
+		background: #fff;
+		box-shadow: 0 12px 28px rgba(90, 70, 130, 0.12);
 		text-align: center;
-	}
-
-	.trip-place {
-		margin: 0;
-		font-family: 'Outfit', sans-serif;
-		font-size: clamp(1.2rem, 1.85vw, 1.45rem);
-		font-weight: 600;
-		line-height: 1.3;
-		color: #fff;
-	}
-
-	.trip-date {
-		margin: 0.15rem 0 0.7rem;
-		font-family: 'Outfit', sans-serif;
-		font-size: clamp(0.88rem, 1.3vw, 1rem);
-		font-weight: 500;
-		line-height: 1.3;
-		color: #9e6dff;
 	}
 
 	.trip-frame {
 		margin: 0;
-		padding: 0.45rem;
-		background: #fff;
-		border-radius: 0.85rem;
-		box-shadow: 0 10px 22px rgba(90, 70, 130, 0.16);
+		overflow: hidden;
+		border-radius: 1.05rem;
 	}
 
 	.trip-photo {
@@ -1255,80 +1371,77 @@ const trips = [
 		width: 100%;
 		aspect-ratio: 5 / 4;
 		object-fit: cover;
-		border-radius: 0.45rem;
+	}
+
+	.trip-place {
+		margin: 0.8rem 0.4rem 0;
+		font-family: 'Handlee', cursive;
+		font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+		font-weight: 400;
+		line-height: 1.2;
+		color: #9e6dff;
+	}
+
+	.trip-date {
+		margin: 0.15rem 0.4rem 0;
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(0.88rem, 1.2vw, 0.98rem);
+		font-weight: 500;
+		line-height: 1.3;
 	}
 
 	@media (max-width: 900px) {
-		.about-inner {
+		.about-intro,
+		.about-story-card,
+		.about-notes-list {
 			grid-template-columns: 1fr;
-			justify-items: center;
 		}
 
-		.polaroid {
-			position: relative;
-			top: auto;
-			width: min(100%, 16.5rem);
-			margin-bottom: 0.5rem;
-		}
-
-		.about-copy {
+		.about-intro-copy {
 			max-width: 40rem;
 		}
 
-		.about-sticker--maquina {
-			top: 0.5rem;
-			right: 0.85rem;
-			width: 4.75rem;
-			transform: rotate(12deg);
+		.about-portrait {
+			width: min(100%, 20rem);
+			padding-top: 2.2rem;
 		}
 
-		.about-sticker--pistola {
-			top: 64%;
-			left: -6%;
-			width: 5.5rem;
-			transform: rotate(-22deg);
+		.about-doodle--maquina {
+			width: 4.4rem;
 		}
 
-		.about-sticker--tote {
-			bottom: 2%;
-			left: 58%;
-			right: auto;
-			width: 3.75rem;
-			transform: translateX(-50%) rotate(8deg);
+		.about-doodle--pistola {
+			width: 4.1rem;
 		}
 
-		.picks-lead {
-			margin-top: 1.5rem;
+		.about-doodle--tote,
+		.about-doodle--pinzells {
+			width: 3.5rem;
+		}
+
+		.about-close-doodle {
+			display: none;
 		}
 
 		.picks-list {
 			grid-template-columns: 1fr;
-			gap: 0.25rem;
-			margin-top: 1.25rem;
-		}
-
-		.pick,
-		.pick:nth-child(2) {
-			width: min(100%, 22rem);
-			margin-top: 0;
 		}
 
 		.trips-list {
-			grid-template-columns: repeat(2, minmax(0, 18rem));
-			justify-content: center;
-			gap: 1.75rem 1.25rem;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
-		.trips-list::before,
-		.trips-list::after {
+		.picks-doodle,
+		.trips-doodle,
+		.picks-flower,
+		.picks-heart,
+		.trips-star {
 			display: none;
 		}
 
-		.trips-title-slot {
-			left: 56%;
-			top: 48%;
-			max-width: 11.5rem;
-			font-size: clamp(1.7rem, 7.2vw, 2.15rem);
+		.pick-card {
+			max-width: 22rem;
+			margin-inline: auto;
 		}
 	}
 
@@ -1419,9 +1532,7 @@ const trips = [
 			display: none;
 		}
 
-		.sticker,
-		.polaroid,
-		.about-copy {
+		.sticker {
 			animation: none;
 		}
 	}
