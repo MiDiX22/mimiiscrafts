@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
+import SiteHero from '../../components/SiteHero.astro';
 import photo from '../../images/contact/mimiscrafs.jpeg';
 import stickerFils from '../../images/stickers/fils.png';
 import stickerEstisores from '../../images/stickers/estisores.png';
@@ -23,8 +23,10 @@ const socials = [
 ---
 
 <Layout fullBleed>
-	<Header />
+	<SiteHero variant="pull" active="contact" />
 	<section class="contact" id="contact" aria-labelledby="contact-title">
+		<div class="contact-offset" aria-hidden="true"></div>
+		<div class="contact-body">
 		<Image src={stickerFils} alt="" class="contact-deco contact-deco--fils" widths={[160, 280]} sizes="7rem" />
 		<Image src={stickerEstisores} alt="" class="contact-deco contact-deco--estisores" widths={[150, 260]} sizes="6.5rem" />
 		<Image src={stickerPinzells} alt="" class="contact-deco contact-deco--pinzells" widths={[120, 220]} sizes="5rem" />
@@ -89,6 +91,7 @@ const socials = [
 				</ul>
 			</div>
 		</div>
+		</div>
 	</section>
 </Layout>
 
@@ -96,9 +99,18 @@ const socials = [
 	.contact {
 		position: relative;
 		overflow: hidden;
-		min-height: calc(100dvh - 7.5rem);
+		min-height: 100dvh;
 		background: linear-gradient(120deg, #b8cefd 0%, #d3cbfa 100%);
 		color: #9e6dff;
+	}
+
+	.contact-offset {
+		height: var(--end-h);
+	}
+
+	.contact-body {
+		position: relative;
+		min-height: calc(100dvh - var(--end-h));
 	}
 
 	.contact-deco {

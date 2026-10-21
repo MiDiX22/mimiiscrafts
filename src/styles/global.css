@@ -2,6 +2,20 @@
 
 @import "tailwindcss";
 
+:root {
+	--header-h: 5.75rem;
+	--nav-h: 2.35rem;
+	--end-h: calc(var(--header-h) + var(--nav-h));
+}
+
+@media (max-width: 768px) {
+	:root {
+		--header-h: 4.5rem;
+		--nav-h: 0rem;
+		--end-h: 4.5rem;
+	}
+}
+
 @layer base {
 	html {
 		@apply font-body;
