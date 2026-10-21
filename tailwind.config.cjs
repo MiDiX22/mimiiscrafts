@@ -9,7 +9,7 @@ module.exports = {
         menu_craft: '#d3bdff'
       },
       fontFamily: {
-        heading: ['"Handlee"', 'cursive'],
+        heading: ['"Fraunces"', 'Georgia', 'serif'],
         body: ['"Inter"', 'system-ui', 'sans-serif']
       }
     }

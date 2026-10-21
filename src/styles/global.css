@@ -11,6 +11,7 @@
 	h2,
 	h3 {
 		@apply font-heading;
+		font-variation-settings: 'SOFT' 100, 'WONK' 1;
 	}
 
 	a {
