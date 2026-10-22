@@ -4,9 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary_craft: '#DEE4DB',
-        accent_craft: '#C2AADA',
-        menu_craft: '#d3bdff'
+        accent_craft: '#C2AADA'
       },
       fontFamily: {
         heading: ['"Fraunces"', 'Georgia', 'serif'],

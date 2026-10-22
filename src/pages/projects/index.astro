@@ -45,7 +45,7 @@ const projectCards = await Promise.all(
 );
 ---
 
-<Layout fullBleed>
+<Layout>
 	<SiteHero variant="pull" active="projects" />
 	<section class="projects" aria-labelledby="projects-title">
 		<svg class="projects-flower" viewBox="0 0 64 64" aria-hidden="true">
@@ -362,10 +362,6 @@ const projectCards = await Promise.all(
 		box-shadow: 0 0 0 2px #b8cefd, 0 8px 18px rgba(90, 70, 130, 0.1);
 	}
 
-	.projects-grid > li[hidden] {
-		display: none;
-	}
-
 	.projects-empty {
 		max-width: 28rem;
 		margin: 1.5rem auto 0;
@@ -583,10 +579,6 @@ const projectCards = await Promise.all(
 		cursor: pointer;
 	}
 
-	.viewer-nav[hidden] {
-		display: none;
-	}
-
 	.viewer-thumbs {
 		grid-column: 1 / -1;
 		grid-row: 2;
@@ -708,8 +700,6 @@ const projectCards = await Promise.all(
 		const prev = dialog?.querySelector<HTMLButtonElement>('[data-viewer-prev]');
 		const next = dialog?.querySelector<HTMLButtonElement>('[data-viewer-next]');
 		if (!dataEl || !dialog || !title || !copy || !stage || !thumbs || !count || !prev || !next) return;
-		if (dialog.dataset.ready === 'true') return;
-		dialog.dataset.ready = 'true';
 
 		const projects = JSON.parse(dataEl.textContent || '[]') as ProjectCard[];
 		let slides: Slide[] = [];
@@ -822,8 +812,7 @@ const projectCards = await Promise.all(
 		const search = document.querySelector<HTMLInputElement>('[data-project-search]');
 		const tag = document.querySelector<HTMLSelectElement>('[data-project-tag]');
 		const empty = document.querySelector<HTMLElement>('[data-filter-empty]');
-		if (!search || !tag || search.dataset.ready === 'true') return;
-		search.dataset.ready = 'true';
+		if (!search || !tag) return;
 
 		const apply = () => {
 			const query = fold(search.value.trim());
@@ -845,8 +834,4 @@ const projectCards = await Promise.all(
 
 	initProjectDialog();
 	initProjectFilters();
-	document.addEventListener('astro:page-load', () => {
-		initProjectDialog();
-		initProjectFilters();
-	});
 </script>

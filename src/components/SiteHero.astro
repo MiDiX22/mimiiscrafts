@@ -46,7 +46,7 @@ const stickers = [
 	style={`--p: ${variant === 'pull' ? '1' : '0'}; --fondo: url(${fondo.src})`}
 >
 	<div class="hero-bg" aria-hidden="true"></div>
-	<div class="hero-light" data-hero-light aria-hidden="true"></div>
+	<div class="hero-light" aria-hidden="true"></div>
 	<canvas class="hero-glitter" data-hero-glitter aria-hidden="true"></canvas>
 
 	<div class="hero-stickers" aria-hidden="true">
@@ -64,7 +64,7 @@ const stickers = [
 		}
 	</div>
 
-	<div class="header-chrome" data-header-chrome>
+	<div class="header-chrome">
 		<div class="header-top">
 			<div class="header-side header-side--left">
 				<button type="button" class="icon-btn" aria-label="Cerca">
@@ -660,8 +660,6 @@ const stickers = [
 		const canvas = pin.querySelector<HTMLCanvasElement>('[data-hero-glitter]');
 		const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 		if (!canvas || !finePointer) return;
-		if (canvas.dataset.ready === 'true') return;
-		canvas.dataset.ready = 'true';
 
 		const ctx = canvas.getContext('2d');
 		if (!ctx) return;
@@ -824,8 +822,6 @@ const stickers = [
 	};
 
 	const initPull = (pin: HTMLElement) => {
-		if (pin.dataset.pullReady === 'true') return;
-		pin.dataset.pullReady = 'true';
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
 		let progress = 1;
@@ -891,8 +887,7 @@ const stickers = [
 		const nav = pin?.querySelector('[data-hero-nav]');
 		if (!pin) return;
 
-		if (toggle && nav && toggle.dataset.ready !== 'true') {
-			toggle.dataset.ready = 'true';
+		if (toggle && nav) {
 			toggle.addEventListener('click', () => {
 				const open = nav.classList.toggle('is-open');
 				toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -905,5 +900,4 @@ const stickers = [
 	};
 
 	initSiteHero();
-	document.addEventListener('astro:page-load', initSiteHero);
 </script>

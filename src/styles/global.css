@@ -35,9 +35,4 @@
 	a:hover {
 		@apply underline;
 	}
-
-	/* Header links keep their own styles */
-	.site-header a {
-		text-decoration: none;
-	}
 }

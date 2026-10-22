@@ -84,13 +84,12 @@ const trips = [
 ];
 ---
 
-<Layout fullBleed>
+<Layout>
 	<div class="home-flow">
 	<div class="scroll-stage" data-scroll-stage>
 		<SiteHero variant="scroll" active="about" />
 	</div>
 
-	<div class="home-rest" data-home-rest>
 	<section class="about" id="about" aria-labelledby="about-title">
 		<div class="about-intro">
 			<div class="about-intro-copy">
@@ -358,7 +357,6 @@ const trips = [
 			}
 		</ul>
 	</section>
-	</div>
 	</div>
 </Layout>
 
@@ -1016,32 +1014,11 @@ const trips = [
 			window.addEventListener('resize', onScroll);
 		}
 
-		if (document.documentElement.dataset.returnReady === 'true') return;
-		document.documentElement.dataset.returnReady = 'true';
-
-		const returnKey = 'mimi-return-path';
-		const rest = document.querySelector<HTMLElement>('[data-home-rest]');
 		let anchor = 0;
 		let peak = window.scrollY;
 		let handoff = false;
 
-		const clearReturnPath = () => {
-			try {
-				sessionStorage.removeItem(returnKey);
-			} catch {
-				/* ignore */
-			}
-		};
-
 		const contentStartsAt = () => Math.max(0, stage.offsetHeight - window.innerHeight);
-
-		const clearShift = () => {
-			rest?.classList.remove('is-shifted');
-			rest?.style.removeProperty('--return-shift');
-		};
-
-		clearReturnPath();
-		document.documentElement.classList.remove('is-returning');
 
 		window.addEventListener(
 			'scroll',
@@ -1055,18 +1032,11 @@ const trips = [
 				if (y > peak) peak = y;
 				if (nowAtTop) peak = anchor > 0 ? anchor : 0;
 
-				if (!rest || anchor <= start + 24) return;
-
-				if (y < start) {
-					rest.style.setProperty('--return-shift', `${start - anchor}px`);
-					rest.classList.add('is-shifted');
-					return;
-				}
+				if (anchor <= start + 24 || y < start) return;
 
 				const target = anchor;
 				anchor = 0;
 				peak = target;
-				clearShift();
 				handoff = true;
 				window.scrollTo(0, target);
 				handoff = false;
@@ -1081,12 +1051,10 @@ const trips = [
 				if (!link) return;
 				anchor = 0;
 				peak = window.scrollY;
-				clearShift();
 			},
 			true
 		);
 	};
 
 	initHomeTransition();
-	document.addEventListener('astro:page-load', initHomeTransition);
 </script>
