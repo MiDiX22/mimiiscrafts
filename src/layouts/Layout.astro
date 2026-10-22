@@ -1,10 +1,9 @@
-
 ---
 import '../styles/global.css';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ca">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -13,16 +12,14 @@ import '../styles/global.css';
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Handlee&family=Inter:wght@400;500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
 			rel="stylesheet"
 		/>
 		<title>Mimi's Crafts</title>
 	</head>
-	<body class="min-h-dvh bg-primary_craft text-zinc-900 font-body">
-		<div class="min-h-dvh px-4 py-10">
-			<main class="mx-auto w-full max-w-3xl">
-				<slot />
-			</main>
-		</div>
+	<body class="m-0 overflow-x-hidden bg-[#f7f4ef] font-body text-zinc-900">
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>

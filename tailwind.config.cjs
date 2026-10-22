@@ -4,11 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary_craft: '#DEE4DB',
         accent_craft: '#C2AADA'
       },
       fontFamily: {
-        heading: ['"Handlee"', 'cursive'],
+        heading: ['"Fraunces"', 'Georgia', 'serif'],
         body: ['"Inter"', 'system-ui', 'sans-serif']
       }
     }

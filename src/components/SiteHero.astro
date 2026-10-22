@@ -1,0 +1,897 @@
+---
+import { Image } from 'astro:assets';
+import fondo from '../images/fondo.jpg';
+import logoLila from '../images/logos/logoTextLila.png';
+import logoBlanc from '../images/logos/logoTextBlanc.png';
+import stickerFils from '../images/stickers/fils.png';
+import stickerEstisores from '../images/stickers/estisores.png';
+import stickerLlana from '../images/stickers/llana.png';
+import stickerMetro from '../images/stickers/metro.png';
+import stickerTela from '../images/stickers/tela.png';
+import stickerMaquina from '../images/stickers/maquinaCosir.png';
+import stickerTote from '../images/stickers/tote.png';
+import stickerPinzells from '../images/stickers/pinzells.png';
+import stickerPistola from '../images/stickers/pistolaSilicona.png';
+
+interface Props {
+	variant: 'scroll' | 'pull';
+	active: 'about' | 'projects' | 'contact';
+}
+
+const { variant, active } = Astro.props;
+
+const navLinks = [
+	{ href: '/#about', label: 'Sobre mi', id: 'about' },
+	{ href: '/projects', label: 'Projectes', id: 'projects' },
+	{ href: '/contact', label: 'Contacta', id: 'contact' },
+];
+
+const stickers = [
+	{ src: stickerFils, className: 'sticker sticker--fils', width: 220 },
+	{ src: stickerEstisores, className: 'sticker sticker--estisores', width: 170 },
+	{ src: stickerLlana, className: 'sticker sticker--llana', width: 140 },
+	{ src: stickerMetro, className: 'sticker sticker--metro', width: 190 },
+	{ src: stickerTela, className: 'sticker sticker--tela', width: 150 },
+	{ src: stickerMaquina, className: 'sticker sticker--maquina', width: 170 },
+	{ src: stickerTote, className: 'sticker sticker--tote', width: 130 },
+	{ src: stickerPinzells, className: 'sticker sticker--pinzells', width: 120 },
+	{ src: stickerPistola, className: 'sticker sticker--pistola', width: 140 },
+];
+---
+
+<div
+	class:list={['hero-pin', variant === 'pull' ? 'is-pull' : 'is-scroll']}
+	data-hero-pin
+	data-hero-mode={variant}
+	style={`--p: ${variant === 'pull' ? '1' : '0'}; --fondo: url(${fondo.src})`}
+>
+	<div class="hero-bg" aria-hidden="true"></div>
+	<div class="hero-light" aria-hidden="true"></div>
+	<canvas class="hero-glitter" data-hero-glitter aria-hidden="true"></canvas>
+
+	<div class="hero-stickers" aria-hidden="true">
+		{
+			stickers.map((sticker) => (
+				<Image
+					src={sticker.src}
+					alt=""
+					class={sticker.className}
+					widths={[sticker.width, sticker.width * 2]}
+					sizes={`${sticker.width}px`}
+					loading="eager"
+				/>
+			))
+		}
+	</div>
+
+	<div class="header-chrome">
+		<div class="header-top">
+			<div class="header-side header-side--left">
+				<button type="button" class="icon-btn menu-toggle" aria-label="Obrir menú" aria-expanded="false" aria-controls="site-hero-nav" data-menu-toggle>
+					<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+						<path d="M4 7h16M4 12h16M4 17h16"></path>
+					</svg>
+				</button>
+			</div>
+
+			<div class="header-side header-side--right">
+				<a href="https://www.instagram.com/mimiiscrafts?psln=MXEyYXpiMmQ2NWIxcQ==" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<rect x="3" y="3" width="18" height="18" rx="5"></rect>
+						<circle cx="12" cy="12" r="4"></circle>
+						<circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"></circle>
+					</svg>
+				</a>
+				<a href="https://www.youtube.com/@mimiiscrafts" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M22.5 7.2a2.7 2.7 0 0 0-1.9-1.9C18.8 5 12 5 12 5s-6.8 0-8.6.3A2.7 2.7 0 0 0 1.5 7.2 28 28 0 0 0 1.2 12a28 28 0 0 0 .3 4.8 2.7 2.7 0 0 0 1.9 1.9c1.8.3 8.6.3 8.6.3s6.8 0 8.6-.3a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22.8 12a28 28 0 0 0-.3-4.8Z"></path>
+						<path d="m10 15 5-3-5-3v6Z" fill="currentColor" stroke="none"></path>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="hero-logo-wrap">
+		<a href="/" class="logo-home" aria-label="Mimi's Crafts — Inici">
+			<span class="logo-stack" aria-hidden="true">
+				<Image
+					src={logoLila}
+					alt=""
+					class="hero-logo hero-logo--lila"
+					widths={[720, 1100, 1600]}
+					sizes="(max-width: 640px) 90vw, 46rem"
+					loading="eager"
+					fetchpriority="high"
+				/>
+				<Image
+					src={logoBlanc}
+					alt=""
+					class="hero-logo hero-logo--blanc"
+					widths={[720, 1100, 1600]}
+					sizes="(max-width: 640px) 90vw, 46rem"
+					loading="eager"
+					fetchpriority="high"
+				/>
+			</span>
+			<span class="sr-only">Mimi's Crafts</span>
+		</a>
+	</div>
+
+	<p class="hero-tagline">Creacions fetes amb molt d'amor, fil i algun desordre.</p>
+
+	<nav class="header-nav" id="site-hero-nav" aria-label="Principal" data-hero-nav>
+		<ul class="nav-list">
+			{
+				navLinks.map((link) => (
+					<li>
+						<a href={link.href} class:list={['nav-link', { 'is-active': link.id === active }]}>
+							{link.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</div>
+
+<style>
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.hero-pin {
+		--p: 0;
+		--logo-scale: calc(1 - (0.69 * var(--p)));
+		z-index: 40;
+		height: calc(100dvh - ((100dvh - var(--end-h)) * var(--p)));
+		min-height: var(--end-h);
+		overflow: hidden;
+		isolation: isolate;
+		background: #e6dcf5;
+	}
+
+	.hero-pin.is-scroll {
+		position: sticky;
+		top: 0;
+	}
+
+	.hero-pin.is-pull {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+	}
+
+	.hero-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		background-image: var(--fondo);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		transform: scale(calc(1.16 - 0.1 * var(--p)))
+			translate3d(
+				calc(var(--px, 0) * -2.6% * (1 - var(--p))),
+				calc(var(--py, 0) * -1.8% * (1 - var(--p))),
+				0
+			);
+		pointer-events: none;
+	}
+
+	.hero-light {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		pointer-events: none;
+		opacity: calc(var(--hover, 0) * clamp(0, 1 - var(--p) * 1.25, 1));
+		background:
+			radial-gradient(
+				circle 1.35rem at var(--lx, 50%) var(--ly, 42%),
+				rgba(255, 255, 255, 0.95),
+				transparent 72%
+			),
+			radial-gradient(
+				circle 16rem at var(--lx, 50%) var(--ly, 42%),
+				rgba(255, 255, 255, 0.72) 0%,
+				rgba(255, 236, 252, 0.28) 32%,
+				rgba(214, 232, 255, 0.08) 52%,
+				transparent 70%
+			);
+		mix-blend-mode: screen;
+		transition: opacity 0.45s ease;
+	}
+
+	.hero-glitter {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		opacity: clamp(0, 1 - var(--p) * 1.35, 1);
+	}
+
+	.hero-stickers {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		pointer-events: none;
+		opacity: clamp(0, 1 - (var(--p) * 1.55), 1);
+		transform: scale(calc(1 + (0.08 * var(--p))));
+		filter: blur(calc(var(--p) * 2px));
+	}
+
+	.sticker {
+		--shift: 1rem;
+		--tilt: 0deg;
+		position: absolute;
+		display: block;
+		height: auto;
+		max-width: none;
+		user-select: none;
+		filter: drop-shadow(0 6px 14px rgba(90, 70, 130, 0.14));
+		transform: translate3d(
+				calc(var(--px, 0) * var(--shift) * (1 - var(--p))),
+				calc(var(--py, 0) * var(--shift) * (1 - var(--p))),
+				0
+			)
+			rotate(var(--tilt));
+	}
+
+	.sticker--fils {
+		--shift: 1.85rem;
+		--tilt: -10deg;
+		top: 3%;
+		left: 1.5%;
+		width: clamp(7.5rem, 18vw, 13rem);
+		animation: sticker-float 7s ease-in-out infinite alternate;
+	}
+
+	.sticker--estisores {
+		--shift: 1.35rem;
+		--tilt: 18deg;
+		top: 4%;
+		right: 2%;
+		width: clamp(5.5rem, 13vw, 9.5rem);
+		animation: sticker-float 8s ease-in-out 0.4s infinite alternate-reverse;
+	}
+
+	.sticker--llana {
+		--shift: 1.05rem;
+		--tilt: -6deg;
+		top: 38%;
+		left: 3%;
+		width: clamp(4.5rem, 11vw, 8rem);
+		animation: sticker-float 6.5s ease-in-out 0.2s infinite alternate;
+	}
+
+	.sticker--metro {
+		--shift: 1.55rem;
+		--tilt: 12deg;
+		top: 32%;
+		right: 2.5%;
+		width: clamp(6.5rem, 15vw, 11rem);
+		animation: sticker-float 7.5s ease-in-out 0.6s infinite alternate-reverse;
+	}
+
+	.sticker--tela {
+		--shift: 1.2rem;
+		--tilt: -14deg;
+		bottom: 16%;
+		left: 3.5%;
+		width: clamp(5rem, 12vw, 8.5rem);
+		animation: sticker-float 8.5s ease-in-out 0.3s infinite alternate;
+	}
+
+	.sticker--maquina {
+		--shift: 1.45rem;
+		--tilt: 8deg;
+		bottom: 12%;
+		right: 3%;
+		width: clamp(5.5rem, 13vw, 9.5rem);
+		animation: sticker-float 7.2s ease-in-out 0.5s infinite alternate-reverse;
+	}
+
+	.sticker--tote {
+		--shift: 0.85rem;
+		--tilt: 6deg;
+		bottom: 3%;
+		left: 22%;
+		width: clamp(4rem, 10vw, 7.5rem);
+		animation: sticker-float 9s ease-in-out 0.1s infinite alternate;
+	}
+
+	.sticker--pinzells {
+		--shift: 0.7rem;
+		--tilt: -20deg;
+		top: 14%;
+		left: 20%;
+		width: clamp(3.5rem, 9vw, 6.5rem);
+		animation: sticker-float 6.8s ease-in-out 0.7s infinite alternate-reverse;
+	}
+
+	.sticker--pistola {
+		--shift: 0.75rem;
+		--tilt: 16deg;
+		top: 15%;
+		right: 18%;
+		width: clamp(4rem, 10vw, 7.5rem);
+		animation: sticker-float 8.2s ease-in-out 0.25s infinite alternate;
+	}
+
+	@keyframes sticker-float {
+		from {
+			translate: 0 0;
+		}
+		to {
+			translate: 0 -0.55rem;
+		}
+	}
+
+	.header-chrome {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 3;
+		height: var(--header-h);
+		opacity: clamp(0, (var(--p) - 0.35) / 0.35, 1);
+		pointer-events: none;
+	}
+
+	.hero-pin.is-complete .header-chrome,
+	.hero-pin.is-pull .header-chrome {
+		pointer-events: auto;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.hero-pin.is-scroll.is-complete {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			width: 100%;
+		}
+	}
+
+	.hero-pin:has(.header-nav.is-open) {
+		overflow: visible;
+	}
+
+	.header-top {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		height: 100%;
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: 0 1.25rem;
+	}
+
+	.header-side {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		min-width: 0;
+	}
+
+	.header-side--left {
+		justify-content: flex-start;
+		grid-column: 1;
+	}
+
+	.header-side--right {
+		justify-content: flex-end;
+		grid-column: 3;
+	}
+
+	.icon-btn,
+	.social-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: #fff;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.icon-btn {
+		width: 2.25rem;
+		height: 2.25rem;
+	}
+
+	.social-btn {
+		width: 1.85rem;
+		height: 1.85rem;
+		border: 1.5px solid rgba(255, 255, 255, 0.92);
+		border-radius: 0.4rem;
+	}
+
+	.icon-btn:hover,
+	.social-btn:hover {
+		opacity: 0.85;
+		text-decoration: none;
+	}
+
+	.menu-toggle {
+		display: none;
+	}
+
+	.hero-logo-wrap {
+		position: absolute;
+		z-index: 4;
+		left: 50%;
+		top: calc((50% * (1 - var(--p))) + (var(--header-h) * 0.5 * var(--p)));
+		width: min(46rem, 90vw);
+		transform: translate(-50%, -50%) scale(var(--logo-scale))
+			translate3d(
+				calc(var(--px, 0) * 0.55rem * (1 - var(--p))),
+				calc(var(--py, 0) * 0.4rem * (1 - var(--p))),
+				0
+			);
+		transform-origin: center center;
+		line-height: 0;
+		pointer-events: none;
+	}
+
+	.hero-pin.is-complete .hero-logo-wrap,
+	.hero-pin.is-pull .hero-logo-wrap {
+		pointer-events: auto;
+	}
+
+	.logo-home {
+		display: block;
+		line-height: 0;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.logo-home:hover {
+		text-decoration: none;
+		opacity: 0.94;
+	}
+
+	.logo-stack {
+		position: relative;
+		display: block;
+		width: 100%;
+	}
+
+	.hero-logo {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.hero-logo--blanc {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		opacity: var(--p);
+	}
+
+	.hero-logo--lila {
+		opacity: calc(1 - var(--p));
+	}
+
+	.hero-tagline {
+		position: absolute;
+		z-index: 3;
+		left: 50%;
+		top: calc(50% + clamp(4.6rem, 16vw, 8.5rem));
+		margin: 0;
+		width: min(38rem, 90vw);
+		text-align: center;
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(1.3rem, 3.1vw, 1.7rem);
+		font-weight: 600;
+		line-height: 1.45;
+		color: #fff;
+		text-shadow: 0 1px 10px rgba(120, 100, 160, 0.35);
+		opacity: clamp(0, 1 - var(--p) * 1.8, 1);
+		transform: translateX(-50%) translateY(calc(var(--p) * -1.25rem))
+			translate3d(
+				calc(var(--px, 0) * 0.35rem * (1 - var(--p))),
+				calc(var(--py, 0) * 0.25rem * (1 - var(--p))),
+				0
+			);
+		pointer-events: none;
+	}
+
+	.header-nav {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 3;
+		height: var(--nav-h);
+		background: #d3bdff;
+		opacity: clamp(0, (var(--p) - 0.55) / 0.35, 1);
+		transform: translateY(calc((1 - clamp(0, (var(--p) - 0.55) / 0.35, 1)) * 100%));
+		pointer-events: none;
+	}
+
+	.hero-pin.is-complete .header-nav,
+	.hero-pin.is-pull .header-nav {
+		pointer-events: auto;
+	}
+
+	.nav-list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 0.15rem 1.75rem;
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		list-style: none;
+	}
+
+	.nav-link {
+		display: inline-block;
+		color: #fff;
+		font-family: 'Outfit', sans-serif;
+		font-size: 0.72rem;
+		font-weight: 500;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.nav-link:hover,
+	.nav-link.is-active {
+		color: #fff;
+		text-decoration: none;
+		opacity: 0.9;
+	}
+
+	.nav-link.is-active {
+		font-weight: 700;
+		opacity: 1;
+	}
+
+	@media (max-width: 768px) {
+		.sticker--pinzells,
+		.sticker--pistola,
+		.sticker--tote {
+			display: none;
+		}
+
+		.sticker--fils {
+			width: clamp(5.5rem, 28vw, 8rem);
+		}
+
+		.sticker--estisores,
+		.sticker--maquina {
+			width: clamp(4.5rem, 22vw, 7rem);
+		}
+
+		.sticker--llana,
+		.sticker--tela {
+			width: clamp(4rem, 20vw, 6.5rem);
+		}
+
+		.sticker--metro {
+			width: clamp(5rem, 26vw, 8rem);
+		}
+
+		.menu-toggle {
+			display: inline-flex;
+		}
+
+		.header-nav {
+			display: none;
+			top: var(--header-h);
+			bottom: auto;
+			height: auto;
+			transform: none;
+		}
+
+		.header-nav.is-open {
+			display: block;
+			opacity: 1;
+		}
+
+		.nav-list {
+			flex-direction: column;
+			height: auto;
+			padding: 0.35rem 0;
+		}
+
+		.nav-link {
+			display: block;
+			padding: 0.75rem 1rem;
+			text-align: center;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-pin.is-scroll {
+			--p: 1;
+			position: relative;
+			height: var(--end-h);
+		}
+
+		.header-chrome,
+		.header-nav {
+			opacity: 1;
+			transform: none;
+			pointer-events: auto;
+		}
+
+		.hero-tagline,
+		.hero-stickers,
+		.hero-light,
+		.hero-glitter {
+			display: none;
+		}
+
+		.sticker {
+			animation: none;
+		}
+	}
+</style>
+
+<script>
+	const initHeroGlow = (pin: HTMLElement) => {
+		const canvas = pin.querySelector<HTMLCanvasElement>('[data-hero-glitter]');
+		const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+		if (!canvas || !finePointer) return;
+
+		const ctx = canvas.getContext('2d');
+		if (!ctx) return;
+
+		const colors = ['#ffffff', '#fff6dc', '#ffe7fb', '#f4ecff', '#e7f6ff'];
+		const sparks: {
+			x: number;
+			y: number;
+			size: number;
+			life: number;
+			decay: number;
+			spin: number;
+			spinSpeed: number;
+			vx: number;
+			vy: number;
+			color: string;
+			star: boolean;
+		}[] = [];
+
+		let targetX = 0;
+		let targetY = 0;
+		let currentX = 0;
+		let currentY = 0;
+		let pointerX = 0;
+		let pointerY = 0;
+		let inside = false;
+		let running = false;
+		let frame = 0;
+
+		const resize = () => {
+			const rect = pin.getBoundingClientRect();
+			const dpr = Math.min(window.devicePixelRatio || 1, 2);
+			const width = Math.max(1, Math.round(rect.width * dpr));
+			const height = Math.max(1, Math.round(rect.height * dpr));
+			if (canvas.width !== width || canvas.height !== height) {
+				canvas.width = width;
+				canvas.height = height;
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			}
+		};
+
+		const spawn = (x: number, y: number, count: number) => {
+			for (let i = 0; i < count; i += 1) {
+				const angle = Math.random() * Math.PI * 2;
+				const radius = Math.random() ** 0.55 * 86;
+				const star = Math.random() < 0.62;
+				sparks.push({
+					x: x + Math.cos(angle) * radius,
+					y: y + Math.sin(angle) * radius,
+					size: star ? 2.4 + Math.random() * 5.2 : 1.1 + Math.random() * 2.1,
+					life: 0.55 + Math.random() * 0.45,
+					decay: 0.008 + Math.random() * 0.016,
+					spin: Math.random() * Math.PI,
+					spinSpeed: (Math.random() - 0.5) * 0.08,
+					vx: (Math.random() - 0.5) * 0.28,
+					vy: -0.08 - Math.random() * 0.28,
+					color: colors[Math.floor(Math.random() * colors.length)] ?? '#ffffff',
+					star,
+				});
+			}
+			if (sparks.length > 160) sparks.splice(0, sparks.length - 160);
+		};
+
+		const drawStar = (x: number, y: number, radius: number) => {
+			ctx.beginPath();
+			ctx.moveTo(x, y - radius);
+			ctx.quadraticCurveTo(x, y, x + radius, y);
+			ctx.quadraticCurveTo(x, y, x, y + radius);
+			ctx.quadraticCurveTo(x, y, x - radius, y);
+			ctx.quadraticCurveTo(x, y, x, y - radius);
+			ctx.fill();
+		};
+
+		const tick = () => {
+			currentX += (targetX - currentX) * 0.075;
+			currentY += (targetY - currentY) * 0.075;
+			pin.style.setProperty('--px', currentX.toFixed(3));
+			pin.style.setProperty('--py', currentY.toFixed(3));
+
+			const progress = Number.parseFloat(pin.style.getPropertyValue('--p')) || 0;
+			resize();
+			const rect = pin.getBoundingClientRect();
+			ctx.clearRect(0, 0, rect.width, rect.height);
+
+			if (inside && progress < 0.72) {
+				frame += 1;
+				if (frame % 2 === 0) spawn(pointerX, pointerY, 1);
+			}
+
+			for (let i = sparks.length - 1; i >= 0; i -= 1) {
+				const spark = sparks[i];
+				if (!spark) continue;
+				spark.life -= spark.decay;
+				if (spark.life <= 0) {
+					sparks.splice(i, 1);
+					continue;
+				}
+				spark.x += spark.vx;
+				spark.y += spark.vy;
+				spark.spin += spark.spinSpeed;
+				const twinkle = 0.35 + 0.65 * Math.abs(Math.sin(spark.spin * 6 + spark.x));
+				ctx.globalAlpha = Math.max(0, spark.life) * twinkle * (1 - progress);
+				ctx.fillStyle = spark.color;
+				if (spark.star) drawStar(spark.x, spark.y, spark.size);
+				else {
+					ctx.beginPath();
+					ctx.arc(spark.x, spark.y, spark.size * 0.45, 0, Math.PI * 2);
+					ctx.fill();
+				}
+			}
+			ctx.globalAlpha = 1;
+
+			const settled =
+				!inside &&
+				sparks.length === 0 &&
+				Math.abs(targetX - currentX) < 0.004 &&
+				Math.abs(targetY - currentY) < 0.004;
+
+			if (settled) {
+				running = false;
+				pin.style.setProperty('--px', '0');
+				pin.style.setProperty('--py', '0');
+				return;
+			}
+
+			requestAnimationFrame(tick);
+		};
+
+		const ensureLoop = () => {
+			if (running) return;
+			running = true;
+			requestAnimationFrame(tick);
+		};
+
+		pin.addEventListener('pointermove', (event) => {
+			if (event.pointerType !== 'mouse') return;
+			const rect = pin.getBoundingClientRect();
+			const x = event.clientX - rect.left;
+			const y = event.clientY - rect.top;
+			const progress = Number.parseFloat(pin.style.getPropertyValue('--p')) || 0;
+			pointerX = x;
+			pointerY = y;
+			inside = progress < 0.82;
+			targetX = inside ? (x / rect.width) * 2 - 1 : 0;
+			targetY = inside ? (y / rect.height) * 2 - 1 : 0;
+			pin.style.setProperty('--lx', `${(x / rect.width) * 100}%`);
+			pin.style.setProperty('--ly', `${(y / rect.height) * 100}%`);
+			pin.style.setProperty('--hover', inside ? '1' : '0');
+			if (inside) spawn(x, y, 2);
+			ensureLoop();
+		});
+
+		pin.addEventListener('pointerleave', () => {
+			inside = false;
+			targetX = 0;
+			targetY = 0;
+			pin.style.setProperty('--hover', '0');
+			ensureLoop();
+		});
+	};
+
+	const initPull = (pin: HTMLElement) => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+		let progress = 1;
+		const travel = () => Math.max(window.innerHeight * 1.15, 640);
+		const dialogOpen = () => document.querySelector('dialog[open]');
+
+		const applyPull = () => {
+			pin.style.setProperty('--p', progress.toFixed(4));
+			document.documentElement.style.overflow = progress < 0.998 ? 'hidden' : '';
+		};
+
+		const nudge = (delta: number) => {
+			const next = Math.min(1, Math.max(0, progress + delta / travel()));
+			if (next === progress) return false;
+			progress = next;
+			applyPull();
+			return true;
+		};
+
+		window.addEventListener(
+			'wheel',
+			(event) => {
+				if (dialogOpen()) return;
+				const atTop = window.scrollY <= 2;
+				if (event.deltaY < 0 && atTop) {
+					if (nudge(event.deltaY)) event.preventDefault();
+				} else if (event.deltaY > 0 && progress < 0.998) {
+					if (nudge(event.deltaY)) event.preventDefault();
+				}
+			},
+			{ passive: false }
+		);
+
+		let lastTouch = 0;
+		window.addEventListener(
+			'touchstart',
+			(event) => {
+				lastTouch = event.touches[0]?.clientY ?? 0;
+			},
+			{ passive: true }
+		);
+		window.addEventListener(
+			'touchmove',
+			(event) => {
+				if (dialogOpen()) return;
+				const y = event.touches[0]?.clientY ?? lastTouch;
+				const delta = lastTouch - y;
+				lastTouch = y;
+				const atTop = window.scrollY <= 2;
+				if (delta < 0 && atTop) {
+					if (nudge(delta)) event.preventDefault();
+				} else if (delta > 0 && progress < 0.998) {
+					if (nudge(delta)) event.preventDefault();
+				}
+			},
+			{ passive: false }
+		);
+	};
+
+	const initSiteHero = () => {
+		const pin = document.querySelector<HTMLElement>('[data-hero-pin]');
+		const toggle = pin?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+		const nav = pin?.querySelector('[data-hero-nav]');
+		if (!pin) return;
+
+		if (toggle && nav) {
+			toggle.addEventListener('click', () => {
+				const open = nav.classList.toggle('is-open');
+				toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+				toggle.setAttribute('aria-label', open ? 'Tancar menú' : 'Obrir menú');
+			});
+		}
+
+		if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) initHeroGlow(pin);
+		if (pin.dataset.heroMode === 'pull') initPull(pin);
+	};
+
+	initSiteHero();
+</script>
