@@ -156,7 +156,7 @@ const stickers = [
 		min-height: var(--end-h);
 		overflow: hidden;
 		isolation: isolate;
-		background: #e6dcf5;
+		background: var(--lila-suau);
 	}
 
 	.hero-pin.is-scroll {
@@ -521,7 +521,7 @@ const stickers = [
 		bottom: 0;
 		z-index: 3;
 		height: var(--nav-h);
-		background: #d3bdff;
+		background: var(--lila-fosc);
 		opacity: clamp(0, (var(--p) - 0.55) / 0.35, 1);
 		transform: translateY(calc((1 - clamp(0, (var(--p) - 0.55) / 0.35, 1)) * 100%));
 		pointer-events: none;
@@ -548,9 +548,9 @@ const stickers = [
 		display: inline-block;
 		color: #fff;
 		font-family: 'Outfit', sans-serif;
-		font-size: 0.72rem;
+		font-size: 0.9rem;
 		font-weight: 500;
-		letter-spacing: 0.14em;
+		letter-spacing: 0.12em;
 		text-transform: uppercase;
 		text-decoration: none;
 	}
@@ -558,8 +558,9 @@ const stickers = [
 	.nav-link:hover,
 	.nav-link.is-active {
 		color: #fff;
-		text-decoration: none;
-		opacity: 0.9;
+		text-decoration: underline;
+		text-decoration-thickness: 1.5px;
+		text-underline-offset: 0.45em;
 	}
 
 	.nav-link.is-active {

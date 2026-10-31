@@ -5,9 +5,6 @@ import Layout from '../../layouts/Layout.astro';
 import SiteHero from '../../components/SiteHero.astro';
 import stickerFils from '../../images/stickers/fils.png';
 import stickerEstisores from '../../images/stickers/estisores.png';
-import stickerTela from '../../images/stickers/tela.png';
-import stickerTote from '../../images/stickers/tote.png';
-import stickerPinzells from '../../images/stickers/pinzells.png';
 
 const projects = (await getCollection('projects')).sort((a, b) =>
 	a.data.titol.localeCompare(b.data.titol, 'ca')
@@ -48,28 +45,6 @@ const projectCards = await Promise.all(
 <Layout>
 	<SiteHero variant="pull" active="projects" />
 	<section class="projects" aria-labelledby="projects-title">
-		<svg class="projects-flower" viewBox="0 0 64 64" aria-hidden="true">
-			<g fill="#fff">
-				<circle cx="32" cy="12" r="11"></circle>
-				<circle cx="52" cy="32" r="11"></circle>
-				<circle cx="32" cy="52" r="11"></circle>
-				<circle cx="12" cy="32" r="11"></circle>
-			</g>
-			<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
-		</svg>
-		<svg class="projects-heart" viewBox="0 0 32 32" aria-hidden="true">
-			<path
-				fill="#fff"
-				d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"
-			></path>
-		</svg>
-		<Image
-			src={stickerTela}
-			alt=""
-			class="projects-doodle projects-doodle--tela"
-			widths={[110, 180]}
-			sizes="110px"
-		/>
 		<Image
 			src={stickerEstisores}
 			alt=""
@@ -78,29 +53,12 @@ const projectCards = await Promise.all(
 			sizes="6rem"
 		/>
 		<Image
-			src={stickerPinzells}
-			alt=""
-			class="projects-doodle projects-doodle--pinzells"
-			widths={[120, 220]}
-			sizes="4.8rem"
-		/>
-		<Image
-			src={stickerTote}
-			alt=""
-			class="projects-doodle projects-doodle--tote"
-			widths={[130, 220]}
-			sizes="5rem"
-		/>
-		<Image
 			src={stickerFils}
 			alt=""
 			class="projects-doodle projects-doodle--fils"
 			widths={[160, 280]}
 			sizes="6.5rem"
 		/>
-		<svg class="projects-star" viewBox="0 0 32 32" aria-hidden="true">
-			<path fill="#fff" d="m16 2 3.2 8.8H28l-7.2 5.2 2.8 8.6L16 19.6 8.4 24.6l2.8-8.6L4 10.8h8.8L16 2z"></path>
-		</svg>
 
 		<div class="projects-inner">
 			<h1 id="projects-title" class="projects-title">Projectes</h1>
@@ -136,7 +94,7 @@ const projectCards = await Promise.all(
 					<p class="projects-empty" data-filter-empty hidden>No hi ha cap projecte que coincideixi.</p>
 					<ul class="projects-grid">
 						{projects.map((project, index) => (
-							<li data-project-item data-title={project.data.titol} data-tag={project.data.tag}>
+							<li id={project.slug} data-project-item data-title={project.data.titol} data-tag={project.data.tag}>
 								<button type="button" class="project-card" data-project-open={index}>
 									<div class="project-media">
 										<Image
@@ -193,43 +151,16 @@ const projectCards = await Promise.all(
 		position: relative;
 		overflow: hidden;
 		min-height: 100dvh;
-		background: #d3cbfa;
-		color: #9e6dff;
+		background: var(--lila-suau);
+		color: var(--lila-fosc);
 		padding: calc(var(--end-h) + clamp(2.4rem, 5vw, 3.6rem)) clamp(1.25rem, 4vw, 2.5rem)
 			clamp(3.4rem, 7vw, 5rem);
 	}
 
-	.projects-flower,
-	.projects-heart,
-	.projects-star,
 	.projects-doodle {
 		position: absolute;
 		z-index: 0;
 		pointer-events: none;
-	}
-
-	.projects-flower {
-		top: calc(var(--end-h) + 0.15rem);
-		left: clamp(0.6rem, 3vw, 2.4rem);
-		width: 4.4rem;
-		height: 4.4rem;
-		transform: rotate(-14deg);
-	}
-
-	.projects-heart {
-		top: calc(var(--end-h) + 1.4rem);
-		right: clamp(1rem, 4vw, 3.2rem);
-		width: 2.1rem;
-		height: 2.1rem;
-		transform: rotate(12deg);
-	}
-
-	.projects-star {
-		top: 46%;
-		left: clamp(0.5rem, 2vw, 1.4rem);
-		width: 1.7rem;
-		height: 1.7rem;
-		transform: rotate(16deg);
 	}
 
 	.projects-doodle {
@@ -237,32 +168,11 @@ const projectCards = await Promise.all(
 		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.14));
 	}
 
-	.projects-doodle--tela {
-		right: clamp(0.4rem, 2vw, 1.4rem);
-		bottom: 1rem;
-		width: 5.2rem;
-		transform: rotate(10deg);
-	}
-
 	.projects-doodle--estisores {
 		top: 38%;
 		right: clamp(0.2rem, 1.5vw, 1rem);
 		width: 6.2rem;
 		transform: rotate(18deg);
-	}
-
-	.projects-doodle--pinzells {
-		top: 58%;
-		left: clamp(0.3rem, 1.6vw, 1.1rem);
-		width: 4.4rem;
-		transform: rotate(-16deg);
-	}
-
-	.projects-doodle--tote {
-		bottom: 1.4rem;
-		left: clamp(4.5rem, 8vw, 8rem);
-		width: 4.8rem;
-		transform: rotate(-8deg);
 	}
 
 	.projects-doodle--fils {
@@ -287,7 +197,7 @@ const projectCards = await Promise.all(
 		font-size: clamp(2.4rem, 5vw, 3.4rem);
 		font-weight: 500;
 		line-height: 1.05;
-		color: #9e6dff;
+		color: var(--lila-fosc);
 	}
 
 	.projects-tools {
@@ -309,7 +219,7 @@ const projectCards = await Promise.all(
 		border-radius: 999px;
 		background: #fff;
 		box-shadow: 0 8px 18px rgba(90, 70, 130, 0.1);
-		color: #9e6dff;
+		color: var(--lila-fosc);
 	}
 
 	.projects-search {
@@ -327,7 +237,7 @@ const projectCards = await Promise.all(
 		min-width: 0;
 		border: 0;
 		background: transparent;
-		color: #9e6dff;
+		color: var(--lila-fosc);
 		font-family: 'Outfit', sans-serif;
 		font-size: 0.95rem;
 		font-weight: 500;
@@ -351,15 +261,15 @@ const projectCards = await Promise.all(
 		top: 50%;
 		width: 0.4rem;
 		height: 0.4rem;
-		border-right: 1.5px solid #9e6dff;
-		border-bottom: 1.5px solid #9e6dff;
+		border-right: 1.5px solid var(--lila);
+		border-bottom: 1.5px solid var(--lila);
 		transform: translateY(-70%) rotate(45deg);
 		pointer-events: none;
 	}
 
 	.projects-search:focus-within,
 	.projects-filter:focus-within {
-		box-shadow: 0 0 0 2px #b8cefd, 0 8px 18px rgba(90, 70, 130, 0.1);
+		box-shadow: 0 0 0 2px var(--cel), 0 8px 18px rgba(90, 70, 130, 0.1);
 	}
 
 	.projects-empty {
@@ -425,7 +335,7 @@ const projectCards = await Promise.all(
 		padding: 0.28rem 0.72rem;
 		border-radius: 999px;
 		background: #fff;
-		color: #9e6dff;
+		color: var(--lila-fosc);
 		font-family: 'Outfit', sans-serif;
 		font-size: 0.78rem;
 		font-weight: 600;
@@ -442,7 +352,7 @@ const projectCards = await Promise.all(
 		font-size: clamp(1.25rem, 2vw, 1.5rem);
 		font-weight: 500;
 		line-height: 1.2;
-		color: #9e6dff;
+		color: var(--lila-fosc);
 	}
 
 	.project-dialog {
@@ -457,7 +367,7 @@ const projectCards = await Promise.all(
 		border: 0;
 		border-radius: 0;
 		background: #fff;
-		color: #9e6dff;
+		color: var(--lila-fosc);
 	}
 
 	.project-dialog::backdrop {
@@ -486,8 +396,8 @@ const projectCards = await Promise.all(
 		padding: 0;
 		border: 0;
 		border-radius: 999px;
-		background: #d3cbfa;
-		color: #9e6dff;
+		background: var(--lila-suau);
+		color: var(--lila-fosc);
 		cursor: pointer;
 	}
 
@@ -498,7 +408,7 @@ const projectCards = await Promise.all(
 		font-size: clamp(1.7rem, 3vw, 2.2rem);
 		font-weight: 500;
 		line-height: 1.15;
-		color: #9e6dff;
+		color: var(--lila-fosc);
 	}
 
 	.project-dialog-copy {
@@ -531,7 +441,7 @@ const projectCards = await Promise.all(
 		min-width: 0;
 		min-height: 0;
 		border-radius: 1.05rem;
-		background: #d3cbfa;
+		background: var(--lila-suau);
 	}
 
 	.viewer-nav--prev {
@@ -555,7 +465,7 @@ const projectCards = await Promise.all(
 		width: auto;
 		height: auto;
 		object-fit: contain;
-		background: #d3cbfa;
+		background: var(--lila-suau);
 	}
 
 	:global(.viewer-video) {
@@ -574,8 +484,8 @@ const projectCards = await Promise.all(
 		padding: 0;
 		border: 0;
 		border-radius: 999px;
-		background: #d3cbfa;
-		color: #9e6dff;
+		background: var(--lila-suau);
+		color: var(--lila-fosc);
 		cursor: pointer;
 	}
 
@@ -597,12 +507,12 @@ const projectCards = await Promise.all(
 		overflow: hidden;
 		border: 2px solid transparent;
 		border-radius: 0.7rem;
-		background: #d3cbfa;
+		background: var(--lila-suau);
 		cursor: pointer;
 	}
 
 	:global(.viewer-thumb.is-active) {
-		border-color: #9e6dff;
+		border-color: var(--lila);
 	}
 
 	:global(.viewer-thumb img) {
@@ -638,18 +548,9 @@ const projectCards = await Promise.all(
 			width: 100%;
 		}
 
-		.projects-flower,
-		.projects-heart,
-		.projects-star,
 		.projects-doodle--estisores,
-		.projects-doodle--pinzells,
 		.projects-doodle--fils {
 			display: none;
-		}
-
-		.projects-doodle--tela,
-		.projects-doodle--tote {
-			width: 3.4rem;
 		}
 
 		.viewer-nav {
@@ -787,6 +688,15 @@ const projectCards = await Promise.all(
 
 		prev.addEventListener('click', () => step(-1));
 		next.addEventListener('click', () => step(1));
+
+		// Obre directament el projecte enllaçat des de la portada (/projects#slug)
+		const linked = window.location.hash.slice(1);
+		if (linked) {
+			const linkedButton = document
+				.getElementById(decodeURIComponent(linked))
+				?.querySelector<HTMLButtonElement>('[data-project-open]');
+			if (linkedButton) openProject(Number(linkedButton.dataset.projectOpen));
+		}
 
 		dialog.querySelector('[data-dialog-close]')?.addEventListener('click', () => dialog.close());
 		dialog.addEventListener('click', (event) => {

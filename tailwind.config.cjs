@@ -4,11 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent_craft: '#C2AADA'
+        accent_craft: '#5e35b8'
       },
       fontFamily: {
         heading: ['"Fraunces"', 'Georgia', 'serif'],
-        body: ['"Inter"', 'system-ui', 'sans-serif']
+        body: ['"Outfit"', 'system-ui', 'sans-serif']
       }
     }
   },

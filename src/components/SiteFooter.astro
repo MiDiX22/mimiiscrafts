@@ -1,0 +1,147 @@
+---
+import { Image } from 'astro:assets';
+import logoBlanc from '../images/logos/logoTextBlanc.png';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="footer-inner">
+		<a href="/" class="footer-logo" aria-label="Mimi's Crafts — Inici">
+			<Image src={logoBlanc} alt="" widths={[240, 480]} sizes="12rem" loading="lazy" />
+		</a>
+
+		<nav class="footer-nav" aria-label="Peu de pàgina">
+			<a href="/#about">Sobre mi</a>
+			<a href="/projects">Projectes</a>
+			<a href="/contact">Contacta</a>
+		</nav>
+
+		<div class="footer-social">
+			<a
+				href="https://www.instagram.com/mimiiscrafts"
+				aria-label="Instagram"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<rect x="3" y="3" width="18" height="18" rx="5"></rect>
+					<circle cx="12" cy="12" r="4"></circle>
+					<circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"></circle>
+				</svg>
+			</a>
+			<a
+				href="https://www.youtube.com/@mimiiscrafts"
+				aria-label="YouTube"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M22.5 7.2a2.7 2.7 0 0 0-1.9-1.9C18.8 5 12 5 12 5s-6.8 0-8.6.3A2.7 2.7 0 0 0 1.5 7.2 28 28 0 0 0 1.2 12a28 28 0 0 0 .3 4.8 2.7 2.7 0 0 0 1.9 1.9c1.8.3 8.6.3 8.6.3s6.8 0 8.6-.3a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22.8 12a28 28 0 0 0-.3-4.8Z"></path>
+					<path d="m10 15 5-3-5-3v6Z" fill="currentColor" stroke="none"></path>
+				</svg>
+			</a>
+		</div>
+	</div>
+
+	<p class="footer-note">© {year} Mimi's Crafts · Fet amb fil i codi 🧵</p>
+</footer>
+
+<style>
+	.site-footer {
+		position: relative;
+		z-index: 1;
+		padding: 2.5rem clamp(1.25rem, 4vw, 2.5rem) 1.75rem;
+		background: var(--lila-fosc);
+		color: #fff;
+		font-family: 'Outfit', sans-serif;
+	}
+
+	.footer-inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem 2rem;
+		max-width: 68rem;
+		margin: 0 auto;
+	}
+
+	.footer-logo {
+		display: block;
+		width: 11rem;
+		line-height: 0;
+	}
+
+	.footer-logo img {
+		width: 100%;
+		height: auto;
+	}
+
+	.footer-nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.75rem;
+	}
+
+	.footer-nav a,
+	.footer-social a {
+		color: #fff;
+		text-decoration: none;
+	}
+
+	.footer-nav a {
+		font-size: 0.9rem;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.footer-nav a:hover {
+		text-decoration: underline;
+	}
+
+	.footer-social {
+		display: flex;
+		gap: 0.6rem;
+	}
+
+	.footer-social a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border: 1.5px solid rgba(255, 255, 255, 0.85);
+		border-radius: 0.6rem;
+		transition: background 0.2s ease;
+	}
+
+	.footer-social a:hover {
+		background: rgba(255, 255, 255, 0.14);
+	}
+
+	.footer-note {
+		max-width: 68rem;
+		margin: 2rem auto 0;
+		padding-top: 1.25rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.25);
+		font-size: 0.88rem;
+		opacity: 0.9;
+	}
+
+	@media (max-width: 640px) {
+		.footer-inner {
+			flex-direction: column;
+			text-align: center;
+		}
+
+		.footer-nav {
+			justify-content: center;
+		}
+
+		.footer-note {
+			text-align: center;
+		}
+	}
+</style>

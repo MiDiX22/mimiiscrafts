@@ -4,8 +4,18 @@
 
 :root {
 	--header-h: 5.75rem;
-	--nav-h: 2.35rem;
+	--nav-h: 2.75rem;
 	--end-h: calc(var(--header-h) + var(--nav-h));
+
+	/* Paleta: tres liles + dos neutres de suport */
+	--lila-suau: #d3cbfa; /* fons de seccions i detalls */
+	--lila: #9e6dff; /* marca: títols grans, icones, decoració */
+	--lila-fosc: #5e35b8; /* text i enllaços (contrast AA sobre blanc, crema i lila suau) */
+	--cel: #b8cefd; /* accent blau dels degradats */
+	--crema: #f7f4ef; /* fons de pàgina */
+
+	--ombra: 0 12px 28px rgba(90, 70, 130, 0.12);
+	--radi: 1.5rem;
 }
 
 @media (max-width: 768px) {

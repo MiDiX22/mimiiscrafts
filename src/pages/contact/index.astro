@@ -5,8 +5,6 @@ import SiteHero from '../../components/SiteHero.astro';
 import photo from '../../images/contact/mimiscrafs.jpeg';
 import stickerFils from '../../images/stickers/fils.png';
 import stickerEstisores from '../../images/stickers/estisores.png';
-import stickerPinzells from '../../images/stickers/pinzells.png';
-import stickerTote from '../../images/stickers/tote.png';
 
 const socials = [
 	{
@@ -29,20 +27,6 @@ const socials = [
 		<div class="contact-body">
 		<Image src={stickerFils} alt="" class="contact-deco contact-deco--fils" widths={[160, 280]} sizes="7rem" />
 		<Image src={stickerEstisores} alt="" class="contact-deco contact-deco--estisores" widths={[150, 260]} sizes="6.5rem" />
-		<Image src={stickerPinzells} alt="" class="contact-deco contact-deco--pinzells" widths={[120, 220]} sizes="5rem" />
-		<Image src={stickerTote} alt="" class="contact-deco contact-deco--tote" widths={[130, 220]} sizes="5.5rem" />
-		<svg class="contact-deco contact-deco--flower" viewBox="0 0 64 64" aria-hidden="true">
-			<g fill="#fff">
-				<circle cx="32" cy="12" r="11"></circle>
-				<circle cx="52" cy="32" r="11"></circle>
-				<circle cx="32" cy="52" r="11"></circle>
-				<circle cx="12" cy="32" r="11"></circle>
-			</g>
-			<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
-		</svg>
-		<svg class="contact-deco contact-deco--heart" viewBox="0 0 32 32" aria-hidden="true">
-			<path fill="#fff" d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"></path>
-		</svg>
 		<div class="contact-inner">
 			<figure class="contact-portrait">
 				<span class="contact-blob contact-blob--a" aria-hidden="true"></span>
@@ -100,8 +84,8 @@ const socials = [
 		position: relative;
 		overflow: hidden;
 		min-height: 100dvh;
-		background: linear-gradient(120deg, #b8cefd 0%, #d3cbfa 100%);
-		color: #9e6dff;
+		background: linear-gradient(120deg, var(--cel) 0%, var(--lila-suau) 100%);
+		color: var(--lila-fosc);
 	}
 
 	.contact-offset {
@@ -133,38 +117,6 @@ const socials = [
 		right: 1%;
 		width: 6rem;
 		transform: rotate(16deg);
-	}
-
-	.contact-deco--pinzells {
-		bottom: 7%;
-		left: 2%;
-		width: 4.6rem;
-		transform: rotate(-10deg);
-	}
-
-	.contact-deco--tote {
-		right: 2%;
-		bottom: 6%;
-		width: 5.2rem;
-		transform: rotate(8deg);
-	}
-
-	.contact-deco--flower {
-		top: 8%;
-		right: 18%;
-		width: 3.6rem;
-		height: 3.6rem;
-		transform: rotate(18deg);
-		filter: none;
-	}
-
-	.contact-deco--heart {
-		bottom: 18%;
-		left: 16%;
-		width: 1.8rem;
-		height: 1.8rem;
-		transform: rotate(-16deg);
-		filter: none;
 	}
 
 	.contact-inner {
@@ -206,7 +158,7 @@ const socials = [
 		left: 0;
 		width: 5.6rem;
 		height: 5.6rem;
-		background: #9e6dff;
+		background: var(--lila);
 		opacity: 0.28;
 	}
 
@@ -263,7 +215,7 @@ const socials = [
 		gap: 0.75rem;
 		padding: 0.55rem 1.15rem 0.55rem 0.55rem;
 		background: #fff;
-		color: #9e6dff;
+		color: var(--lila-fosc);
 		border-radius: 999px;
 		text-decoration: none;
 		box-shadow: 0 10px 22px rgba(90, 70, 130, 0.14);
@@ -282,7 +234,7 @@ const socials = [
 		width: 2.55rem;
 		height: 2.55rem;
 		border-radius: 50%;
-		background: #9e6dff;
+		background: var(--lila);
 		color: #fff;
 	}
 
@@ -308,18 +260,7 @@ const socials = [
 	@media (max-width: 800px) {
 		.contact-deco--fils,
 		.contact-deco--estisores,
-		.contact-deco--pinzells,
-		.contact-deco--tote,
-		.contact-deco--heart {
-			display: none;
-		}
 
-		.contact-deco--flower {
-			top: 0.6rem;
-			right: 0.8rem;
-			width: 2.6rem;
-			height: 2.6rem;
-		}
 		.contact-inner {
 			grid-template-columns: 1fr;
 			justify-items: center;

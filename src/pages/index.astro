@@ -1,17 +1,13 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import SiteHero from '../components/SiteHero.astro';
 import mimiPhoto from '../images/about/mimi.jpg';
 import stickerFils from '../images/stickers/fils.png';
-import stickerEstisores from '../images/stickers/estisores.png';
 import stickerLlana from '../images/stickers/llana.png';
-import stickerMetro from '../images/stickers/metro.png';
-import stickerTela from '../images/stickers/tela.png';
 import stickerMaquina from '../images/stickers/maquinaCosir.png';
-import stickerTote from '../images/stickers/tote.png';
 import stickerPinzells from '../images/stickers/pinzells.png';
-import stickerPistola from '../images/stickers/pistolaSilicona.png';
 import bookCover from '../images/about/book.jpg';
 import songCover from '../images/about/song.jpg';
 import movieCover from '../images/about/movie.jpg';
@@ -21,14 +17,18 @@ import tromsoPhoto from '../images/about/tromso.jpg';
 import nyPhoto from '../images/about/ny.jpg';
 import planeHeader from '../images/about/planeHeader.png';
 
+const featured = (await getCollection('projects'))
+	.sort((a, b) => a.data.titol.localeCompare(b.data.titol, 'ca'))
+	.slice(0, 3);
+
 const picks = [
 	{
 		src: bookCover,
 		kicker: 'Llibre',
 		emoji: '📚',
-		title: "La hipòtesi del amor",
+		title: "La hipòtesi de l'amor",
 		by: 'Ali Hazelwood',
-		alt: "Coberta del llibre La hipòtesi del amor, d'Ali Hazelwood",
+		alt: "Coberta del llibre La hipòtesi de l'amor, d'Ali Hazelwood",
 	},
 	{
 		src: songCover,
@@ -59,18 +59,18 @@ const trips = [
 	},
 	{
 		src: tolousePhoto,
-		place: 'Tolouse',
+		place: 'Toulouse',
 		flag: '🇫🇷',
 		date: 'Abril 2026',
-		alt: 'Miriam amb maquetes de coets a Tolouse',
+		alt: 'Miriam amb maquetes de coets a Toulouse',
 		position: '70% center',
 	},
 	{
 		src: tromsoPhoto,
-		place: 'Tromso',
+		place: 'Tromsø',
 		flag: '🇳🇴',
 		date: 'Febrer 2026',
-		alt: 'Miriam sota una aurora boreal a Tromso',
+		alt: 'Miriam sota una aurora boreal a Tromsø',
 		position: 'center 38%',
 	},
 	{
@@ -90,30 +90,49 @@ const trips = [
 		<SiteHero variant="scroll" active="about" />
 	</div>
 
+	<section class="featured" id="creacions" aria-labelledby="featured-title">
+		<div class="featured-inner">
+			<div class="featured-head">
+				<h2 id="featured-title" class="section-title">Les meves creacions</h2>
+				<p class="featured-lead">Una mica de tot: costura, pintura, tallers… i el que se m'acudi demà.</p>
+			</div>
+
+			<ul class="featured-grid">
+				{
+					featured.map((project) => (
+						<li>
+							<a class="featured-card" href={`/projects#${project.slug}`}>
+								<span class="featured-media">
+									<Image
+										src={project.data.imatges[0]}
+										alt=""
+										class="featured-photo"
+										widths={[360, 540, 720]}
+										sizes="(max-width: 700px) 88vw, 22rem"
+									/>
+									<span class="featured-tag">{project.data.tag}</span>
+								</span>
+								<span class="featured-name">{project.data.titol}</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+
+			<a class="btn" href="/projects">Veure tots els projectes <span aria-hidden="true">→</span></a>
+		</div>
+	</section>
+
 	<section class="about" id="about" aria-labelledby="about-title">
 		<div class="about-intro">
 			<div class="about-intro-copy">
-				<h2 id="about-title" class="about-title">Coneix-me</h2>
+				<h2 id="about-title" class="section-title">Coneix-me</h2>
 				<p>Ei, hola! Què tal? 👋</p>
 				<p>Benvingut o benvinguda al meu raconet d'internet.</p>
 			</div>
 
 			<figure class="about-portrait">
-				<span class="about-blob about-blob--a" aria-hidden="true"></span>
-				<span class="about-blob about-blob--b" aria-hidden="true"></span>
-				<span class="about-blob about-blob--c" aria-hidden="true"></span>
-				<svg class="about-flower about-flower--portrait" viewBox="0 0 64 64" aria-hidden="true">
-					<g fill="#d3cbfa">
-						<circle cx="32" cy="12" r="11"></circle>
-						<circle cx="52" cy="32" r="11"></circle>
-						<circle cx="32" cy="52" r="11"></circle>
-						<circle cx="12" cy="32" r="11"></circle>
-					</g>
-					<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
-				</svg>
-				<svg class="about-heart about-heart--portrait" viewBox="0 0 32 32" aria-hidden="true">
-					<path fill="#9e6dff" d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"></path>
-				</svg>
+				<span class="about-blob" aria-hidden="true"></span>
 				<Image
 					src={stickerPinzells}
 					alt=""
@@ -128,22 +147,6 @@ const trips = [
 					class="about-doodle about-doodle--maquina"
 					widths={[120, 200]}
 					sizes="120px"
-					loading="lazy"
-				/>
-				<Image
-					src={stickerPistola}
-					alt=""
-					class="about-doodle about-doodle--pistola"
-					widths={[110, 180]}
-					sizes="110px"
-					loading="lazy"
-				/>
-				<Image
-					src={stickerTote}
-					alt=""
-					class="about-doodle about-doodle--tote"
-					widths={[100, 160]}
-					sizes="100px"
 					loading="lazy"
 				/>
 				<div class="about-portrait-frame">
@@ -162,24 +165,6 @@ const trips = [
 
 		<div class="about-story">
 			<div class="about-story-card">
-				<svg class="about-flower about-flower--tr" viewBox="0 0 64 64" aria-hidden="true">
-					<g fill="#fff">
-						<circle cx="32" cy="12" r="11"></circle>
-						<circle cx="52" cy="32" r="11"></circle>
-						<circle cx="32" cy="52" r="11"></circle>
-						<circle cx="12" cy="32" r="11"></circle>
-					</g>
-					<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
-				</svg>
-				<svg class="about-flower about-flower--bl" viewBox="0 0 64 64" aria-hidden="true">
-					<g fill="#b8cefd">
-						<circle cx="32" cy="12" r="11"></circle>
-						<circle cx="52" cy="32" r="11"></circle>
-						<circle cx="32" cy="52" r="11"></circle>
-						<circle cx="12" cy="32" r="11"></circle>
-					</g>
-					<circle cx="32" cy="32" r="7" fill="#fff"></circle>
-				</svg>
 				<p>
 					Em dic Miriam i, per guanyar-me la vida, soc desenvolupadora de software (sí, soc
 					d'aquelles persones que es passen hores picant codi i parlant amb les màquines). Però
@@ -196,12 +181,6 @@ const trips = [
 		</div>
 
 		<div class="about-notes">
-			<svg class="about-heart about-heart--notes" viewBox="0 0 32 32" aria-hidden="true">
-				<path fill="#fff" d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"></path>
-			</svg>
-			<svg class="about-star about-star--notes" viewBox="0 0 24 24" aria-hidden="true">
-				<path fill="#fff" d="M12 2.2 14.4 8.7h6.8l-5.5 4 2.1 6.5L12 15.2 6.2 19.2l2.1-6.5-5.5-4h6.8L12 2.2z"></path>
-			</svg>
 			<ul class="about-notes-list">
 				<li class="about-note">
 					<p>
@@ -222,17 +201,9 @@ const trips = [
 
 		<div class="about-close">
 			<Image
-				src={stickerEstisores}
-				alt=""
-				class="about-close-doodle about-close-doodle--left"
-				widths={[120, 200]}
-				sizes="120px"
-				loading="lazy"
-			/>
-			<Image
 				src={stickerFils}
 				alt=""
-				class="about-close-doodle about-close-doodle--right"
+				class="about-close-doodle"
 				widths={[140, 220]}
 				sizes="140px"
 				loading="lazy"
@@ -253,36 +224,16 @@ const trips = [
 	</section>
 
 	<section class="picks" id="recomanacions" aria-labelledby="picks-title">
-		<svg class="picks-flower" viewBox="0 0 64 64" aria-hidden="true">
-			<g fill="#fff">
-				<circle cx="32" cy="12" r="11"></circle>
-				<circle cx="52" cy="32" r="11"></circle>
-				<circle cx="32" cy="52" r="11"></circle>
-				<circle cx="12" cy="32" r="11"></circle>
-			</g>
-			<circle cx="32" cy="32" r="7" fill="#9e6dff"></circle>
-		</svg>
-		<svg class="picks-heart" viewBox="0 0 32 32" aria-hidden="true">
-			<path fill="#fff" d="M16 27.5S6.5 21.2 6.5 14.8a5.6 5.6 0 0 1 9.5-4 5.6 5.6 0 0 1 9.5 4c0 6.4-9.5 12.7-9.5 12.7z"></path>
-		</svg>
 		<Image
 			src={stickerLlana}
 			alt=""
-			class="picks-doodle picks-doodle--llana"
-			widths={[110, 180]}
-			sizes="110px"
-			loading="lazy"
-		/>
-		<Image
-			src={stickerTela}
-			alt=""
-			class="picks-doodle picks-doodle--tela"
+			class="picks-doodle"
 			widths={[110, 180]}
 			sizes="110px"
 			loading="lazy"
 		/>
 		<div class="picks-inner">
-			<h2 id="picks-title" class="picks-title">Les meves recomanacions ✨</h2>
+			<h2 id="picks-title" class="section-title">Les meves recomanacions ✨</h2>
 			<p class="picks-lead">
 				La meva indecisió crònica fa que a vegades sigui dificilíssim triar els meus preferits,
 				així que simplement he posat els que més em defineixen.
@@ -313,17 +264,6 @@ const trips = [
 	</section>
 
 	<section class="trips" id="viatges" aria-labelledby="trips-title">
-		<svg class="trips-star" viewBox="0 0 24 24" aria-hidden="true">
-			<path fill="#9e6dff" d="M12 2.2 14.4 8.7h6.8l-5.5 4 2.1 6.5L12 15.2 6.2 19.2l2.1-6.5-5.5-4h6.8L12 2.2z"></path>
-		</svg>
-		<Image
-			src={stickerMetro}
-			alt=""
-			class="trips-doodle"
-			widths={[140, 220]}
-			sizes="140px"
-			loading="lazy"
-		/>
 		<div class="trips-head">
 			<Image
 				src={planeHeader}
@@ -332,7 +272,7 @@ const trips = [
 				widths={[480, 720, 960]}
 				sizes="(max-width: 700px) 88vw, 28rem"
 			/>
-			<h2 id="trips-title" class="trips-title">Els meus últims viatges</h2>
+			<h2 id="trips-title" class="section-title">Els meus últims viatges</h2>
 		</div>
 		<ul class="trips-list">
 			{
@@ -361,24 +301,166 @@ const trips = [
 </Layout>
 
 <style>
-	.home-flow {
-		--about-bg: linear-gradient(90deg, #b8cefd 0%, #d3cbfa 100%);
+	/* ---------- Comuns ---------- */
+	.section-title {
+		margin: 0;
+		font-family: 'Fraunces', Georgia, serif;
+		font-variation-settings: 'SOFT' 100, 'WONK' 1;
+		font-size: clamp(2.4rem, 5vw, 3.4rem);
+		font-weight: 500;
+		line-height: 1.05;
+		color: var(--lila);
+		text-wrap: balance;
 	}
 
+	.featured-lead,
+	.about-intro-copy,
+	.about-story-card p,
+	.about-note p,
+	.about-close-copy p,
+	.picks-lead {
+		font-family: 'Outfit', sans-serif;
+		font-size: clamp(1rem, 1.6vw, 1.1rem);
+		font-weight: 500;
+		line-height: 1.7;
+		text-wrap: pretty;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.85rem 1.5rem;
+		border-radius: 999px;
+		background: var(--lila-fosc);
+		color: #fff;
+		font-family: 'Outfit', sans-serif;
+		font-size: 1rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn:hover {
+		color: #fff;
+		text-decoration: none;
+		transform: translateY(-2px);
+		box-shadow: var(--ombra);
+	}
+
+	/* ---------- Escenari del hero ---------- */
 	.scroll-stage {
 		position: relative;
-		/* Extra height offsets the about negative margin so scroll progress can still reach 1 */
-		height: calc(180vh + 100dvh - var(--end-h));
-		background: var(--about-bg);
+		/* Extra height offsets the next section's negative margin so scroll progress can still reach 1 */
+		height: calc(120vh + 100dvh - var(--end-h));
+		background: var(--crema);
 	}
 
+	/* ---------- Creacions destacades ---------- */
+	.featured {
+		position: relative;
+		z-index: 1;
+		background: var(--crema);
+		color: var(--lila-fosc);
+		/* Pull up so it sits flush under the collapsed header when the transition ends */
+		margin-top: calc(var(--end-h) - 100dvh);
+		scroll-margin-top: var(--end-h);
+		padding: clamp(2.6rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3rem, 6vw, 4.5rem);
+	}
+
+	.featured-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		max-width: 68rem;
+		margin: 0 auto;
+	}
+
+	.featured-head {
+		max-width: 36rem;
+		text-align: center;
+	}
+
+	.featured-lead {
+		margin: 0.9rem 0 0;
+	}
+
+	.featured-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 20rem));
+		justify-content: center;
+		gap: clamp(1.1rem, 2.5vw, 1.75rem);
+		width: 100%;
+		margin: clamp(1.8rem, 3.5vw, 2.6rem) 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.featured-card {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.featured-card:hover {
+		text-decoration: none;
+	}
+
+	.featured-media {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		border-radius: var(--radi);
+		background: #fff;
+		box-shadow: var(--ombra);
+	}
+
+	.featured-photo {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.featured-card:hover .featured-photo,
+	.featured-card:focus-visible .featured-photo {
+		transform: scale(1.04);
+	}
+
+	.featured-tag {
+		position: absolute;
+		top: 0.85rem;
+		left: 0.85rem;
+		padding: 0.3rem 0.75rem;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.92);
+		color: var(--lila-fosc);
+		font-family: 'Outfit', sans-serif;
+		font-size: 0.8rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.featured-name {
+		display: block;
+		margin-top: 0.9rem;
+		font-family: 'Fraunces', Georgia, serif;
+		font-variation-settings: 'SOFT' 100, 'WONK' 1;
+		font-size: clamp(1.3rem, 2vw, 1.5rem);
+		font-weight: 500;
+		line-height: 1.2;
+		color: var(--lila-fosc);
+		text-align: center;
+	}
+
+	/* ---------- Coneix-me ---------- */
 	.about {
 		position: relative;
 		z-index: 1;
 		background: #fff;
-		color: #9e6dff;
-		/* Pull about up so it sits flush under the collapsed header when the transition ends */
-		margin-top: calc(var(--end-h) - 100dvh);
+		color: var(--lila-fosc);
 		scroll-margin-top: var(--end-h);
 		overflow: hidden;
 	}
@@ -393,17 +475,6 @@ const trips = [
 		padding: clamp(2.4rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2rem);
 	}
 
-	.about-intro-copy,
-	.about-story-card p,
-	.about-note p,
-	.about-close-copy p {
-		font-family: 'Outfit', sans-serif;
-		font-size: clamp(0.98rem, 1.6vw, 1.08rem);
-		font-weight: 500;
-		line-height: 1.7;
-		text-wrap: pretty;
-	}
-
 	.about-intro-copy p,
 	.about-story-card p,
 	.about-note p,
@@ -411,18 +482,12 @@ const trips = [
 		margin: 0;
 	}
 
-	.about-intro-copy p + p {
-		margin-top: 0.85rem;
+	.about-intro-copy .section-title {
+		margin-bottom: 1rem;
 	}
 
-	.about-title {
-		margin: 0 0 1rem;
-		font-family: 'Fraunces', Georgia, serif;
-		font-variation-settings: 'SOFT' 100, 'WONK' 1;
-		font-size: clamp(2.5rem, 5vw, 3.6rem);
-		font-weight: 500;
-		color: #9e6dff;
-		line-height: 1.05;
+	.about-intro-copy p + p {
+		margin-top: 0.85rem;
 	}
 
 	.about-portrait {
@@ -433,64 +498,26 @@ const trips = [
 	}
 
 	.about-blob,
-	.about-flower,
-	.about-heart,
-	.about-star,
 	.about-doodle,
-	.about-close-doodle {
+	.about-close-doodle,
+	.picks-doodle {
 		position: absolute;
 		pointer-events: none;
 	}
 
 	.about-blob {
 		z-index: 0;
-		border-radius: 50%;
-	}
-
-	.about-blob--a {
 		top: 0.35rem;
 		right: 0.15rem;
-		width: 7.5rem;
-		height: 7.5rem;
-		background: #d3cbfa;
+		width: 8rem;
+		height: 8rem;
+		border-radius: 50%;
+		background: var(--lila-suau);
 	}
 
-	.about-blob--b {
-		bottom: 3.2rem;
-		left: 0;
-		width: 6.25rem;
-		height: 6.25rem;
-		background: #b8cefd;
-	}
-
-	.about-blob--c {
-		top: 42%;
-		right: -0.2rem;
-		width: 2.4rem;
-		height: 2.4rem;
-		background: #9e6dff;
-		opacity: 0.35;
-	}
-
-	.about-flower--portrait {
-		z-index: 2;
-		top: 0.15rem;
-		left: 0.2rem;
-		width: 3.4rem;
-		height: 3.4rem;
-		transform: rotate(-12deg);
-	}
-
-	.about-heart--portrait {
-		z-index: 2;
-		right: 0.35rem;
-		bottom: 2.6rem;
-		width: 1.7rem;
-		height: 1.7rem;
-		transform: rotate(12deg);
-	}
-
-	.about-doodle {
+	.about-doodle,
+	.about-close-doodle,
+	.picks-doodle {
 		z-index: 3;
 		height: auto;
 		max-width: none;
@@ -499,30 +526,16 @@ const trips = [
 
 	.about-doodle--pinzells {
 		top: 0.2rem;
-		left: 18%;
+		left: 14%;
 		width: 4.1rem;
 		transform: rotate(-18deg);
 	}
 
 	.about-doodle--maquina {
-		top: 1.1rem;
-		right: -0.15rem;
+		bottom: 2.4rem;
+		right: -0.4rem;
 		width: 5.4rem;
-		transform: rotate(14deg);
-	}
-
-	.about-doodle--pistola {
-		bottom: 1.6rem;
-		left: -0.35rem;
-		width: 5rem;
-		transform: rotate(-22deg);
-	}
-
-	.about-doodle--tote {
-		right: 0.35rem;
-		bottom: 0.15rem;
-		width: 4.3rem;
-		transform: rotate(8deg);
+		transform: rotate(10deg);
 	}
 
 	.about-portrait-frame {
@@ -551,7 +564,7 @@ const trips = [
 		font-variation-settings: 'SOFT' 100, 'WONK' 1;
 		font-size: 1.45rem;
 		line-height: 1.1;
-		color: #9e6dff;
+		color: var(--lila);
 	}
 
 	.about-story {
@@ -559,75 +572,59 @@ const trips = [
 	}
 
 	.about-story-card {
-		position: relative;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 1.15rem 2.4rem;
 		max-width: 68rem;
 		margin: 0 auto;
 		padding: clamp(2rem, 4vw, 2.8rem) clamp(1.6rem, 4vw, 3rem);
-		overflow: hidden;
 		border-radius: 2rem;
-		background: linear-gradient(120deg, #b8cefd 0%, #d3cbfa 100%);
-		box-shadow: 0 16px 34px rgba(90, 70, 130, 0.12);
+		background: var(--crema);
 	}
 
-	.about-flower--tr,
-	.about-flower--bl {
-		width: 4.6rem;
-		height: 4.6rem;
-	}
-
-	.about-flower--tr {
-		top: -1rem;
-		right: -0.7rem;
-	}
-
-	.about-flower--bl {
-		bottom: -1.15rem;
-		left: -0.75rem;
-		width: 3.8rem;
-		height: 3.8rem;
-	}
-
+	/* Notes com a post-its enganxats amb cinta */
 	.about-notes {
-		position: relative;
-		background: #d3cbfa;
-		padding: clamp(2.6rem, 5vw, 3.6rem) clamp(1.25rem, 4vw, 2.5rem);
-	}
-
-	.about-heart--notes {
-		top: 1.1rem;
-		left: clamp(0.8rem, 3vw, 2rem);
-		width: 1.8rem;
-		height: 1.8rem;
-		transform: rotate(-14deg);
-		opacity: 0.85;
-	}
-
-	.about-star--notes {
-		right: clamp(1rem, 4vw, 2.6rem);
-		bottom: 1rem;
-		width: 1.7rem;
-		height: 1.7rem;
-		opacity: 0.9;
+		background: var(--lila-suau);
+		padding: clamp(3rem, 6vw, 4.2rem) clamp(1.25rem, 4vw, 2.5rem);
 	}
 
 	.about-notes-list {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: clamp(0.9rem, 2vw, 1.35rem);
-		max-width: 68rem;
+		gap: clamp(1.6rem, 3vw, 2.4rem);
+		max-width: 60rem;
 		margin: 0 auto;
 		padding: 0;
 		list-style: none;
 	}
 
 	.about-note {
-		padding: clamp(1.35rem, 2.5vw, 1.85rem);
-		border-radius: 1.5rem;
+		position: relative;
+		padding: clamp(1.6rem, 2.8vw, 2.1rem) clamp(1.35rem, 2.5vw, 1.85rem) clamp(1.35rem, 2.5vw, 1.85rem);
+		border-radius: 0.4rem;
 		background: #fff;
-		box-shadow: 0 12px 28px rgba(90, 70, 130, 0.12);
+		box-shadow: var(--ombra);
+		transform: rotate(-1.2deg);
+	}
+
+	.about-note:nth-child(2) {
+		transform: rotate(1.4deg);
+	}
+
+	.about-note::before {
+		content: '';
+		position: absolute;
+		top: -0.7rem;
+		left: 50%;
+		width: 5.5rem;
+		height: 1.4rem;
+		background: color-mix(in srgb, var(--cel) 75%, transparent);
+		transform: translateX(-50%) rotate(-3deg);
+	}
+
+	.about-note:nth-child(2)::before {
+		background: color-mix(in srgb, var(--lila) 45%, transparent);
+		transform: translateX(-50%) rotate(4deg);
 	}
 
 	.about-close {
@@ -636,6 +633,8 @@ const trips = [
 	}
 
 	.about-close-copy {
+		position: relative;
+		z-index: 1;
 		max-width: 38rem;
 		margin: 0 auto;
 		text-align: center;
@@ -645,90 +644,40 @@ const trips = [
 		margin-top: 1.35rem;
 	}
 
-	.about-signoff {
-		font-family: 'Outfit', sans-serif;
-	}
-
 	.about-signoff span {
 		font-family: 'Fraunces', Georgia, serif;
 		font-variation-settings: 'SOFT' 100, 'WONK' 1;
 		font-size: 1.6rem;
-		color: #9e6dff;
+		color: var(--lila);
 	}
 
 	.about-close-doodle {
-		z-index: 1;
-		height: auto;
-		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.12));
-	}
-
-	.about-close-doodle--left {
-		top: 18%;
-		left: clamp(0.4rem, 4vw, 3.5rem);
-		width: clamp(4.2rem, 8vw, 6.5rem);
-		transform: rotate(-14deg);
-	}
-
-	.about-close-doodle--right {
 		right: clamp(0.4rem, 4vw, 3.2rem);
 		bottom: 12%;
 		width: clamp(4.6rem, 9vw, 7rem);
 		transform: rotate(10deg);
 	}
 
+	/* ---------- Recomanacions ---------- */
 	.picks {
 		position: relative;
 		z-index: 1;
 		overflow: hidden;
-		background: #d3cbfa;
-		color: #9e6dff;
-		padding: clamp(2.8rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem) clamp(4.6rem, 8vw, 6rem);
+		background: linear-gradient(120deg, var(--cel) 0%, var(--lila-suau) 100%);
+		color: var(--lila-fosc);
+		padding: clamp(2.8rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3.6rem, 7vw, 5rem);
 	}
 
-	.picks-flower,
-	.picks-heart,
-	.picks-doodle,
-	.trips-star,
-	.trips-doodle {
-		position: absolute;
-		pointer-events: none;
-	}
-
-	.picks-flower {
-		top: 1.1rem;
-		right: clamp(0.8rem, 3vw, 2.2rem);
-		width: 3.6rem;
-		height: 3.6rem;
-		transform: rotate(10deg);
-	}
-
-	.picks-heart {
-		bottom: 1.3rem;
-		left: clamp(0.8rem, 3vw, 2rem);
-		width: 1.7rem;
-		height: 1.7rem;
-		transform: rotate(-12deg);
-		opacity: 0.9;
+	.picks .section-title,
+	.picks .pick-name {
+		color: var(--lila-fosc);
 	}
 
 	.picks-doodle {
-		z-index: 1;
-		height: auto;
-		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.12));
-	}
-
-	.picks-doodle--llana {
-		top: 4.5rem;
+		top: 2rem;
 		left: clamp(0.4rem, 2.5vw, 1.8rem);
 		width: clamp(4rem, 7vw, 5.6rem);
 		transform: rotate(-12deg);
-	}
-
-	.picks-doodle--tela {
-		right: clamp(0.7rem, 2.5vw, 1.6rem);
-		bottom: 0.7rem;
-		width: 3.8rem;
-		transform: rotate(8deg);
 	}
 
 	.picks-inner {
@@ -739,24 +688,9 @@ const trips = [
 		text-align: center;
 	}
 
-	.picks-title,
-	.trips-title {
-		margin: 0;
-		font-family: 'Fraunces', Georgia, serif;
-		font-variation-settings: 'SOFT' 100, 'WONK' 1;
-		font-size: clamp(2.4rem, 5vw, 3.4rem);
-		font-weight: 500;
-		line-height: 1.05;
-		color: #9e6dff;
-	}
-
 	.picks-lead {
 		max-width: 36rem;
 		margin: 0.9rem auto 0;
-		font-family: 'Outfit', sans-serif;
-		font-size: clamp(0.98rem, 1.6vw, 1.08rem);
-		font-weight: 500;
-		line-height: 1.7;
 	}
 
 	.picks-list {
@@ -775,16 +709,18 @@ const trips = [
 		height: 100%;
 		margin: 0;
 		padding: 1.35rem 1.1rem 1.4rem;
-		border-radius: 1.5rem;
+		border-radius: var(--radi);
 		background: #fff;
-		box-shadow: 0 12px 28px rgba(90, 70, 130, 0.12);
+		box-shadow: var(--ombra);
 	}
 
 	.pick-kicker {
 		margin: 0;
 		font-family: 'Outfit', sans-serif;
-		font-size: clamp(1.02rem, 1.5vw, 1.16rem);
+		font-size: 0.85rem;
 		font-weight: 600;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
 		line-height: 1.2;
 	}
 
@@ -807,7 +743,6 @@ const trips = [
 		font-size: clamp(1.2rem, 1.8vw, 1.4rem);
 		font-weight: 500;
 		line-height: 1.15;
-		color: #9e6dff;
 	}
 
 	.pick-by {
@@ -819,38 +754,19 @@ const trips = [
 		line-height: 1.2;
 	}
 
+	/* ---------- Viatges (polaroids) ---------- */
 	.trips {
 		position: relative;
 		z-index: 1;
 		overflow: hidden;
-		background: #fff;
-		color: #9e6dff;
-		padding: clamp(2.4rem, 5vw, 3.6rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3.2rem, 6vw, 4.8rem);
-	}
-
-	.trips-star {
-		top: 1.4rem;
-		left: clamp(1rem, 4vw, 2.8rem);
-		width: 1.55rem;
-		height: 1.55rem;
-		opacity: 0.8;
-	}
-
-	.trips-doodle {
-		z-index: 1;
-		right: clamp(0.6rem, 3vw, 2.4rem);
-		bottom: 1.4rem;
-		width: clamp(5rem, 9vw, 7rem);
-		height: auto;
-		transform: rotate(8deg);
-		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.12));
+		background: var(--crema);
+		color: var(--lila-fosc);
+		padding: clamp(2.4rem, 5vw, 3.6rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3.6rem, 7vw, 5.2rem);
 	}
 
 	.trips-head {
-		position: relative;
-		z-index: 1;
 		max-width: 40rem;
-		margin: 0 auto 1.6rem;
+		margin: 0 auto clamp(1.8rem, 3.5vw, 2.6rem);
 		text-align: center;
 	}
 
@@ -862,60 +778,70 @@ const trips = [
 	}
 
 	.trips-list {
-		position: relative;
-		z-index: 1;
 		display: grid;
 		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: clamp(0.85rem, 2vw, 1.25rem);
-		max-width: 72rem;
+		gap: clamp(1.1rem, 2.5vw, 1.8rem);
+		max-width: 68rem;
 		margin: 0 auto;
-		padding: clamp(0.9rem, 2vw, 1.2rem);
+		padding: 0;
 		list-style: none;
-		border-radius: 2rem;
-		background: linear-gradient(120deg, #b8cefd 0%, #d3cbfa 100%);
 	}
 
 	.trip {
-		display: flex;
-		flex-direction: column;
-		padding: 0.55rem 0.55rem 1rem;
-		border-radius: 1.5rem;
+		padding: 0.7rem 0.7rem 1.1rem;
 		background: #fff;
-		box-shadow: 0 12px 28px rgba(90, 70, 130, 0.12);
+		box-shadow: 0 10px 24px rgba(90, 70, 130, 0.14);
 		text-align: center;
+		transform: rotate(var(--tilt, -2deg));
+		transition: transform 0.3s ease;
+	}
+
+	.trip:nth-child(2) {
+		--tilt: 1.8deg;
+	}
+
+	.trip:nth-child(3) {
+		--tilt: -1deg;
+	}
+
+	.trip:nth-child(4) {
+		--tilt: 2.4deg;
+	}
+
+	.trip:hover {
+		transform: rotate(0deg) scale(1.03);
 	}
 
 	.trip-frame {
 		margin: 0;
 		overflow: hidden;
-		border-radius: 1.05rem;
 	}
 
 	.trip-photo {
 		display: block;
 		width: 100%;
-		aspect-ratio: 5 / 4;
+		aspect-ratio: 1;
 		object-fit: cover;
 	}
 
 	.trip-place {
-		margin: 0.8rem 0.4rem 0;
+		margin: 0.85rem 0.4rem 0;
 		font-family: 'Fraunces', Georgia, serif;
 		font-variation-settings: 'SOFT' 100, 'WONK' 1;
-		font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+		font-size: clamp(1.25rem, 1.8vw, 1.45rem);
 		font-weight: 500;
 		line-height: 1.2;
-		color: #9e6dff;
 	}
 
 	.trip-date {
 		margin: 0.15rem 0.4rem 0;
 		font-family: 'Outfit', sans-serif;
-		font-size: clamp(0.88rem, 1.2vw, 0.98rem);
+		font-size: 0.92rem;
 		font-weight: 500;
 		line-height: 1.3;
 	}
 
+	/* ---------- Responsive ---------- */
 	@media (max-width: 900px) {
 		.about-intro,
 		.about-story-card,
@@ -936,16 +862,12 @@ const trips = [
 			width: 4.4rem;
 		}
 
-		.about-doodle--pistola {
-			width: 4.1rem;
-		}
-
-		.about-doodle--tote,
 		.about-doodle--pinzells {
 			width: 3.5rem;
 		}
 
-		.about-close-doodle {
+		.about-close-doodle,
+		.picks-doodle {
 			display: none;
 		}
 
@@ -957,14 +879,6 @@ const trips = [
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
-		.picks-doodle,
-		.trips-doodle,
-		.picks-flower,
-		.picks-heart,
-		.trips-star {
-			display: none;
-		}
-
 		.pick-card {
 			max-width: 22rem;
 			margin-inline: auto;
@@ -974,6 +888,16 @@ const trips = [
 	@media (prefers-reduced-motion: reduce) {
 		.scroll-stage {
 			height: auto;
+		}
+
+		.featured {
+			margin-top: 0;
+		}
+
+		.featured-photo,
+		.trip,
+		.btn {
+			transition: none;
 		}
 	}
 </style>
@@ -1043,6 +967,31 @@ const trips = [
 			},
 			{ passive: true }
 		);
+
+		// Només es veu l'animació d'entrada una vegada per sessió: a les visites
+		// següents saltem directament al contingut (es pot tornar a pujar per veure-la).
+		const SEEN_KEY = 'mc-hero-seen';
+		let seen = false;
+		try {
+			seen = sessionStorage.getItem(SEEN_KEY) === '1';
+		} catch {}
+
+		if (!reduceMotion && seen && !window.location.hash && window.scrollY < 8) {
+			const target = contentStartsAt();
+			anchor = 0;
+			peak = target;
+			window.scrollTo(0, target);
+			updateProgress();
+		}
+
+		const markSeen = () => {
+			if (window.scrollY < contentStartsAt() - 4) return;
+			try {
+				sessionStorage.setItem(SEEN_KEY, '1');
+			} catch {}
+			window.removeEventListener('scroll', markSeen);
+		};
+		window.addEventListener('scroll', markSeen, { passive: true });
 
 		document.addEventListener(
 			'click',
