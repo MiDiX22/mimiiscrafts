@@ -3,8 +3,6 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import SiteHero from '../../components/SiteHero.astro';
 import photo from '../../images/contact/mimiscrafs.jpeg';
-import stickerFils from '../../images/stickers/fils.png';
-import stickerEstisores from '../../images/stickers/estisores.png';
 
 const socials = [
 	{
@@ -25,8 +23,6 @@ const socials = [
 	<section class="contact" id="contact" aria-labelledby="contact-title">
 		<div class="contact-offset" aria-hidden="true"></div>
 		<div class="contact-body">
-		<Image src={stickerFils} alt="" class="contact-deco contact-deco--fils" widths={[160, 280]} sizes="7rem" />
-		<Image src={stickerEstisores} alt="" class="contact-deco contact-deco--estisores" widths={[150, 260]} sizes="6.5rem" />
 		<div class="contact-inner">
 			<figure class="contact-portrait">
 				<span class="contact-blob contact-blob--a" aria-hidden="true"></span>
@@ -95,28 +91,6 @@ const socials = [
 	.contact-body {
 		position: relative;
 		min-height: calc(100dvh - var(--end-h));
-	}
-
-	.contact-deco {
-		position: absolute;
-		z-index: 0;
-		height: auto;
-		pointer-events: none;
-		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.14));
-	}
-
-	.contact-deco--fils {
-		top: 6%;
-		left: 1%;
-		width: 6.4rem;
-		transform: rotate(-14deg);
-	}
-
-	.contact-deco--estisores {
-		top: 14%;
-		right: 1%;
-		width: 6rem;
-		transform: rotate(16deg);
 	}
 
 	.contact-inner {
@@ -196,8 +170,7 @@ const socials = [
 		font-size: clamp(2.5rem, 5vw, 3.6rem);
 		font-weight: 500;
 		line-height: 1.05;
-		color: #fff;
-		text-shadow: 0 1px 10px rgba(110, 80, 170, 0.22);
+		color: var(--lila-fosc);
 	}
 
 	.contact-links {
@@ -258,8 +231,6 @@ const socials = [
 	}
 
 	@media (max-width: 800px) {
-		.contact-deco--fils,
-		.contact-deco--estisores,
 
 		.contact-inner {
 			grid-template-columns: 1fr;

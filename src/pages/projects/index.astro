@@ -3,8 +3,6 @@ import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import SiteHero from '../../components/SiteHero.astro';
-import stickerFils from '../../images/stickers/fils.png';
-import stickerEstisores from '../../images/stickers/estisores.png';
 
 const projects = (await getCollection('projects')).sort((a, b) =>
 	a.data.titol.localeCompare(b.data.titol, 'ca')
@@ -45,20 +43,6 @@ const projectCards = await Promise.all(
 <Layout>
 	<SiteHero variant="pull" active="projects" />
 	<section class="projects" aria-labelledby="projects-title">
-		<Image
-			src={stickerEstisores}
-			alt=""
-			class="projects-doodle projects-doodle--estisores"
-			widths={[150, 260]}
-			sizes="6rem"
-		/>
-		<Image
-			src={stickerFils}
-			alt=""
-			class="projects-doodle projects-doodle--fils"
-			widths={[160, 280]}
-			sizes="6.5rem"
-		/>
 
 		<div class="projects-inner">
 			<h1 id="projects-title" class="projects-title">Projectes</h1>
@@ -155,31 +139,6 @@ const projectCards = await Promise.all(
 		color: var(--lila-fosc);
 		padding: calc(var(--end-h) + clamp(2.4rem, 5vw, 3.6rem)) clamp(1.25rem, 4vw, 2.5rem)
 			clamp(3.4rem, 7vw, 5rem);
-	}
-
-	.projects-doodle {
-		position: absolute;
-		z-index: 0;
-		pointer-events: none;
-	}
-
-	.projects-doodle {
-		height: auto;
-		filter: drop-shadow(0 8px 14px rgba(90, 70, 130, 0.14));
-	}
-
-	.projects-doodle--estisores {
-		top: 38%;
-		right: clamp(0.2rem, 1.5vw, 1rem);
-		width: 6.2rem;
-		transform: rotate(18deg);
-	}
-
-	.projects-doodle--fils {
-		top: calc(var(--end-h) - 0.2rem);
-		right: clamp(4rem, 8vw, 7rem);
-		width: 6rem;
-		transform: rotate(8deg);
 	}
 
 	.projects-inner {
@@ -546,11 +505,6 @@ const projectCards = await Promise.all(
 		.projects-filter {
 			flex: 0 0 auto;
 			width: 100%;
-		}
-
-		.projects-doodle--estisores,
-		.projects-doodle--fils {
-			display: none;
 		}
 
 		.viewer-nav {
