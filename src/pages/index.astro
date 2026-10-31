@@ -129,6 +129,18 @@ const trips = [
 				<h2 id="about-title" class="section-title">Coneix-me</h2>
 				<p>Ei, hola! Què tal? 👋</p>
 				<p>Benvingut o benvinguda al meu raconet d'internet.</p>
+				<p>
+					Em dic Miriam i, per guanyar-me la vida, soc desenvolupadora de software (sí, soc
+					d'aquelles persones que es passen hores picant codi i parlant amb les màquines). Però
+					quan tanco l'ordinador de la feina... em transformo!
+				</p>
+				<p>
+					M'apassiona fer manualitats: des de treure la màquina de cosir, fins a agafar els pinzells
+					per pintar o, directament, inventar-me coses noves del no-res. Fa un temps em vaig obrir
+					un perfil a Instagram per anar penjant totes aquestes "creacions" i, de cop i volta, vaig
+					pensar: per què no ajunto la meva part tequi amb la meva part més creativa? I pam, així ha
+					nascut aquesta web! La fusió perfecta entre la meva feina i els meus hobbies.
+				</p>
 			</div>
 
 			<figure class="about-portrait">
@@ -161,23 +173,6 @@ const trips = [
 				</div>
 				<figcaption class="about-caption">mimi</figcaption>
 			</figure>
-		</div>
-
-		<div class="about-story">
-			<div class="about-story-card">
-				<p>
-					Em dic Miriam i, per guanyar-me la vida, soc desenvolupadora de software (sí, soc
-					d'aquelles persones que es passen hores picant codi i parlant amb les màquines). Però
-					quan tanco l'ordinador de la feina... em transformo!
-				</p>
-				<p>
-					M'apassiona fer manualitats: des de treure la màquina de cosir, fins a agafar els pinzells
-					per pintar o, directament, inventar-me coses noves del no-res. Fa un temps em vaig obrir
-					un perfil a Instagram per anar penjant totes aquestes "creacions" i, de cop i volta, vaig
-					pensar: per què no ajunto la meva part tequi amb la meva part més creativa? I pam, així ha
-					nascut aquesta web! La fusió perfecta entre la meva feina i els meus hobbies.
-				</p>
-			</div>
 		</div>
 
 		<div class="about-notes">
@@ -315,7 +310,6 @@ const trips = [
 
 	.featured-lead,
 	.about-intro-copy,
-	.about-story-card p,
 	.about-note p,
 	.about-close-copy p,
 	.picks-lead {
@@ -476,7 +470,6 @@ const trips = [
 	}
 
 	.about-intro-copy p,
-	.about-story-card p,
 	.about-note p,
 	.about-close-copy p {
 		margin: 0;
@@ -488,6 +481,10 @@ const trips = [
 
 	.about-intro-copy p + p {
 		margin-top: 0.85rem;
+	}
+
+	.about-intro {
+		padding-bottom: clamp(2.75rem, 5vw, 3.75rem);
 	}
 
 	.about-portrait {
@@ -565,21 +562,6 @@ const trips = [
 		font-size: 1.45rem;
 		line-height: 1.1;
 		color: var(--lila);
-	}
-
-	.about-story {
-		padding: 0.25rem clamp(1rem, 4vw, 2.5rem) clamp(2.75rem, 5vw, 3.75rem);
-	}
-
-	.about-story-card {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1.15rem 2.4rem;
-		max-width: 68rem;
-		margin: 0 auto;
-		padding: clamp(2rem, 4vw, 2.8rem) clamp(1.6rem, 4vw, 3rem);
-		border-radius: 2rem;
-		background: var(--crema);
 	}
 
 	/* Notes com a post-its enganxats amb cinta */
@@ -844,7 +826,6 @@ const trips = [
 	/* ---------- Responsive ---------- */
 	@media (max-width: 900px) {
 		.about-intro,
-		.about-story-card,
 		.about-notes-list {
 			grid-template-columns: 1fr;
 		}
