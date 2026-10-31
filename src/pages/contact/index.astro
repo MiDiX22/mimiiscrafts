@@ -78,8 +78,10 @@ const socials = [
 <style>
 	.contact {
 		position: relative;
+		display: flex;
+		flex: 1;
+		flex-direction: column;
 		overflow: hidden;
-		min-height: 100dvh;
 		background: linear-gradient(120deg, var(--cel) 0%, var(--lila-suau) 100%);
 		color: var(--lila-fosc);
 	}
@@ -90,7 +92,13 @@ const socials = [
 
 	.contact-body {
 		position: relative;
-		min-height: calc(100dvh - var(--end-h));
+		display: flex;
+		flex: 1;
+		align-items: center;
+	}
+
+	.contact-body > .contact-inner {
+		flex: 1;
 	}
 
 	.contact-inner {

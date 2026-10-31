@@ -22,8 +22,8 @@ import SiteFooter from '../components/SiteFooter.astro';
 		/>
 		<title>Mimi's Crafts</title>
 	</head>
-	<body class="m-0 overflow-x-hidden bg-[var(--crema)] font-body text-zinc-900">
-		<main>
+	<body class="m-0 flex min-h-dvh flex-col overflow-x-hidden bg-[var(--crema)] font-body text-zinc-900">
+		<main class="flex flex-1 flex-col">
 			<slot />
 		</main>
 		<SiteFooter />
