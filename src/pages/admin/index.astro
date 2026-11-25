@@ -6,7 +6,7 @@ import { githubConfigured } from '../../lib/admin/github';
 
 export const prerender = false;
 
-const loggedIn = isLoggedIn(Astro);
+if (!isLoggedIn(Astro)) return Astro.redirect('/admin/login');
 const missing = [
 	!adminConfigured() && 'ADMIN_USER / ADMIN_PASSWORD',
 	!githubConfigured() && 'GITHUB_TOKEN',
@@ -16,29 +16,7 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 ---
 
 <Layout title="Admin · Mimi's Crafts" noindex>
-	{
-		!loggedIn ? (
-			<section class="login">
-				<form class="login-card" data-login-form>
-					<img src={logoLila.src} alt="Mimi's Crafts" class="login-logo" />
-					<h1 class="admin-heading">Admin</h1>
-					{missing.length > 0 && (
-						<p class="admin-alert">Falta configurar a Vercel: {missing.join(', ')}.</p>
-					)}
-					<label class="field">
-						<span>Usuari</span>
-						<input name="usuari" autocomplete="username" required />
-					</label>
-					<label class="field">
-						<span>Contrasenya</span>
-						<input name="contrasenya" type="password" autocomplete="current-password" required />
-					</label>
-					<p class="form-error" data-login-error hidden />
-					<button type="submit" class="btn btn--primary">Entrar</button>
-				</form>
-			</section>
-		) : (
-			<div class="admin" data-admin>
+	<div class="admin" data-admin>
 				<header class="admin-bar">
 					<a href="/" class="admin-brand">
 						<img src={logoLila.src} alt="Mimi's Crafts" />
@@ -149,38 +127,12 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 						</footer>
 					</form>
 				</dialog>
-			</div>
-		)
-	}
+	</div>
 </Layout>
 
 <style>
 	:global(body) {
 		background: #f4f0ff;
-	}
-
-	.login {
-		display: grid;
-		place-items: center;
-		min-height: 100dvh;
-		padding: 1rem;
-		background: #d3cbfa;
-	}
-
-	.login-card {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		width: min(100%, 22rem);
-		padding: 2rem 1.6rem;
-		border-radius: 1.5rem;
-		background: #fff;
-		box-shadow: 0 16px 36px rgba(90, 70, 130, 0.16);
-	}
-
-	.login-logo {
-		width: 9rem;
-		margin: 0 auto;
 	}
 
 	.admin-heading {
@@ -697,8 +649,8 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 	const api = async <T,>(path: string, init?: RequestInit): Promise<T> => {
 		const response = await fetch(path, { credentials: 'same-origin', ...init });
 		const data = await response.json().catch(() => ({}));
-		if (response.status === 401 && !path.endsWith('/login')) {
-			location.reload();
+		if (response.status === 401) {
+			location.href = '/admin/login';
 			throw new Error(data.error ?? 'Sessió caducada');
 		}
 		if (!response.ok) throw new Error(data.error ?? `Error ${response.status}`);
@@ -708,32 +660,6 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 	const extOf = (path: string) => path.split('.').pop()!.toLowerCase();
 	const storedUrl = (image: StoredImage) =>
 		`/api/admin/image?sha=${image.sha}&ext=${extOf(image.path)}`;
-
-	/* ---------- Login ---------- */
-
-	const loginForm = document.querySelector<HTMLFormElement>('[data-login-form]');
-	if (loginForm) {
-		const error = loginForm.querySelector<HTMLElement>('[data-login-error]')!;
-		loginForm.addEventListener('submit', async (event) => {
-			event.preventDefault();
-			const button = loginForm.querySelector('button')!;
-			button.disabled = true;
-			error.hidden = true;
-			const form = new FormData(loginForm);
-			try {
-				await api('/api/admin/login', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ usuari: form.get('usuari'), contrasenya: form.get('contrasenya') }),
-				});
-				location.reload();
-			} catch (err) {
-				error.textContent = (err as Error).message;
-				error.hidden = false;
-				button.disabled = false;
-			}
-		});
-	}
 
 	/* ---------- Panell ---------- */
 
@@ -1116,7 +1042,7 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 
 		admin.querySelector('[data-logout]')!.addEventListener('click', async () => {
 			await fetch('/api/admin/logout', { method: 'POST' });
-			location.reload();
+			location.href = '/admin/login';
 		});
 
 		window.addEventListener('beforeunload', (event) => {
