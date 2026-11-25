@@ -1,16 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import logoLila from '../../images/logos/logoTextLila.png';
-import { adminConfigured, isLoggedIn } from '../../lib/admin/auth';
+import { isLoggedIn } from '../../lib/admin/auth';
 import { githubConfigured } from '../../lib/admin/github';
 
 export const prerender = false;
 
 if (!isLoggedIn(Astro)) return Astro.redirect('/admin/login');
-const missing = [
-	!adminConfigured() && 'ADMIN_USER / ADMIN_PASSWORD',
-	!githubConfigured() && 'GITHUB_TOKEN',
-].filter(Boolean);
+const missing = [!githubConfigured() && 'GITHUB_TOKEN'].filter(Boolean);
 
 Astro.response.headers.set('Cache-Control', 'no-store');
 ---

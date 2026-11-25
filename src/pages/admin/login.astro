@@ -5,7 +5,7 @@ import logoLila from '../../images/logos/logoTextLila.png';
 import stickerFils from '../../images/stickers/fils.png';
 import stickerEstisores from '../../images/stickers/estisores.png';
 import stickerPinzells from '../../images/stickers/pinzells.png';
-import { adminConfigured, isLoggedIn } from '../../lib/admin/auth';
+import { isLoggedIn } from '../../lib/admin/auth';
 
 export const prerender = false;
 
@@ -24,12 +24,6 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 			<img src={logoLila.src} alt="Mimi's Crafts" class="login-logo" />
 			<h1 class="login-title">Hola de nou!</h1>
 			<p class="login-subtitle">Entra per gestionar els projectes.</p>
-
-			{
-				!adminConfigured() && (
-					<p class="login-alert">Falta configurar ADMIN_USER i ADMIN_PASSWORD a Vercel.</p>
-				)
-			}
 
 			<label class="field">
 				<span>Usuari</span>

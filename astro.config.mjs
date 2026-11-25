@@ -11,8 +11,6 @@ export default defineConfig({
   adapter: vercel(),
   env: {
     schema: {
-      ADMIN_USER: envField.string({ context: 'server', access: 'secret', optional: true }),
-      ADMIN_PASSWORD: envField.string({ context: 'server', access: 'secret', optional: true }),
       GITHUB_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
       GITHUB_REPO: envField.string({ context: 'server', access: 'secret', default: 'MiDiX22/mimiiscrafts' }),
       GITHUB_BRANCH: envField.string({ context: 'server', access: 'secret', default: 'main' })
