@@ -1,0 +1,1128 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import logoLila from '../../images/logos/logoTextLila.png';
+import { adminConfigured, isLoggedIn } from '../../lib/admin/auth';
+import { githubConfigured } from '../../lib/admin/github';
+
+export const prerender = false;
+
+const loggedIn = isLoggedIn(Astro);
+const missing = [
+	!adminConfigured() && 'ADMIN_USER / ADMIN_PASSWORD',
+	!githubConfigured() && 'GITHUB_TOKEN',
+].filter(Boolean);
+
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+
+<Layout title="Admin · Mimi's Crafts" noindex>
+	{
+		!loggedIn ? (
+			<section class="login">
+				<form class="login-card" data-login-form>
+					<img src={logoLila.src} alt="Mimi's Crafts" class="login-logo" />
+					<h1 class="admin-heading">Admin</h1>
+					{missing.length > 0 && (
+						<p class="admin-alert">Falta configurar a Vercel: {missing.join(', ')}.</p>
+					)}
+					<label class="field">
+						<span>Usuari</span>
+						<input name="usuari" autocomplete="username" required />
+					</label>
+					<label class="field">
+						<span>Contrasenya</span>
+						<input name="contrasenya" type="password" autocomplete="current-password" required />
+					</label>
+					<p class="form-error" data-login-error hidden />
+					<button type="submit" class="btn btn--primary">Entrar</button>
+				</form>
+			</section>
+		) : (
+			<div class="admin" data-admin>
+				<header class="admin-bar">
+					<a href="/" class="admin-brand">
+						<img src={logoLila.src} alt="Mimi's Crafts" />
+						<span>Admin</span>
+					</a>
+					<nav class="admin-bar-actions">
+						<a href="/projects" class="btn btn--ghost" target="_blank" rel="noopener">
+							Veure la web
+						</a>
+						<button type="button" class="btn btn--ghost" data-logout>
+							Sortir
+						</button>
+					</nav>
+				</header>
+
+				<main class="admin-main">
+					{missing.length > 0 && (
+						<p class="admin-alert">Falta configurar a Vercel: {missing.join(', ')}.</p>
+					)}
+					<p class="admin-notice" data-notice hidden />
+
+					<section class="admin-section" aria-labelledby="drafts-title">
+						<h1 id="drafts-title" class="admin-heading">Esborranys</h1>
+						<ul class="admin-grid" data-drafts>
+							<li>
+								<button type="button" class="new-card" data-new aria-label="Nou projecte">
+									<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+										<path d="M12 5v14M5 12h14" />
+									</svg>
+									<span>Nou projecte</span>
+								</button>
+							</li>
+						</ul>
+						<p class="admin-empty" data-loading>Carregant…</p>
+					</section>
+
+					<section class="admin-section" aria-labelledby="published-title">
+						<h2 id="published-title" class="admin-heading admin-heading--small">Publicats</h2>
+						<ul class="admin-grid" data-published />
+					</section>
+				</main>
+
+				<dialog class="editor" data-editor aria-labelledby="editor-title">
+					<form class="editor-panel" data-editor-form novalidate>
+						<header class="editor-head">
+							<h2 id="editor-title" class="admin-heading admin-heading--small" data-editor-title>
+								Nou projecte
+							</h2>
+							<button type="button" class="icon-btn" data-editor-close aria-label="Tancar">
+								<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+									<path d="M6 6l12 12M18 6 6 18" />
+								</svg>
+							</button>
+						</header>
+
+						<div class="editor-body">
+							<label class="field">
+								<span>Títol</span>
+								<input name="titol" required maxlength="120" />
+							</label>
+
+							<label class="field">
+								<span>Descripció</span>
+								<textarea name="descripcio" rows="6"></textarea>
+							</label>
+
+							<label class="field">
+								<span>Etiqueta</span>
+								<input name="tag" list="admin-tags" placeholder="costura, taller, pintura…" maxlength="40" />
+								<datalist id="admin-tags" data-tag-list />
+							</label>
+
+							<div class="field">
+								<span>Imatges</span>
+								<label class="dropzone" data-dropzone>
+									<input type="file" accept="image/*" multiple data-file-input />
+									<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M12 16V4m0 0-4.5 4.5M12 4l4.5 4.5" />
+										<path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+									</svg>
+									<strong>Arrossega les fotos aquí</strong>
+									<small>o fes clic per triar-les. La primera és la portada.</small>
+								</label>
+								<ul class="thumbs" data-thumbs />
+							</div>
+
+							<label class="field">
+								<span>
+									Vídeo de YouTube <em>(opcional)</em>
+								</span>
+								<input name="youtube" type="url" placeholder="https://www.youtube.com/watch?v=…" />
+							</label>
+
+							<p class="form-error" data-editor-error hidden />
+						</div>
+
+						<footer class="editor-foot">
+							<button type="button" class="btn btn--danger" data-delete hidden>
+								Eliminar
+							</button>
+							<span class="editor-foot-spacer" />
+							<button type="submit" class="btn btn--secondary" data-save-draft>
+								Desar esborrany
+							</button>
+							<button type="submit" class="btn btn--primary" data-publish>
+								Publicar
+							</button>
+						</footer>
+					</form>
+				</dialog>
+			</div>
+		)
+	}
+</Layout>
+
+<style>
+	:global(body) {
+		background: #f4f0ff;
+	}
+
+	.login {
+		display: grid;
+		place-items: center;
+		min-height: 100dvh;
+		padding: 1rem;
+		background: #d3cbfa;
+	}
+
+	.login-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		width: min(100%, 22rem);
+		padding: 2rem 1.6rem;
+		border-radius: 1.5rem;
+		background: #fff;
+		box-shadow: 0 16px 36px rgba(90, 70, 130, 0.16);
+	}
+
+	.login-logo {
+		width: 9rem;
+		margin: 0 auto;
+	}
+
+	.admin-heading {
+		margin: 0;
+		font-family: 'Fraunces', Georgia, serif;
+		font-variation-settings: 'SOFT' 100, 'WONK' 1;
+		font-size: clamp(1.9rem, 4vw, 2.5rem);
+		font-weight: 500;
+		line-height: 1.1;
+		color: #9e6dff;
+		text-align: center;
+	}
+
+	.admin-heading--small {
+		font-size: clamp(1.5rem, 3vw, 1.9rem);
+	}
+
+	.admin-bar {
+		position: sticky;
+		top: 0;
+		z-index: 5;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.7rem clamp(1rem, 4vw, 2.5rem);
+		background: #d3cbfa;
+		box-shadow: 0 6px 18px rgba(90, 70, 130, 0.12);
+	}
+
+	.admin-brand {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		text-decoration: none;
+		font-family: 'Outfit', sans-serif;
+		font-weight: 700;
+		color: #9e6dff;
+	}
+
+	.admin-brand:hover {
+		text-decoration: none;
+	}
+
+	.admin-brand img {
+		height: 2.4rem;
+		width: auto;
+	}
+
+	.admin-brand span {
+		padding: 0.2rem 0.65rem;
+		border-radius: 999px;
+		background: #fff;
+		font-size: 0.85rem;
+	}
+
+	.admin-bar-actions {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.admin-main {
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+	}
+
+	.admin-section + .admin-section {
+		margin-top: clamp(2.4rem, 5vw, 3.4rem);
+	}
+
+	.admin-section .admin-heading {
+		text-align: left;
+	}
+
+	.admin-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+		gap: 1rem;
+		margin: 1.1rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.admin-empty,
+	.admin-alert,
+	.admin-notice,
+	.form-error {
+		margin: 1rem 0 0;
+		font-family: 'Outfit', sans-serif;
+		font-weight: 500;
+		line-height: 1.5;
+		color: #7b5bbf;
+	}
+
+	.admin-alert,
+	.form-error {
+		padding: 0.7rem 0.9rem;
+		border-radius: 0.8rem;
+		background: #ffe8ee;
+		color: #b3264f;
+	}
+
+	.admin-notice {
+		margin: 0 0 1.4rem;
+		padding: 0.8rem 1rem;
+		border-radius: 0.9rem;
+		background: #e5f8ec;
+		color: #1f7a45;
+	}
+
+	.new-card,
+	:global(.admin-card) {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		min-height: 15rem;
+		padding: 0.5rem 0.5rem 0.9rem;
+		border: 0;
+		border-radius: 1.3rem;
+		background: #fff;
+		box-shadow: 0 10px 24px rgba(90, 70, 130, 0.1);
+		color: #9e6dff;
+		font: inherit;
+		text-align: left;
+		cursor: pointer;
+		transition: transform 0.18s ease, box-shadow 0.18s ease;
+	}
+
+	.new-card:hover,
+	:global(.admin-card:hover) {
+		transform: translateY(-3px);
+		box-shadow: 0 14px 28px rgba(90, 70, 130, 0.16);
+	}
+
+	.new-card {
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		border: 2px dashed #c4b2fb;
+		background: rgba(255, 255, 255, 0.6);
+		box-shadow: none;
+		font-family: 'Outfit', sans-serif;
+		font-weight: 600;
+	}
+
+	:global(.admin-card-media) {
+		position: relative;
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+		border-radius: 0.9rem;
+		background: #ece6ff;
+	}
+
+	:global(.admin-card-media img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	:global(.admin-card-badge) {
+		position: absolute;
+		top: 0.55rem;
+		left: 0.55rem;
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		background: #fff;
+		font-family: 'Outfit', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: #9e6dff;
+	}
+
+	:global(.admin-card-title) {
+		margin: 0.75rem 0.4rem 0;
+		font-family: 'Fraunces', Georgia, serif;
+		font-variation-settings: 'SOFT' 100, 'WONK' 1;
+		font-size: 1.2rem;
+		font-weight: 500;
+		line-height: 1.2;
+	}
+
+	:global(.admin-card-meta) {
+		margin: 0.3rem 0.4rem 0;
+		font-family: 'Outfit', sans-serif;
+		font-size: 0.85rem;
+		color: #9a86c9;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		min-height: 2.6rem;
+		padding: 0 1.2rem;
+		border: 0;
+		border-radius: 999px;
+		font-family: 'Outfit', sans-serif;
+		font-size: 0.95rem;
+		font-weight: 600;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.btn:hover {
+		text-decoration: none;
+	}
+
+	.btn:disabled {
+		opacity: 0.55;
+		cursor: wait;
+	}
+
+	.btn--primary {
+		background: #9e6dff;
+		color: #fff;
+	}
+
+	.btn--secondary {
+		background: #ece6ff;
+		color: #7b4ee6;
+	}
+
+	.btn--ghost {
+		background: #fff;
+		color: #9e6dff;
+	}
+
+	.btn--danger {
+		background: transparent;
+		color: #c2365e;
+		padding: 0 0.6rem;
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		font-family: 'Outfit', sans-serif;
+		font-weight: 600;
+		color: #7b5bbf;
+	}
+
+	.field em {
+		font-style: normal;
+		font-weight: 500;
+		color: #a796d4;
+	}
+
+	.field input:not([type='file']),
+	.field textarea {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.7rem 0.9rem;
+		border: 1.5px solid #ddd3fb;
+		border-radius: 0.8rem;
+		background: #fff;
+		font-family: 'Inter', system-ui, sans-serif;
+		font-size: 1rem;
+		font-weight: 400;
+		color: #3b2d5c;
+		outline: none;
+	}
+
+	.field textarea {
+		resize: vertical;
+		line-height: 1.55;
+	}
+
+	.field input:focus,
+	.field textarea:focus {
+		border-color: #9e6dff;
+		box-shadow: 0 0 0 3px rgba(158, 109, 255, 0.18);
+	}
+
+	.icon-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.2rem;
+		height: 2.2rem;
+		padding: 0;
+		border: 0;
+		border-radius: 999px;
+		background: #ece6ff;
+		color: #9e6dff;
+		cursor: pointer;
+	}
+
+	.editor {
+		width: min(100vw - 2rem, 46rem);
+		margin: auto;
+		max-height: calc(100dvh - 2rem);
+		padding: 0;
+		border: 0;
+		border-radius: 1.5rem;
+		background: #fff;
+		box-shadow: 0 24px 60px rgba(60, 40, 110, 0.25);
+	}
+
+	.editor::backdrop {
+		background: rgba(80, 60, 130, 0.35);
+	}
+
+	.editor-panel {
+		display: flex;
+		flex-direction: column;
+		max-height: calc(100dvh - 2rem);
+	}
+
+	.editor-head,
+	.editor-foot {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 1rem 1.3rem;
+	}
+
+	.editor-head {
+		justify-content: space-between;
+		border-bottom: 1px solid #f0ebff;
+	}
+
+	.editor-head .admin-heading {
+		text-align: left;
+	}
+
+	.editor-body {
+		display: flex;
+		flex-direction: column;
+		gap: 1.1rem;
+		padding: 1.2rem 1.3rem;
+		overflow-y: auto;
+	}
+
+	.editor-foot {
+		flex-wrap: wrap;
+		border-top: 1px solid #f0ebff;
+	}
+
+	.editor-foot-spacer {
+		flex: 1;
+	}
+
+	.dropzone {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 1.4rem 1rem;
+		border: 2px dashed #c4b2fb;
+		border-radius: 1rem;
+		background: #faf8ff;
+		color: #9e6dff;
+		text-align: center;
+		cursor: pointer;
+		transition: background 0.15s ease, border-color 0.15s ease;
+	}
+
+	.dropzone small {
+		font-weight: 500;
+		color: #a796d4;
+	}
+
+	.dropzone input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+	}
+
+	.dropzone:focus-within {
+		box-shadow: 0 0 0 3px rgba(158, 109, 255, 0.18);
+	}
+
+	:global(.dropzone.is-over) {
+		border-color: #9e6dff;
+		background: #ece6ff;
+	}
+
+	.thumbs {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+		gap: 0.6rem;
+		margin: 0.4rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	:global(.thumb) {
+		position: relative;
+		aspect-ratio: 1;
+		overflow: hidden;
+		border-radius: 0.8rem;
+		background: #ece6ff;
+	}
+
+	:global(.thumb img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	:global(.thumb.is-uploading img) {
+		opacity: 0.45;
+	}
+
+	:global(.thumb.is-failed) {
+		outline: 2px solid #c2365e;
+	}
+
+	:global(.thumb-state) {
+		position: absolute;
+		inset: auto 0.35rem 0.35rem;
+		padding: 0.15rem 0.4rem;
+		border-radius: 0.5rem;
+		background: rgba(255, 255, 255, 0.92);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-align: center;
+		color: #7b5bbf;
+	}
+
+	:global(.thumb-btn) {
+		position: absolute;
+		top: 0.3rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.7rem;
+		height: 1.7rem;
+		padding: 0;
+		border: 0;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.92);
+		color: #9e6dff;
+		font-size: 0.9rem;
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	:global(.thumb-btn--remove) {
+		right: 0.3rem;
+		color: #c2365e;
+	}
+
+	:global(.thumb-btn--cover) {
+		left: 0.3rem;
+	}
+
+	:global(.thumb-btn--cover.is-cover) {
+		background: #9e6dff;
+		color: #fff;
+	}
+
+	@media (max-width: 560px) {
+		.admin-brand img {
+			height: 1.9rem;
+		}
+
+		.editor {
+			width: 100vw;
+			max-width: 100vw;
+			height: 100dvh;
+			max-height: 100dvh;
+			margin: 0;
+			border-radius: 0;
+		}
+
+		.editor-panel {
+			height: 100%;
+			max-height: none;
+		}
+
+		.editor-body {
+			flex: 1;
+		}
+
+		.editor-foot .btn--primary,
+		.editor-foot .btn--secondary {
+			flex: 1;
+		}
+	}
+</style>
+
+<script>
+	type StoredImage = { path: string; sha: string };
+	type Project = {
+		slug: string;
+		titol: string;
+		descripcio: string;
+		tag: string;
+		youtube: string;
+		esborrany: boolean;
+		imatges: StoredImage[];
+	};
+	type EditorImage = {
+		id: string;
+		preview: string;
+		status: 'ready' | 'uploading' | 'failed';
+		stored?: StoredImage;
+		uploaded?: { sha: string; ext: string };
+		error?: string;
+	};
+
+	const MAX_SIDE = 2400;
+	const MAX_UPLOAD = 4 * 1024 * 1024;
+
+	const api = async <T,>(path: string, init?: RequestInit): Promise<T> => {
+		const response = await fetch(path, { credentials: 'same-origin', ...init });
+		const data = await response.json().catch(() => ({}));
+		if (response.status === 401 && !path.endsWith('/login')) {
+			location.reload();
+			throw new Error(data.error ?? 'Sessió caducada');
+		}
+		if (!response.ok) throw new Error(data.error ?? `Error ${response.status}`);
+		return data as T;
+	};
+
+	const extOf = (path: string) => path.split('.').pop()!.toLowerCase();
+	const storedUrl = (image: StoredImage) =>
+		`/api/admin/image?sha=${image.sha}&ext=${extOf(image.path)}`;
+
+	/* ---------- Login ---------- */
+
+	const loginForm = document.querySelector<HTMLFormElement>('[data-login-form]');
+	if (loginForm) {
+		const error = loginForm.querySelector<HTMLElement>('[data-login-error]')!;
+		loginForm.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const button = loginForm.querySelector('button')!;
+			button.disabled = true;
+			error.hidden = true;
+			const form = new FormData(loginForm);
+			try {
+				await api('/api/admin/login', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ usuari: form.get('usuari'), contrasenya: form.get('contrasenya') }),
+				});
+				location.reload();
+			} catch (err) {
+				error.textContent = (err as Error).message;
+				error.hidden = false;
+				button.disabled = false;
+			}
+		});
+	}
+
+	/* ---------- Panell ---------- */
+
+	const admin = document.querySelector<HTMLElement>('[data-admin]');
+	if (admin) {
+		const draftsList = admin.querySelector<HTMLUListElement>('[data-drafts]')!;
+		const publishedList = admin.querySelector<HTMLUListElement>('[data-published]')!;
+		const loading = admin.querySelector<HTMLElement>('[data-loading]')!;
+		const notice = admin.querySelector<HTMLElement>('[data-notice]')!;
+		const newButton = admin.querySelector<HTMLButtonElement>('[data-new]')!;
+		const newItem = newButton.closest('li')!;
+
+		const editor = admin.querySelector<HTMLDialogElement>('[data-editor]')!;
+		const form = editor.querySelector<HTMLFormElement>('[data-editor-form]')!;
+		const editorTitle = editor.querySelector<HTMLElement>('[data-editor-title]')!;
+		const editorError = editor.querySelector<HTMLElement>('[data-editor-error]')!;
+		const dropzone = editor.querySelector<HTMLLabelElement>('[data-dropzone]')!;
+		const fileInput = editor.querySelector<HTMLInputElement>('[data-file-input]')!;
+		const thumbs = editor.querySelector<HTMLUListElement>('[data-thumbs]')!;
+		const tagList = editor.querySelector<HTMLDataListElement>('[data-tag-list]')!;
+		const deleteButton = editor.querySelector<HTMLButtonElement>('[data-delete]')!;
+		const draftButton = editor.querySelector<HTMLButtonElement>('[data-save-draft]')!;
+		const publishButton = editor.querySelector<HTMLButtonElement>('[data-publish]')!;
+
+		let projects: Project[] = [];
+		let current: Project | null = null;
+		let images: EditorImage[] = [];
+		let busy = false;
+		let dirty = false;
+
+		const showNotice = (message: string) => {
+			notice.textContent = message;
+			notice.hidden = false;
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		};
+
+		const renderCard = (project: Project) => {
+			const li = document.createElement('li');
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.className = 'admin-card';
+			button.addEventListener('click', () => openEditor(project));
+
+			const media = document.createElement('div');
+			media.className = 'admin-card-media';
+			const cover = project.imatges[0];
+			if (cover) {
+				const img = document.createElement('img');
+				img.src = storedUrl(cover);
+				img.alt = '';
+				img.loading = 'lazy';
+				media.append(img);
+			}
+			if (project.tag) {
+				const badge = document.createElement('span');
+				badge.className = 'admin-card-badge';
+				badge.textContent = project.tag;
+				media.append(badge);
+			}
+
+			const title = document.createElement('h3');
+			title.className = 'admin-card-title';
+			title.textContent = project.titol || 'Sense títol';
+
+			const meta = document.createElement('p');
+			meta.className = 'admin-card-meta';
+			const count = project.imatges.length;
+			meta.textContent = `${count} ${count === 1 ? 'foto' : 'fotos'}${project.youtube ? ' · vídeo' : ''}`;
+
+			button.append(media, title, meta);
+			li.append(button);
+			return li;
+		};
+
+		const renderLists = () => {
+			draftsList.replaceChildren(newItem, ...projects.filter((p) => p.esborrany).map(renderCard));
+			const published = projects.filter((p) => !p.esborrany);
+			publishedList.replaceChildren(...published.map(renderCard));
+			if (published.length === 0) {
+				const li = document.createElement('li');
+				li.className = 'admin-empty';
+				li.textContent = 'Encara no n’hi ha cap.';
+				publishedList.append(li);
+			}
+			const tags = [...new Set(projects.map((p) => p.tag).filter(Boolean))].sort((a, b) =>
+				a.localeCompare(b, 'ca')
+			);
+			tagList.replaceChildren(
+				...tags.map((tag) => Object.assign(document.createElement('option'), { value: tag }))
+			);
+		};
+
+		const loadProjects = async () => {
+			loading.hidden = false;
+			loading.textContent = 'Carregant…';
+			try {
+				projects = (await api<{ projects: Project[] }>('/api/admin/projects')).projects;
+				loading.hidden = true;
+				renderLists();
+			} catch (err) {
+				loading.textContent = (err as Error).message;
+			}
+		};
+
+		/* ----- Imatges ----- */
+
+		const renderThumbs = () => {
+			thumbs.replaceChildren(
+				...images.map((image, index) => {
+					const li = document.createElement('li');
+					li.className = `thumb${image.status === 'uploading' ? ' is-uploading' : ''}${
+						image.status === 'failed' ? ' is-failed' : ''
+					}`;
+					const img = document.createElement('img');
+					img.src = image.preview;
+					img.alt = `Foto ${index + 1}`;
+					li.append(img);
+
+					const cover = document.createElement('button');
+					cover.type = 'button';
+					cover.className = `thumb-btn thumb-btn--cover${index === 0 ? ' is-cover' : ''}`;
+					cover.textContent = '★';
+					cover.title = index === 0 ? 'Portada' : 'Fes-la portada';
+					cover.setAttribute('aria-label', cover.title);
+					cover.addEventListener('click', () => {
+						images.splice(index, 1);
+						images.unshift(image);
+						dirty = true;
+						renderThumbs();
+					});
+
+					const remove = document.createElement('button');
+					remove.type = 'button';
+					remove.className = 'thumb-btn thumb-btn--remove';
+					remove.textContent = '✕';
+					remove.title = 'Treure';
+					remove.setAttribute('aria-label', 'Treure la foto');
+					remove.addEventListener('click', () => {
+						images = images.filter((item) => item !== image);
+						if (image.preview.startsWith('blob:')) URL.revokeObjectURL(image.preview);
+						dirty = true;
+						renderThumbs();
+					});
+					li.append(cover, remove);
+
+					if (image.status !== 'ready') {
+						const state = document.createElement('span');
+						state.className = 'thumb-state';
+						state.textContent = image.status === 'uploading' ? 'Pujant…' : image.error ?? 'Error';
+						li.append(state);
+					}
+					return li;
+				})
+			);
+		};
+
+		const canvasToBlob = (canvas: HTMLCanvasElement, type: string, quality: number) =>
+			new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, quality));
+
+		// Redueix la foto i la torna a codificar. Això també treu les dades EXIF (com la ubicació GPS).
+		const prepareImage = async (file: File): Promise<Blob> => {
+			if (file.type === 'image/gif') {
+				if (file.size > MAX_UPLOAD) throw new Error('GIF massa gran');
+				return file;
+			}
+			let bitmap: ImageBitmap;
+			try {
+				bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+			} catch {
+				throw new Error('Format no suportat');
+			}
+			const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+			const canvas = document.createElement('canvas');
+			canvas.width = Math.round(bitmap.width * scale);
+			canvas.height = Math.round(bitmap.height * scale);
+			const ctx = canvas.getContext('2d')!;
+			const keepAlpha = file.type === 'image/png' || file.type === 'image/webp';
+			if (!keepAlpha) {
+				ctx.fillStyle = '#fff';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+			}
+			ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+			bitmap.close();
+
+			let blob = keepAlpha ? await canvasToBlob(canvas, 'image/webp', 0.88) : null;
+			if (!blob || blob.size > MAX_UPLOAD) {
+				ctx.globalCompositeOperation = 'destination-over';
+				ctx.fillStyle = '#fff';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				blob = await canvasToBlob(canvas, 'image/jpeg', 0.86);
+			}
+			if (!blob) throw new Error('No s’ha pogut processar');
+			if (blob.size > MAX_UPLOAD) blob = await canvasToBlob(canvas, 'image/jpeg', 0.7);
+			if (!blob || blob.size > MAX_UPLOAD) throw new Error('Massa gran');
+			return blob;
+		};
+
+		const addFiles = (files: FileList | File[]) => {
+			const list = [...files].filter((file) => file.type.startsWith('image/') || /\.hei[cf]$/i.test(file.name));
+			for (const file of list) {
+				const image: EditorImage = {
+					id: crypto.randomUUID(),
+					preview: URL.createObjectURL(file),
+					status: 'uploading',
+				};
+				images.push(image);
+				dirty = true;
+				(async () => {
+					try {
+						const blob = await prepareImage(file);
+						const original = image.preview;
+						image.preview = URL.createObjectURL(blob);
+						renderThumbs();
+						URL.revokeObjectURL(original);
+						image.uploaded = await api<{ sha: string; ext: string }>('/api/admin/upload', {
+							method: 'POST',
+							headers: { 'Content-Type': blob.type || 'application/octet-stream' },
+							body: blob,
+						});
+						image.status = 'ready';
+					} catch (err) {
+						image.status = 'failed';
+						image.error = (err as Error).message;
+					}
+					renderThumbs();
+				})();
+			}
+			renderThumbs();
+		};
+
+		dropzone.addEventListener('dragover', (event) => {
+			event.preventDefault();
+			dropzone.classList.add('is-over');
+		});
+		dropzone.addEventListener('dragleave', () => dropzone.classList.remove('is-over'));
+		dropzone.addEventListener('drop', (event) => {
+			event.preventDefault();
+			dropzone.classList.remove('is-over');
+			if (event.dataTransfer?.files.length) addFiles(event.dataTransfer.files);
+		});
+		fileInput.addEventListener('change', () => {
+			if (fileInput.files?.length) addFiles(fileInput.files);
+			fileInput.value = '';
+		});
+		// Evita que deixar anar una foto fora de la zona obri la imatge al navegador.
+		editor.addEventListener('dragover', (event) => event.preventDefault());
+		editor.addEventListener('drop', (event) => event.preventDefault());
+
+		/* ----- Editor ----- */
+
+		const field = (name: string) =>
+			form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement;
+
+		const setBusy = (value: boolean) => {
+			busy = value;
+			for (const button of [draftButton, publishButton, deleteButton]) button.disabled = value;
+		};
+
+		const showError = (message: string) => {
+			editorError.textContent = message;
+			editorError.hidden = !message;
+			if (message) editorError.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+		};
+
+		const openEditor = (project: Project | null) => {
+			current = project;
+			editorTitle.textContent = project ? project.titol || 'Esborrany' : 'Nou projecte';
+			field('titol').value = project?.titol ?? '';
+			field('descripcio').value = project?.descripcio ?? '';
+			field('tag').value = project?.tag ?? '';
+			field('youtube').value = project?.youtube ?? '';
+			images = (project?.imatges ?? []).map((stored) => ({
+				id: stored.sha,
+				preview: storedUrl(stored),
+				status: 'ready',
+				stored,
+			}));
+			deleteButton.hidden = !project;
+			draftButton.textContent = project && !project.esborrany ? 'Despublicar' : 'Desar esborrany';
+			publishButton.textContent = project && !project.esborrany ? 'Desar canvis' : 'Publicar';
+			showError('');
+			setBusy(false);
+			dirty = false;
+			renderThumbs();
+			editor.showModal();
+			if (!project) field('titol').focus();
+		};
+
+		const closeEditor = () => {
+			if (busy) return;
+			if (dirty && !confirm('Tens canvis sense desar. Vols tancar igualment?')) return;
+			editor.close();
+		};
+
+		form.addEventListener('input', () => {
+			dirty = true;
+		});
+		newButton.addEventListener('click', () => openEditor(null));
+		editor.querySelector('[data-editor-close]')!.addEventListener('click', closeEditor);
+		editor.addEventListener('cancel', (event) => {
+			event.preventDefault();
+			closeEditor();
+		});
+		editor.addEventListener('close', () => {
+			for (const image of images) if (image.preview.startsWith('blob:')) URL.revokeObjectURL(image.preview);
+			images = [];
+			thumbs.replaceChildren();
+		});
+
+		const save = async (publicar: boolean) => {
+			if (busy) return;
+			const titol = field('titol').value.trim();
+			if (!titol) return showError('Posa-li un títol.');
+			if (images.some((image) => image.status === 'uploading'))
+				return showError('Espera que acabin de pujar les fotos.');
+			if (images.some((image) => image.status === 'failed'))
+				return showError('Hi ha fotos que no s’han pogut pujar. Treu-les (✕) i torna-ho a provar.');
+			if (publicar) {
+				if (!field('descripcio').value.trim()) return showError('Per publicar cal una descripció.');
+				if (!field('tag').value.trim()) return showError('Per publicar cal una etiqueta.');
+				if (images.length === 0) return showError('Per publicar cal almenys una foto.');
+			}
+
+			showError('');
+			setBusy(true);
+			try {
+				await api('/api/admin/projects', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						slug: current?.slug,
+						titol,
+						descripcio: field('descripcio').value,
+						tag: field('tag').value,
+						youtube: field('youtube').value,
+						publicar,
+						imatges: images.map((image) =>
+							image.stored ? { path: image.stored.path } : image.uploaded!
+						),
+					}),
+				});
+				dirty = false;
+				busy = false;
+				editor.close();
+				showNotice(
+					publicar
+						? `«${titol}» s’ha publicat. Apareixerà a la web d’aquí a un minut, quan Vercel acabi de reconstruir-la.`
+						: `«${titol}» s’ha desat com a esborrany.`
+				);
+				await loadProjects();
+			} catch (err) {
+				showError((err as Error).message);
+				setBusy(false);
+			}
+		};
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const submitter = (event as SubmitEvent).submitter;
+			save(submitter === publishButton);
+		});
+
+		deleteButton.addEventListener('click', async () => {
+			if (!current || busy) return;
+			if (!confirm(`Segur que vols eliminar «${current.titol}»? No es pot desfer.`)) return;
+			setBusy(true);
+			try {
+				await api(`/api/admin/projects?slug=${encodeURIComponent(current.slug)}`, { method: 'DELETE' });
+				const titol = current.titol;
+				dirty = false;
+				busy = false;
+				editor.close();
+				showNotice(`«${titol}» s’ha eliminat.`);
+				await loadProjects();
+			} catch (err) {
+				showError((err as Error).message);
+				setBusy(false);
+			}
+		});
+
+		admin.querySelector('[data-logout]')!.addEventListener('click', async () => {
+			await fetch('/api/admin/logout', { method: 'POST' });
+			location.reload();
+		});
+
+		window.addEventListener('beforeunload', (event) => {
+			if (editor.open && (dirty || busy)) event.preventDefault();
+		});
+
+		loadProjects();
+	}
+</script>

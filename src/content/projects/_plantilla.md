@@ -1,6 +1,8 @@
 ---
 # Plantilla de projecte. Aquest fitxer no es publica: el guió baix del nom el deixa fora de la web.
 #
+# El més fàcil és fer-ho des de la web, a /admin. Si ho vols fer a mà:
+#
 # Per penjar-ne un de nou:
 # 1. Copia aquest fitxer a la mateixa carpeta amb un nom nou, sense guió baix.
 #    Exemple: src/content/projects/bossa-de-tela.md
@@ -9,6 +11,7 @@
 #
 # tag és la categoria. Servirà de filtre (per exemple: costura, pintura, punt).
 # youtube és opcional. Si n'hi ha, treu el # del davant i enganxa l'enllaç.
+# esborrany: true amaga el projecte de la web (els esborranys poden estar a mitges).
 
 titol: Títol del projecte
 # El ">" permet diverses línies i dos punts (:) dins la descripció.

@@ -9,7 +9,7 @@ import stickerTela from '../../images/stickers/tela.png';
 import stickerTote from '../../images/stickers/tote.png';
 import stickerPinzells from '../../images/stickers/pinzells.png';
 
-const projects = (await getCollection('projects')).sort((a, b) =>
+const projects = (await getCollection('projects', (project) => !project.data.esborrany)).sort((a, b) =>
 	a.data.titol.localeCompare(b.data.titol, 'ca')
 );
 

@@ -1,5 +1,12 @@
 ---
 import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	noindex?: boolean;
+}
+
+const { title = "Mimi's Crafts", noindex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,7 +22,8 @@ import '../styles/global.css';
 			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
 			rel="stylesheet"
 		/>
-		<title>Mimi's Crafts</title>
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<title>{title}</title>
 	</head>
 	<body class="m-0 overflow-x-hidden bg-[#f7f4ef] font-body text-zinc-900">
 		<main>
